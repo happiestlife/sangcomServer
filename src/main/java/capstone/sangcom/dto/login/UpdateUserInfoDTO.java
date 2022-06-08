@@ -2,8 +2,6 @@ package capstone.sangcom.dto.login;
 
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
 public class UpdateUserInfoDTO {
 
@@ -11,7 +9,7 @@ public class UpdateUserInfoDTO {
     private final Integer schoolgrade;
     private final Integer schoolclass;
     private final Integer schoolnumber;
-    private final Date birth;
+    private final String birth;
     private final Integer year;
     private final String email;
 

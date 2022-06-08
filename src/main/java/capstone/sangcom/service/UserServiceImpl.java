@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User editUserInfo(String id, UpdateUserInfoDTO updateUserInfoDTO) {
+    public boolean editUserInfo(String id, UpdateUserInfoDTO updateUserInfoDTO) {
         return userRepository.update(id, updateUserInfoDTO);
     }
 

@@ -14,7 +14,7 @@ public interface UserService {
     public User register(User use);
     public boolean editProfile(String id);
     public boolean editPassword(String id, String newPassword);
-    public User editUserInfo(String id, UpdateUserInfoDTO updateUserInfoDTO);
+    public boolean editUserInfo(String id, UpdateUserInfoDTO updateUserInfoDTO);
     public boolean leave(String id);
 
 }

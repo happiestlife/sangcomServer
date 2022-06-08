@@ -32,7 +32,7 @@ public class MemoryUserRepository implements UserRepository{
     }
 
     @Override
-    public User update(String id, UpdateUserInfoDTO updateUserInfoDTO) {
+    public boolean update(String id, UpdateUserInfoDTO updateUserInfoDTO) {
         User user = repository.get(id);
         if (user != null) {
             user.setPhone(updateUserInfoDTO.getPhone());
@@ -44,9 +44,9 @@ public class MemoryUserRepository implements UserRepository{
             user.setEmail(updateUserInfoDTO.getEmail());
 
             repository.put(id, user);
-            return user;
+            return true;
         }else
-            return null;
+            return false;
     }
 
     @Override
