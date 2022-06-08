@@ -1,6 +1,7 @@
 package capstone.sangcom.entity;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -21,7 +22,7 @@ public class User{
     private Integer schoolnumber;
     private UserRole role;
     private Integer year;
-    private Date birth;
+    private String birth;
     private String email;
 
 }
