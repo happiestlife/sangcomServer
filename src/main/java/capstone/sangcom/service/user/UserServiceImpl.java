@@ -1,10 +1,10 @@
-package capstone.sangcom.service;
+package capstone.sangcom.service.user;
 
 import capstone.sangcom.dto.login.FindPasswordDTO;
 import capstone.sangcom.dto.login.LoginDTO;
 import capstone.sangcom.dto.login.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
-import capstone.sangcom.repository.UserRepository;
+import capstone.sangcom.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

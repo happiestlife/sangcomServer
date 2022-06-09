@@ -16,7 +16,18 @@ public final class JwtManager {
 
     private static final String secretKey = "ThisIsASecretKeyForJwtExampleThisIsASecretKeyForJwtExample";
 
-    public static String createToken(User user) {
+    public static String createAccessToken(User user) {
+        JwtBuilder builder = Jwts.builder()
+                .setSubject(user.getEmail())
+                .setHeader(createHeader())
+                .setClaims(createClaims(user))
+                .setExpiration(createExpireDateForOneYear())
+                .signWith(createSigningKey(), SignatureAlgorithm.HS256);
+
+        return builder.compact();
+    }
+
+    public static String createRefreshToken(User user) {
         JwtBuilder builder = Jwts.builder()
                 .setSubject(user.getEmail())
                 .setHeader(createHeader())
