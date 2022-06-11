@@ -2,7 +2,7 @@ package capstone.sangcom.config.interceptor;
 
 import capstone.sangcom.config.auth.AuthConstants;
 import capstone.sangcom.config.auth.JwtManager;
-import capstone.sangcom.controller.api.response.common.FailHeader;
+import capstone.sangcom.controller.api.FailHeader;
 import capstone.sangcom.entity.JwtUser;
 import org.springframework.web.servlet.HandlerInterceptor;
 

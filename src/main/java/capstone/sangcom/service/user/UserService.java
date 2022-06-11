@@ -1,4 +1,4 @@
-package capstone.sangcom.service;
+package capstone.sangcom.service.user;
 
 import capstone.sangcom.dto.login.FindPasswordDTO;
 import capstone.sangcom.dto.login.LoginDTO;

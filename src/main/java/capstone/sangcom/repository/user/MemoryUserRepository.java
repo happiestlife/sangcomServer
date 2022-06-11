@@ -1,8 +1,7 @@
-package capstone.sangcom.repository;
+package capstone.sangcom.repository.user;
 
 import capstone.sangcom.dto.login.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
-import org.springframework.stereotype.Repository;
 
 import java.util.*;
 

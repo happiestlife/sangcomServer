@@ -3,33 +3,36 @@ package capstone.sangcom.repository;
 import capstone.sangcom.dto.login.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
 import capstone.sangcom.entity.UserRole;
-import org.h2.jdbc.JdbcSQLDataException;
+import capstone.sangcom.repository.user.MySqlUserRepository;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ActiveProfiles("test")
 @SpringBootTest
-class SqlUserRepositoryTest {
+@ActiveProfiles("test")
+class MySqlUserRepositoryTest {
 
-    private final static User USER1 = new User("testId1", "testPw1", "test1", "11112345678",
+    public final static User USER1 = new User("test1", "testPw1", "test1", "11112345678",
             1, 1, 1, UserRole.valueOf("ADMIN"),
             2020, "2022-06-01", "test1@naver.com");
 
-    private final static User USER2 = new User("testId2", "testPw2", "test2", "22212345678",
+    public final static User USER2 = new User("test2", "testPw2", "test2", "22212345678",
             2, 2, 2, UserRole.valueOf("TEACHER"),
             2020, "2022-06-02", "test2@naver.com");
 
-    private final static User USER3 = new User("testId3", "testPw3", "test3", "33312345678",
+    public final static User USER3 = new User("test3", "testPw3", "test3", "33312345678",
             3, 3, 3, UserRole.valueOf("STUDENT"),
             2020, "2022-06-03", "test3@naver.com");
 
-    private final static User USER4 = new User("testId4", "testPw4", "test4", "44412345678",
+    public final static User USER4 = new User("test4", "testPw4", "test4", "44412345678",
             4, 4, 4, UserRole.valueOf("STUDENT"),
             2020, "2022-06-04", "test4@naver.com");
 
@@ -41,11 +44,15 @@ class SqlUserRepositoryTest {
     private final static String NEW_PASSWORD = "NEW_PASSWORD";
 
     @Autowired
-    private SqlUserRepository repository;
+    private MySqlUserRepository repository;
+
+//    @BeforeAll
+//    public static void setting() {
+//        repository = new MySqlUserRepository(TestDataSourceManager.getDataSource());
+//    }
 
     @BeforeEach
     public void given() {
-        System.out.println(USER1.getBirth());
         repository.create(USER1);
         repository.create(USER2);
         repository.create(USER3);

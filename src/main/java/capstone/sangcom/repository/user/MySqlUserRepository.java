@@ -1,9 +1,8 @@
-package capstone.sangcom.repository;
+package capstone.sangcom.repository.user;
 
 import capstone.sangcom.dto.login.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
 import capstone.sangcom.entity.UserRole;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -17,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class SqlUserRepository implements UserRepository{
+public class MySqlUserRepository implements UserRepository{
 
     private final String USER_TABLE = "user";
 
@@ -35,7 +34,7 @@ public class SqlUserRepository implements UserRepository{
 
     private final UserRowMapper userRowMapper;
 
-    public SqlUserRepository(DataSource dataSource) {
+    public MySqlUserRepository(DataSource dataSource) {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
         this.userRowMapper = new UserRowMapper();
     }

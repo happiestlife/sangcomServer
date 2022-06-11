@@ -1,7 +1,7 @@
 package capstone.sangcom.config.interceptor;
 
 import capstone.sangcom.config.auth.JwtManager;
-import capstone.sangcom.controller.api.response.common.FailHeader;
+import capstone.sangcom.controller.api.FailHeader;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.Cookie;
