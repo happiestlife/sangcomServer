@@ -8,6 +8,7 @@ import capstone.sangcom.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +29,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public String findPassword(FindPasswordDTO findPasswordDTO) {
         return null;
+    }
+
+    @Override
+    public boolean userCheck(FindPasswordDTO findPasswordDTO) {
+        User user = userRepository.findById(findPasswordDTO.getId());
+        if (user != null && user.getName().equals(findPasswordDTO.getName()) && user.getSchoolnumber().equals(findPasswordDTO.getStudentid())){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     @Override
