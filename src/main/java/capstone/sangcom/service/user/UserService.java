@@ -10,6 +10,7 @@ public interface UserService {
 
     public User login(LoginDTO loginDTO);
     public String findPassword(FindPasswordDTO findPasswordDTO);
+    public boolean userCheck(FindPasswordDTO findPasswordDTO);
     public User findById(String id);
     public User register(User use);
     public boolean editProfile(String id);
