@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class FeedbackController {
     private final EmailService emailService;
 
-    @GetMapping("/send")
+    @GetMapping("/send")//개발자에게 메일 보내기
     public String sendMailMain(){
         return "<html>"; // html명 넣기
     }
 
-    @PostMapping("/send")
+    @PostMapping("/send")//개발자에게 메일 보내기
     public String sendMail(MailDTO mailDTO){
         emailService.sendFeedback(mailDTO);
         System.out.println("메일 전송 완료");
