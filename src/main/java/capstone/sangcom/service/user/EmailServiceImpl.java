@@ -5,6 +5,8 @@ import capstone.sangcom.dto.login.MailDTO;
 import capstone.sangcom.entity.User;
 import capstone.sangcom.repository.user.UserRepository;
 import org.apache.tomcat.util.net.openssl.ciphers.Encryption;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,10 +17,13 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class EmailServiceImpl implements EmailService{
 
-    private final UserRepository userRepository;
-    private JavaMailSender emailSender;
-    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRepository userRepository;
 
+    private PasswordEncoder passwordEncoder;
+    private JavaMailSender emailSender;
+
+    @Bean
     @Override
     public void sendFeedback(MailDTO mailDTO) {
         SimpleMailMessage message = new SimpleMailMessage();
