@@ -1,9 +1,6 @@
 package capstone.sangcom.entity;
 
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
 
 @Getter
 @Setter

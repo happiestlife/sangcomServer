@@ -14,14 +14,21 @@ import java.util.*;
 @Slf4j
 public final class JwtManager {
 
-    private static final String secretKey = "ThisIsASecretKeyForJwtExampleThisIsASecretKeyForJwtExample";
+//    private static final int ACCESS_EXPIRE_TIME = 60 * 60 * 2;
+
+    private static final int ACCESS_EXPIRE_TIME = 60;
+//    private static final int REFRESH_EXPIRE_TIME = 60 * 60 * 24 * 14;
+private static final int REFRESH_EXPIRE_TIME = 60 * 5;
+
+
+    private static final String secretKey = "ThisIsASecretKeyForSangComThisIsASecretKeyForSangComThisIsASecretKeyForSangCom";
 
     public static String createAccessToken(User user) {
         JwtBuilder builder = Jwts.builder()
-                .setSubject(user.getEmail())
+                .setSubject(user.getId())
                 .setHeader(createHeader())
                 .setClaims(createClaims(user))
-                .setExpiration(createExpireDateForOneYear())
+                .setExpiration(createExpireDateForOneYear(ACCESS_EXPIRE_TIME))
                 .signWith(createSigningKey(), SignatureAlgorithm.HS256);
 
         return builder.compact();
@@ -29,10 +36,10 @@ public final class JwtManager {
 
     public static String createRefreshToken(User user) {
         JwtBuilder builder = Jwts.builder()
-                .setSubject(user.getEmail())
+                .setSubject(user.getId())
                 .setHeader(createHeader())
                 .setClaims(createClaims(user))
-                .setExpiration(createExpireDateForOneYear())
+                .setExpiration(createExpireDateForOneYear(REFRESH_EXPIRE_TIME))
                 .signWith(createSigningKey(), SignatureAlgorithm.HS256);
 
         return builder.compact();
@@ -62,10 +69,10 @@ public final class JwtManager {
         return header.split(" ")[1];
     }
 
-    private static Date createExpireDateForOneYear() {
+    private static Date createExpireDateForOneYear(int time) {
         // 토큰 만료시간은 30일으로 설정
         Calendar c = Calendar.getInstance();
-        c.add(Calendar.DATE, 30);
+        c.add(Calendar.SECOND, time);
         return c.getTime();
     }
 

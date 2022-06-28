@@ -7,6 +7,6 @@ public interface TokenRepository {
     public String insert(TokenDao tokenDao);
     public TokenDao findByToken(String token);
     public String update(TokenDao tokenDao);
-    public String delete(String id);
+    public String delete(String token);
 
 }

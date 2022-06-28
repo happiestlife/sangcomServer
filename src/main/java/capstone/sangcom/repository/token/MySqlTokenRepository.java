@@ -82,17 +82,17 @@ public class MySqlTokenRepository implements TokenRepository {
     }
 
     @Override
-    public String delete(String id) {
-        String query = "DELETE FROM " + TOKEN_TABLE + " WHERE id = :id";
+    public String delete(String token) {
+        String query = "DELETE FROM " + TOKEN_TABLE + " WHERE token = :token";
         Map<String, Object> params = new HashMap<>();
-        params.put("id", id);
+        params.put("token", token);
 
         int result = jdbcTemplate.update(query, params);
 
         if(result == 0)
             return null;
 
-        return id;
+        return token;
     }
 
     public List<TokenDao> findAll(){
