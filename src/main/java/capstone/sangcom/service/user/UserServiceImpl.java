@@ -1,10 +1,12 @@
 package capstone.sangcom.service.user;
 
+import capstone.sangcom.controller.api.response.login.TokenResponse;
 import capstone.sangcom.dto.login.FindPasswordDTO;
 import capstone.sangcom.dto.login.LoginDTO;
 import capstone.sangcom.dto.login.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
 import capstone.sangcom.repository.user.UserRepository;
+import capstone.sangcom.service.token.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,12 +17,13 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final TokenService tokenService;
 
     @Override
-    public User login(LoginDTO loginDTO) {
+    public TokenResponse login(LoginDTO loginDTO) {
         User user = userRepository.findById(loginDTO.getId());
-        if (user.equals(loginDTO.getPassword()))
-            return user;
+        if (passwordEncoder.matches(loginDTO.getPassword(), user.getPassword()))
+            return tokenService.createToken(user);
         else
             return null;
     }

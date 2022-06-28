@@ -29,7 +29,10 @@ public class ApiConfig implements WebMvcConfigurer {
 
             // login 관련
             "/api/user/login", "/api/user/register", "/api/user/confirm/name",
-            "/api/user/auth/student/check", "/api/user/password/find"
+            "/api/user/auth/student/check", "/api/user/password/find",
+
+            // auth 관련
+            "/api/auth/refresh", "/api/auth/valid"
 
     };
 

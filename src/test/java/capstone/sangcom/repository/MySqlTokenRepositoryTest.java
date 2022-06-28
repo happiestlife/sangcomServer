@@ -88,7 +88,7 @@ public class MySqlTokenRepositoryTest {
 
     @Test
     public void 토큰삭제_성공() {
-        repository.delete(TOKEN1.getId());
+        repository.delete(TOKEN1.getRefreshToken());
 
         assertThat(repository.findAll().size()).isEqualTo(1);
         assertThat(repository.findByToken(TOKEN1.getRefreshToken())).isEqualTo(null);
@@ -96,7 +96,7 @@ public class MySqlTokenRepositoryTest {
 
     @Test
     public void 토큰삭제_실패_존재하지않는아이디() {
-        repository.delete("wrongId");
+        repository.delete("wrongRefreshToken");
     }
 
     private void compareToken(TokenDao actual, TokenDao expected) {
