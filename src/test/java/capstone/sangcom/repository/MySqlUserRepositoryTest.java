@@ -14,7 +14,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public
 class MySqlUserRepositoryTest {
 
     private final static UpdateUserInfoDTO UPDATE_TEST_DATA[] = {

@@ -60,14 +60,14 @@ public class LoginController {
      */
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginDTO loginDTO) {
-        TokenResponse token = userService.login(loginDTO);
-        if(token == null)
+        LoginResponse response = userService.login(loginDTO);
+        if(response == null)
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body(new LoginResponse("false", null));
+                    .body(null);
         else
             return ResponseEntity.
-                    ok(new LoginResponse("true", token));
+                    ok(response);
     }
 
     /**

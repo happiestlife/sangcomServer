@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class MySqlTokenRepositoryTest {
+class MySqlTokenRepositoryTest {
 
     @Autowired
     private MySqlTokenRepository repository;

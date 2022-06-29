@@ -1,5 +1,6 @@
 package capstone.sangcom.service;
 
+import capstone.sangcom.controller.api.response.login.LoginResponse;
 import capstone.sangcom.dto.login.FindPasswordDTO;
 import capstone.sangcom.dto.login.LoginDTO;
 import capstone.sangcom.dto.login.UpdateUserInfoDTO;
@@ -51,7 +52,10 @@ public class UserServiceTest {
 
     @Test
     public void 로그인_성공(){
-        assertThat(userService.login(new LoginDTO(USER1.getId(), USER1.getPassword()))).isNotNull();
+        LoginResponse result = userService.login(new LoginDTO(USER1.getId(), USER1.getPassword()));
+
+        assertThat(result).isNotNull();
+        assertThat(result.getRole()).isEqualTo(USER1.getRole());
     }
 
     @Test
