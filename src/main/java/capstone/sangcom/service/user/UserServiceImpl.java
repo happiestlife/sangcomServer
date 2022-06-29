@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public TokenResponse login(LoginDTO loginDTO) {
         User user = userRepository.findById(loginDTO.getId());
-        if (passwordEncoder.matches(loginDTO.getPassword(), user.getPassword()))
+        if (user != null && passwordEncoder.matches(loginDTO.getPassword(), user.getPassword()))
             return tokenService.createToken(user);
         else
             return null;
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     public User register(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        return userRepository.create(user);
+        return userRepository.insert(user);
     }
 
     @Override

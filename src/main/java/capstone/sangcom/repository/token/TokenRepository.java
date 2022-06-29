@@ -1,12 +1,12 @@
 package capstone.sangcom.repository.token;
 
-import capstone.sangcom.repository.dao.TokenDao;
+import capstone.sangcom.repository.dao.TokenDAO;
 
 public interface TokenRepository {
 
-    public String insert(TokenDao tokenDao);
-    public TokenDao findByToken(String token);
-    public String update(TokenDao tokenDao);
+    public String insert(TokenDAO tokenDao);
+    public TokenDAO findByToken(String token);
+    public String update(TokenDAO tokenDao);
     public String delete(String token);
 
 }

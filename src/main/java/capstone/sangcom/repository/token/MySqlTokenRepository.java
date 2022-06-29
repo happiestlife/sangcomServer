@@ -1,6 +1,8 @@
 package capstone.sangcom.repository.token;
 
-import capstone.sangcom.repository.dao.TokenDao;
+import capstone.sangcom.repository.dao.TokenDAO;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -13,15 +15,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Repository
 public class MySqlTokenRepository implements TokenRepository {
 
     private final String TOKEN_TABLE = "token";
 
-    private final class TokenRowMapper implements RowMapper<TokenDao> {
+    private final class TokenRowMapper implements RowMapper<TokenDAO> {
         @Override
-        public TokenDao mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new TokenDao(
+        public TokenDAO mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new TokenDAO(
                     rs.getString("id"),
                     rs.getString("token")
             );
@@ -38,27 +41,31 @@ public class MySqlTokenRepository implements TokenRepository {
     }
 
     @Override
-    public String insert(TokenDao tokenDao) {
+    public String insert(TokenDAO tokenDao) {
         String query = "INSERT INTO " + TOKEN_TABLE + " VALUES( :id, :token )";
-        Map<String, Object> params = new HashMap<>();
-        params.put("id", tokenDao.getId());
-        params.put("token", tokenDao.getRefreshToken());
+        Map<String, Object> params = makeParam(tokenDao);
 
-        int result = jdbcTemplate.update(query, params);
+        try {
+            int rs = jdbcTemplate.update(query, params);
 
-        if(result == 0)
+            if (rs == 1)
+                return tokenDao.getRefreshToken();
+            else
+                return null;
+        }catch (DuplicateKeyException e){
+            log.info("[DuplicateKeyException] Id is already exist");
+
             return null;
-
-        return tokenDao.getRefreshToken();
+        }
     }
 
     @Override
-    public TokenDao findByToken(String token) {
+    public TokenDAO findByToken(String token) {
         String query = "SELECT * FROM " + TOKEN_TABLE + " WHERE token = :token";
         Map<String, Object> params = new HashMap<>();
         params.put("token", token);
 
-        List<TokenDao> result = jdbcTemplate.query(query, params, rowMapper);
+        List<TokenDAO> result = jdbcTemplate.query(query, params, rowMapper);
 
         if(result.size() == 1)
             return result.get(0);
@@ -67,18 +74,16 @@ public class MySqlTokenRepository implements TokenRepository {
     }
 
     @Override
-    public String update(TokenDao tokenDao) {
+    public String update(TokenDAO tokenDao) {
         String query = "UPDATE " + TOKEN_TABLE + " SET token = :token WHERE id = :id";
-        Map<String, Object> params = new HashMap<>();
-        params.put("id", tokenDao.getId());
-        params.put("token", tokenDao.getRefreshToken());
+        Map<String, Object> params = makeParam(tokenDao);
 
-        int result = jdbcTemplate.update(query, params);
+        int rs = jdbcTemplate.update(query, params);
 
-        if(result == 0)
+        if(rs == 1)
+            return tokenDao.getRefreshToken();
+        else
             return null;
-
-        return tokenDao.getRefreshToken();
     }
 
     @Override
@@ -87,15 +92,15 @@ public class MySqlTokenRepository implements TokenRepository {
         Map<String, Object> params = new HashMap<>();
         params.put("token", token);
 
-        int result = jdbcTemplate.update(query, params);
+        int rs = jdbcTemplate.update(query, params);
 
-        if(result == 0)
+        if(rs == 1)
+            return token;
+        else
             return null;
-
-        return token;
     }
 
-    public List<TokenDao> findAll(){
+    public List<TokenDAO> findAll(){
         String query = "SELECT * FROM " + TOKEN_TABLE;
 
         return jdbcTemplate.query(query, rowMapper);
@@ -105,5 +110,13 @@ public class MySqlTokenRepository implements TokenRepository {
         String query = "DELETE FROM " + TOKEN_TABLE;
 
         jdbcTemplate.update(query, (SqlParameterSource) null);
+    }
+
+    private Map<String, Object> makeParam(TokenDAO tokenDAO) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("id", tokenDAO.getId());
+        params.put("token", tokenDAO.getRefreshToken());
+
+        return params;
     }
 }
