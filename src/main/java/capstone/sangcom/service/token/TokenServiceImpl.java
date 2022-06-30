@@ -3,7 +3,7 @@ package capstone.sangcom.service.token;
 import capstone.sangcom.config.auth.JwtManager;
 import capstone.sangcom.controller.api.response.login.TokenResponse;
 import capstone.sangcom.entity.User;
-import capstone.sangcom.repository.dao.TokenDao;
+import capstone.sangcom.repository.dao.TokenDAO;
 import capstone.sangcom.repository.token.TokenRepository;
 import capstone.sangcom.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class TokenServiceImpl implements TokenService{
 
     @Override
     public String createNewTokenWithRefreshToken(String refreshToken) {
-        TokenDao token = tokenRepository.findByToken(refreshToken);
+        TokenDAO token = tokenRepository.findByToken(refreshToken);
         if(token == null || (JwtManager.isValidToken(token.getRefreshToken()) == false)){
             tokenRepository.delete(refreshToken);
 
@@ -34,7 +34,7 @@ public class TokenServiceImpl implements TokenService{
         String accessToken = JwtManager.createAccessToken(user);
         String refreshToken = JwtManager.createRefreshToken(user);
 
-        tokenRepository.insert(new TokenDao(user.getId(), refreshToken));
+        tokenRepository.insert(new TokenDAO(user.getId(), refreshToken));
 
         return new TokenResponse(accessToken, refreshToken);
     }

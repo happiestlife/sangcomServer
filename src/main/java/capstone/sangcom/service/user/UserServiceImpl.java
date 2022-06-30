@@ -1,5 +1,6 @@
 package capstone.sangcom.service.user;
 
+import capstone.sangcom.controller.api.response.login.LoginResponse;
 import capstone.sangcom.controller.api.response.login.TokenResponse;
 import capstone.sangcom.dto.login.FindPasswordDTO;
 import capstone.sangcom.dto.login.LoginDTO;
@@ -20,10 +21,10 @@ public class UserServiceImpl implements UserService {
     private final TokenService tokenService;
 
     @Override
-    public TokenResponse login(LoginDTO loginDTO) {
+    public LoginResponse login(LoginDTO loginDTO) {
         User user = userRepository.findById(loginDTO.getId());
-        if (passwordEncoder.matches(loginDTO.getPassword(), user.getPassword()))
-            return tokenService.createToken(user);
+        if (user != null && passwordEncoder.matches(loginDTO.getPassword(), user.getPassword()))
+            return new LoginResponse("success", tokenService.createToken(user), user.getRole());
         else
             return null;
     }
@@ -42,7 +43,7 @@ public class UserServiceImpl implements UserService {
     public User register(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        return userRepository.create(user);
+        return userRepository.insert(user);
     }
 
     @Override

@@ -5,7 +5,7 @@ import capstone.sangcom.entity.User;
 
 public interface UserRepository {
 
-    public User create(User user);
+    public User insert(User user);
     public User findById(String id);
     public boolean update();
     public boolean update(String id, String password);

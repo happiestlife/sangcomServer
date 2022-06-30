@@ -1,5 +1,6 @@
 package capstone.sangcom.service.user;
 
+import capstone.sangcom.controller.api.response.login.LoginResponse;
 import capstone.sangcom.controller.api.response.login.TokenResponse;
 import capstone.sangcom.dto.login.FindPasswordDTO;
 import capstone.sangcom.dto.login.LoginDTO;
@@ -9,7 +10,7 @@ import capstone.sangcom.entity.User;
 
 public interface UserService {
 
-    public TokenResponse login(LoginDTO loginDTO);
+    public LoginResponse login(LoginDTO loginDTO);
     public String findPassword(FindPasswordDTO findPasswordDTO);
     public User findById(String id);
     public User register(User use);
