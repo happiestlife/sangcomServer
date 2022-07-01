@@ -34,8 +34,11 @@ public class TokenServiceImpl implements TokenService{
         String accessToken = JwtManager.createAccessToken(user);
         String refreshToken = JwtManager.createRefreshToken(user);
 
-        tokenRepository.insert(new TokenDAO(user.getId(), refreshToken));
+        String result = tokenRepository.insert(new TokenDAO(user.getId(), refreshToken));
 
-        return new TokenResponse(accessToken, refreshToken);
+        if(result != null)
+            return new TokenResponse(accessToken, refreshToken);
+        else
+            return null;
     }
 }

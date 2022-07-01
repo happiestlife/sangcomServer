@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.List;
+
 import static capstone.sangcom.testCase.user.UserTestCase.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -69,6 +71,15 @@ class MySqlUserRepositoryTest {
         assertThat(repository.findById(WRONG_ID)).isEqualTo(null);
     }
 
+    @Test
+    public void 전체회원조회_성공() {
+        List<User> users = repository.findAll();
+        assertThat(users.size()).isEqualTo(3);
+
+        compareUser(USER1, users.get(0));
+        compareUser(USER2, users.get(1));
+        compareUser(USER3 ,users.get(2));
+    }
 
     @Test
     public void 개인세부정보수정_성공() {

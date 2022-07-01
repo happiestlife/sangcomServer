@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 
+import java.util.List;
+
 import static capstone.sangcom.testCase.user.auth.AuthTestCase.*;
 import static org.assertj.core.api.Assertions.*;
 
@@ -51,6 +53,14 @@ class MySqlAuthRepositoryTest {
     @Test
     public void 학번조회_실패_존재하지않는아이디() {
         assertThat(repository.find(new AuthStudentDAO("wrongId", AUTH_STUDENT_DAO_1.getStudentId()))).isNull();
+    }
+
+    @Test
+    public void 학번전체조회_성공() {
+        List<AuthStudentDAO> auths = repository.findAll();
+        assertThat(auths.size()).isSameAs(1);
+
+        compareAuthStudent(AUTH_STUDENT_DAO_1, auths.get(0));
     }
 
     @Test

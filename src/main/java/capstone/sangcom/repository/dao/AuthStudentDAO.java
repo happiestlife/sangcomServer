@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class AuthStudentDAO {
 
-    private final String name;
     private final String studentId;
+    private final String name;
 
 }
