@@ -33,6 +33,17 @@ public class MemoryUserRepository implements UserRepository{
     }
 
     @Override
+    public List<User> findAll() {
+        List<User> users = null;
+
+        for (String id : repository.keySet()) {
+            users.add(repository.get(id));
+        }
+
+        return users;
+    }
+
+    @Override
     public boolean update(String id, UpdateUserInfoDTO updateUserInfoDTO) {
         User user = repository.get(id);
         if (user != null) {

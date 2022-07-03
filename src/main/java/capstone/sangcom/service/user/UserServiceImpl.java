@@ -23,9 +23,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public LoginResponse login(LoginDTO loginDTO) {
         User user = userRepository.findById(loginDTO.getId());
-        if (user != null && passwordEncoder.matches(loginDTO.getPassword(), user.getPassword()))
+        if (user != null && passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
             return new LoginResponse("success", tokenService.createToken(user), user.getRole());
-        else
+        } else
             return null;
     }
 

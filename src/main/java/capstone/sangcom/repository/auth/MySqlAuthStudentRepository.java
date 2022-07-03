@@ -25,8 +25,8 @@ public class MySqlAuthStudentRepository implements AuthStudentRepository {
         @Override
         public AuthStudentDAO mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new AuthStudentDAO(
-                    rs.getString("name"),
-                    rs.getString("student_id")
+                    rs.getString("student_id"),
+                    rs.getString("name")
             );
         }
     }
@@ -73,8 +73,21 @@ public class MySqlAuthStudentRepository implements AuthStudentRepository {
     }
 
     @Override
+    public List<AuthStudentDAO> findAll() {
+        String query = "SELECT * FROM " + AUTH_STUDENT_TABLE;
+
+        List<AuthStudentDAO> rs = jdbcTemplate.query(query, rowMapper);
+
+        if(rs.size() != 0)
+            return rs;
+        else
+            return null;
+    }
+
+    @Override
     public boolean delete(AuthStudentDAO authStudentDAO) {
         String query = "DELETE FROM " + AUTH_STUDENT_TABLE + " WHERE student_id = :student_id AND name = :name";
+
         Map<String, Object> params = makeParam(authStudentDAO);
 
         int rs = jdbcTemplate.update(query, params);
@@ -83,12 +96,6 @@ public class MySqlAuthStudentRepository implements AuthStudentRepository {
             return true;
         else
             return false;
-    }
-
-    public List<AuthStudentDAO> findAll() {
-        String query = "SELECT * FROM " + AUTH_STUDENT_TABLE;
-
-        return jdbcTemplate.query(query, rowMapper);
     }
 
     public void removeAll() {
