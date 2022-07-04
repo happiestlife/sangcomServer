@@ -1,10 +1,9 @@
 package capstone.sangcom.service.user;
 
 import capstone.sangcom.controller.api.response.login.LoginResponse;
-import capstone.sangcom.controller.api.response.login.TokenResponse;
-import capstone.sangcom.dto.login.FindPasswordDTO;
-import capstone.sangcom.dto.login.LoginDTO;
-import capstone.sangcom.dto.login.UpdateUserInfoDTO;
+import capstone.sangcom.dto.loginSection.find.FindPasswordDTO;
+import capstone.sangcom.dto.loginSection.login.LoginDTO;
+import capstone.sangcom.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
 
 

@@ -1,6 +1,6 @@
 package capstone.sangcom.service.token;
 
-import capstone.sangcom.config.auth.JwtManager;
+import capstone.sangcom.util.auth.JwtManager;
 import capstone.sangcom.controller.api.response.login.TokenResponse;
 import capstone.sangcom.entity.User;
 import capstone.sangcom.repository.dao.TokenDAO;

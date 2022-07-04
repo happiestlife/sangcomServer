@@ -1,6 +1,5 @@
 package capstone.sangcom.testCase.user;
 
-import capstone.sangcom.dto.login.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
 import capstone.sangcom.entity.UserRole;
 

@@ -1,4 +1,4 @@
-package capstone.sangcom.dto.token;
+package capstone.sangcom.dto.tokenSection;
 
 import capstone.sangcom.entity.JwtUser;
 import lombok.Data;

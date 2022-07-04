@@ -1,4 +1,4 @@
-package capstone.sangcom.config.auth;
+package capstone.sangcom.util.auth;
 
 import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.entity.User;
