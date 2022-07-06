@@ -1,0 +1,16 @@
+# spring security 사용 X
+spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+
+# mysql db 설정
+spring.datasource.url=
+spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+spring.datasource.username=
+spring.datasource.password=
+
+# sangcom 메일 전송을 위한 SMTP 설정
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=
+spring.mail.password=
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.smtp.auth=true
