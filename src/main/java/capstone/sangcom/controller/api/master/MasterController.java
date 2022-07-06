@@ -1,17 +1,14 @@
 package capstone.sangcom.controller.api.master;
 
 import capstone.sangcom.controller.api.response.common.SimpleResponse;
-import capstone.sangcom.dto.auth.AuthStudentDTO;
-import capstone.sangcom.entity.ExcelData;
+import capstone.sangcom.dto.userSection.auth.AuthStudentDTO;
 import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.repository.dao.AuthStudentDAO;
 import capstone.sangcom.service.auth.master.MasterAuthService;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

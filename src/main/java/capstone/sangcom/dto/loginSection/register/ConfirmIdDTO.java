@@ -1,4 +1,4 @@
-package capstone.sangcom.dto.login;
+package capstone.sangcom.dto.loginSection.register;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

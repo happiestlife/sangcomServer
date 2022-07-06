@@ -1,6 +1,6 @@
 package capstone.sangcom.repository.user;
 
-import capstone.sangcom.dto.login.UpdateUserInfoDTO;
+import capstone.sangcom.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
 import capstone.sangcom.entity.UserRole;
 import lombok.extern.slf4j.Slf4j;

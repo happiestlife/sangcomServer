@@ -1,6 +1,6 @@
 package capstone.sangcom.service.auth.master;
 
-import capstone.sangcom.dto.auth.AuthStudentDTO;
+import capstone.sangcom.dto.userSection.auth.AuthStudentDTO;
 import capstone.sangcom.entity.ExcelData;
 import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.entity.User;
