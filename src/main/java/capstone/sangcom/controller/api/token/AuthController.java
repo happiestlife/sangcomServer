@@ -16,15 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-public class TokenController {
+public class AuthController {
 
     private final TokenService tokenService;
 
     @PostMapping("/refresh")
     public ResponseEntity<TokenResponse> reissueAccessToken(@RequestBody RefreshTokenDTO refreshTokenDTO) {
-        System.out.println("reissue");
         String accessToken = tokenService.createNewTokenWithRefreshToken(refreshTokenDTO.getToken());
-        System.out.println(accessToken);
         if (accessToken == null)
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)

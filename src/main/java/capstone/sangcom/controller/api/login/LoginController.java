@@ -2,7 +2,7 @@ package capstone.sangcom.controller.api.login;
 
 import capstone.sangcom.controller.api.response.login.LoginResponse;
 import capstone.sangcom.dto.loginSection.login.LoginDTO;
-import capstone.sangcom.service.user.UserService;
+import capstone.sangcom.service.login.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class LoginController {
 
-    private final UserService userService;
+    private final LoginService userService;
 
     /**
      * 로그인

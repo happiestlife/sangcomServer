@@ -11,6 +11,10 @@ import io.jsonwebtoken.*;
 import java.security.Key;
 import java.util.*;
 
+/**
+ * JWT를 활용하기 위한 Util
+ * JWT 생성, 정보 분석, 유효 등의 기능 존재
+ */
 @Slf4j
 public final class JwtManager {
 

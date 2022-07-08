@@ -1,4 +1,4 @@
-package capstone.sangcom.repository.dao;
+package capstone.sangcom.repository.dao.auth;
 
 import lombok.Data;
 

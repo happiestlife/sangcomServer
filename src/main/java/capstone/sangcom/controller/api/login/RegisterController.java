@@ -5,7 +5,7 @@ import capstone.sangcom.dto.userSection.auth.AuthStudentDTO;
 import capstone.sangcom.dto.loginSection.register.ConfirmIdDTO;
 import capstone.sangcom.entity.User;
 import capstone.sangcom.service.auth.student.StudentAuthService;
-import capstone.sangcom.service.user.UserService;
+import capstone.sangcom.service.login.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class RegisterController {
 
-    private final UserService userService;
+    private final LoginService userService;
 
     private final StudentAuthService studentAuthService;
 

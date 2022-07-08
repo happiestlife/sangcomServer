@@ -8,7 +8,7 @@ import capstone.sangcom.entity.User;
 import capstone.sangcom.repository.token.MemoryTokenRepository;
 import capstone.sangcom.repository.user.MemoryUserRepository;
 import capstone.sangcom.service.token.TokenServiceImpl;
-import capstone.sangcom.service.user.UserServiceImpl;
+import capstone.sangcom.service.login.LoginServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -18,20 +18,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static capstone.sangcom.testCase.user.UserTestCase.USER1;
 import static capstone.sangcom.testCase.user.UserTestCase.USER2;
+import static capstone.sangcom.util.user.UserTestUtils.compareUser;
+import static capstone.sangcom.util.user.UserTestUtils.copyUser;
 import static org.assertj.core.api.Assertions.*;
 
 
 public class UserServiceTest {
 
-    private final UpdateUserInfoDTO editCase = new UpdateUserInfoDTO(
-            "testPhone", 1, 1, 1,
-            "2022-6-29", 2022, "testEmail");
-
     private MemoryUserRepository memoryUserRepository = new MemoryUserRepository();
 
     private PasswordEncoder passwordEncoder = new Argon2PasswordEncoder();
 
-    private UserServiceImpl userService = new UserServiceImpl(
+    private LoginServiceImpl userService = new LoginServiceImpl(
             memoryUserRepository,
             passwordEncoder,
             new TokenServiceImpl(
@@ -99,17 +97,6 @@ public class UserServiceTest {
     }
 
     @Test
-    public void 아이디로회원찾기_성공(){
-        User user = userService.findById(USER1.getId());
-        compareUser(USER1, user);
-    }
-
-    @Test
-    public void 아이디로회원찾기_실패_존재하지않는아이디(){
-        Assertions.assertThat(userService.findById("wrongId")).isNull();
-    }
-
-    @Test
     public void 회원가입_성공() {
         User registerUser = copyUser(USER2);
         userService.register(registerUser);
@@ -127,81 +114,5 @@ public class UserServiceTest {
     @Disabled
     public void 프로필변경_성공() {
 
-    }
-
-    @Test
-    public void 비밀번호변경_성공() {
-        userService.editPassword(USER1.getId(), "edit");
-
-        User user = memoryUserRepository.findById(USER1.getId());
-        assertThat(passwordEncoder.matches("edit", user.getPassword())).isTrue();
-    }
-
-    @Test
-    public void 비밀번호변경_실패_존재하지않는아이디() {
-        assertThat(userService.editPassword("wrongId", "edit")).isFalse();
-    }
-
-    @Test
-    public void 회원정보수정_성공() {
-        assertThat(userService.editUserInfo(USER1.getId(), editCase)).isTrue();
-    }
-
-    @Test
-    public void 회원정보수정_실패_존재하지않는아이디() {
-        assertThat(userService.editUserInfo("wrongId", editCase)).isFalse();
-    }
-
-    @Test
-    public void 회원정보수정_실패_길이초과() {
-        UpdateUserInfoDTO overLength_phone = makeEditCase(editCase, 1, "012345678901234567891");
-
-        String email = "0123456789";
-        for(int i = 0; i < 11; i++)
-            email += email;
-        UpdateUserInfoDTO overLength_email = makeEditCase(editCase, 7, email);
-
-        assertThat(userService.editUserInfo("wrongId", overLength_phone)).isFalse();
-        assertThat(userService.editUserInfo("wrongId", overLength_email)).isFalse();
-    }
-
-//    public boolean leave(String id);
-
-    private UpdateUserInfoDTO makeEditCase(UpdateUserInfoDTO standard, int part, String change){
-        UpdateUserInfoDTO newCase = null;
-
-        switch (part) {
-            case 1:
-                newCase = new UpdateUserInfoDTO(change, standard.getSchoolgrade(), standard.getSchoolclass(),
-                    standard.getSchoolnumber(), standard.getBirth(),
-                    standard.getYear(), standard.getEmail());
-                break;
-            case 7:
-                newCase = new UpdateUserInfoDTO(standard.getPhone(), standard.getSchoolgrade(), standard.getSchoolclass(),
-                        standard.getSchoolnumber(), standard.getBirth(),
-                        standard.getYear(), change);
-                break;
-        }
-        return newCase;
-    }
-
-    private void compareUser(User standard, User compare) {
-        assertThat(standard.getId()).isEqualTo(compare.getId());
-        assertThat(passwordEncoder.matches(standard.getPassword(), compare.getPassword())).isTrue();
-        assertThat(standard.getName()).isEqualTo(compare.getName());
-        assertThat(standard.getPhone()).isEqualTo(compare.getPhone());
-        assertThat(standard.getSchoolgrade()).isSameAs(compare.getSchoolgrade());
-        assertThat(standard.getSchoolclass()).isSameAs(compare.getSchoolclass());
-        assertThat(standard.getSchoolnumber()).isSameAs(compare.getSchoolnumber());
-        assertThat(standard.getRole()).isEqualTo(compare.getRole());
-        assertThat(standard.getYear()).isSameAs(compare.getYear());
-        assertThat(standard.getBirth()).isEqualTo(compare.getBirth());
-        assertThat(standard.getEmail()).isEqualTo(compare.getEmail());
-    }
-
-    private User copyUser(User user){
-        return new User(user.getId(), user.getPassword(), user.getName(), user.getPhone(),
-                user.getSchoolgrade(), user.getSchoolclass(), user.getSchoolnumber(),
-                user.getRole(), user.getYear(), user.getBirth(), user.getEmail());
     }
 }

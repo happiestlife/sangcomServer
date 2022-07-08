@@ -14,6 +14,9 @@ public class MailServiceImpl implements MailService{
 
     private final JavaMailSender javaMailSender;
 
+    /**
+     * MailInfoDTO에 받는 사람의 이메일, 제목, 내용을 담아 JavaMailSender를 통해 전송
+     */
     @Override
     public void sendMail(MailInfoDTO mailInfoDTO) {
         SimpleMailMessage mail = new SimpleMailMessage();
