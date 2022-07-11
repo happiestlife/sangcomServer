@@ -16,7 +16,7 @@ import java.util.*;
  * JWT 생성, 정보 분석, 유효 등의 기능 존재
  */
 @Slf4j
-public final class JwtManager {
+public final class JwtUtils {
 
     private static final int ACCESS_EXPIRE_TIME = 60 * 60 * 2;
 

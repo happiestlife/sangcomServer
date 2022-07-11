@@ -1,7 +1,6 @@
 package capstone.sangcom.config.interceptor;
 
-import capstone.sangcom.util.auth.JwtManager;
-import capstone.sangcom.controller.api.response.common.FailHeader;
+import capstone.sangcom.util.auth.JwtUtils;
 import capstone.sangcom.entity.JwtUser;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -14,9 +13,9 @@ public class LoginApiInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String header = request.getHeader("Authorization");
         if (header != null) {
-            String token = JwtManager.getTokenFromHeader(header);
-            if (JwtManager.isValidToken(token)) {
-                JwtUser user = JwtManager.getUserFromToken(token);
+            String token = JwtUtils.getTokenFromHeader(header);
+            if (JwtUtils.isValidToken(token)) {
+                JwtUser user = JwtUtils.getUserFromToken(token);
                 request.setAttribute("user", user);
 
                 return true;

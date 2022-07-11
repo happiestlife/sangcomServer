@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * 비밀번호 찾기에서 5~15자리 임시 비밀번호를 생성해주는 Util
  */
-public class TempPasswordManager {
+public class TempPasswordUtils {
     private static final String UPPER_CASE_ALPHABET[] = {
             "A", "B", "C", "D", "E", "F", "G",
             "H", "I", "J", "K", "L", "M", "N",

@@ -1,6 +1,6 @@
 package capstone.sangcom.controller.api.token;
 
-import capstone.sangcom.util.auth.JwtManager;
+import capstone.sangcom.util.auth.JwtUtils;
 import capstone.sangcom.controller.api.response.login.TokenResponse;
 import capstone.sangcom.dto.tokenSection.RefreshTokenDTO;
 import capstone.sangcom.dto.tokenSection.TokenValidateDTO;
@@ -34,10 +34,10 @@ public class AuthController {
 
     @GetMapping("/valid")
     public ResponseEntity<TokenValidateDTO> validateToken(HttpServletRequest request){
-        String token = JwtManager.getTokenFromHeader(request.getHeader("Authorization"));
+        String token = JwtUtils.getTokenFromHeader(request.getHeader("Authorization"));
 
-        if(JwtManager.isValidToken(token)){
-            JwtUser user = JwtManager.getUserFromToken(token);
+        if(JwtUtils.isValidToken(token)){
+            JwtUser user = JwtUtils.getUserFromToken(token);
 
             return ResponseEntity
                     .ok(new TokenValidateDTO(true, user));

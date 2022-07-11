@@ -6,6 +6,7 @@ import capstone.sangcom.dto.loginSection.register.ConfirmIdDTO;
 import capstone.sangcom.entity.User;
 import capstone.sangcom.service.auth.student.StudentAuthService;
 import capstone.sangcom.service.login.LoginService;
+import capstone.sangcom.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class RegisterController {
 
-    private final LoginService userService;
+    private final UserService userService;
+
+    private final LoginService loginService;
 
     private final StudentAuthService studentAuthService;
 
@@ -35,7 +38,7 @@ public class RegisterController {
                     status(HttpStatus.BAD_REQUEST).
                     body(new SimpleResponse(false));
 
-        if (userService.register(user) == null)
+        if (loginService.register(user) == null)
             return ResponseEntity.
                     status(HttpStatus.BAD_REQUEST).
                     body(new SimpleResponse(false));

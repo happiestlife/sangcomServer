@@ -1,6 +1,5 @@
 package capstone.sangcom.config.interceptor;
 
-import capstone.sangcom.controller.api.response.common.FailHeader;
 import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.entity.UserRole;
 import org.springframework.web.servlet.HandlerInterceptor;
