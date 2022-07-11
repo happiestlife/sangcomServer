@@ -91,7 +91,7 @@ CREATE TABLE `boardpath` (
 CREATE TABLE `boardreport` (
                                `report_id` INTEGER AUTO_INCREMENT NOT NULL,
                                `board_id` INTEGER NOT NULL,
-                               `send_id` VARCHAR(20) NOT NULL,
+                               `send_id` VARCHAR(20) NOT NULL,like
                                `recv_id` VARCHAR(20) NOT NULL,
                                `body` Text NOT NULL,
                                `regdate` TIMESTAMP DEFAULT NOW(),
