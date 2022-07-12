@@ -15,7 +15,7 @@ public interface BoardRepository {
     public List<BoardDTO> findBoard(String type, String title);
     public List<BoardDTO> readAll(String type);
     public BoardDetailDTO readBoard(String userId, int boardId);
-    public boolean updateBoard(UpdateBoardDTO updateBoardDTO);
+    public boolean updateBoard(int boardId, UpdateBoardDTO updateBoardDTO);
     public boolean deleteBoard(int boardId);
     public boolean isUserWriteBoard(int boardId, String userId);
 

@@ -43,11 +43,9 @@ public class MySqlBoardRepository implements BoardRepository {
     }
 
     @Override
+    // 게시글 저장
     public int insert(BoardDAO boardDAO) {
-        KeyHolder key = new GeneratedKeyHolder();
-
-        // 게시글 저장
-        String query = "INSERT INTO " + BOARD_TABLE + " (title, body, user_id, type) VALUES (:title, :body, :user_id, :type))";
+        String query = "INSERT INTO " + BOARD_TABLE + " (title, body, user_id, type) VALUES (:title, :body, :user_id, :type)";
 
         MapSqlParameterSource params = new MapSqlParameterSource()
                 .addValue("title", boardDAO.getTitle())
@@ -55,6 +53,7 @@ public class MySqlBoardRepository implements BoardRepository {
                 .addValue("user_id", boardDAO.getUser_id())
                 .addValue("type", boardDAO.getType());
 
+        KeyHolder key = new GeneratedKeyHolder();
         if (jdbcTemplate.update(query, params, key, new String[]{"board_id"}) != 1)
             return -1;
 
@@ -63,8 +62,8 @@ public class MySqlBoardRepository implements BoardRepository {
 
 
     @Override
+    // 검색어에 해당하는 게시글 목록 검색
     public List<BoardDTO> findBoard(String type, String keyword) {
-        // 검색어에 해당하는 게시글 목록 검색
         String query = "SELECT " + BOARD_TABLE + ".*, " +
                 "(SELECT COUNT(board_id) FROM " + BOARD_GOOD_TABLE + " WHERE " + BOARD_TABLE + ".board_id=" + BOARD_GOOD_TABLE + ".board_id) AS goodCount, " +
                 "(SELECT COUNT(board_id) FROM " + REPLY_TABLE + " WHERE " + BOARD_TABLE + ".board_id=" + REPLY_TABLE + ".board_id) AS replyCount, " +
@@ -79,8 +78,8 @@ public class MySqlBoardRepository implements BoardRepository {
     }
 
     @Override
+    // 게시글 종류에 해당하는 모든 게시글 조회
     public List<BoardDTO> readAll(String type) {
-        // 게시글 종류에 해당하는 모든 게시글 조회
         String query = "SELECT " + BOARD_TABLE + ".*, " +
                 "(SELECT COUNT(board_id) FROM " + BOARD_GOOD_TABLE + " WHERE " + BOARD_TABLE + ".board_id=" + BOARD_GOOD_TABLE + ".board_id) AS goodCount, " +
                 "(SELECT COUNT(board_id) FROM " + REPLY_TABLE + " WHERE " + BOARD_TABLE + ".board_id=" + REPLY_TABLE + ".board_id) AS replyCount, " +
@@ -94,8 +93,8 @@ public class MySqlBoardRepository implements BoardRepository {
     }
 
     @Override
+    // 하나의 게시글 읽어오기
     public BoardDetailDTO readBoard(String userId, int boardId) {
-        // 하나의 게시글 정보 조회
         String query = "SELECT " + BOARD_TABLE + ".*, " +
                 "(SELECT COUNT(board_id) FROM " + BOARD_GOOD_TABLE + " WHERE " + BOARD_TABLE + ".board_id=" + BOARD_GOOD_TABLE + ".board_id) AS goodCount, " +
                 "(SELECT COUNT(board_id) FROM " + REPLY_TABLE + " WHERE " + BOARD_TABLE + ".board_id=" + REPLY_TABLE + ".board_id) AS replyCount, " +
@@ -114,30 +113,29 @@ public class MySqlBoardRepository implements BoardRepository {
         if (userId.equals(boardDetail.getUser_id()))
             boardDetail.setUserCheck("Y");
 
-        // 해당 게시글의 이미지 경로 조회
-
         return boardDetail;
     }
 
     @Override
-    public boolean updateBoard(UpdateBoardDTO updateBoardDTO) {
+    // 게시글의 제목과 본문 수정(이미지 제외)
+    public boolean updateBoard(int boardId, UpdateBoardDTO updateBoardDTO) {
         String query = "UPDATE " + BOARD_TABLE + " SET title = :title, body = :body WHERE board_id = :board_id";
         Map<String, Object> params = new HashMap<>();
         params.put("title", updateBoardDTO.getTitle());
         params.put("body", updateBoardDTO.getBody());
-        params.put("board_id", updateBoardDTO.getBoardId());
+        params.put("board_id", boardId);
 
-        if(jdbcTemplate.update(query, params) != 1)
+        int update = jdbcTemplate.update(query, params);
+        System.out.println(update);
+        if(update != 1)
             return false;
         else
             return true;
     }
 
     @Override
+    // 게시글 삭제
     public boolean deleteBoard(int boardId) {
-        // 게시글을 작성한 사용자가 맞는지 확인 -> 서비스 계층에서 구현
-
-        // 게시글 삭제
         String query = "DELETE FROM " + BOARD_TABLE + " WHERE board_id = :board_id";
         if(jdbcTemplate.update(query,
                 new MapSqlParameterSource()
@@ -145,27 +143,24 @@ public class MySqlBoardRepository implements BoardRepository {
             return false;
         else
             return true;
-
-        // 게시글 이미지 경로 삭제
-
-        // 이미지 삭제 -> 서비스 계층에서 구현
     }
 
     @Override
+    // 해당 게시글이 유저가 작성한 것인지 확인하기
     public boolean isUserWriteBoard(int boardId, String userId) {
         String query = "SELECT user_id FROM " + BOARD_TABLE + " WHERE board_id = :board_id AND user_id = :user_id";
         HashMap<String, Object> params = new HashMap<>();
         params.put("board_id", boardId);
         params.put("user_id", userId);
 
-        List<String> isUserWriteBoard = jdbcTemplate.query(query, params,
+        List<String> result = jdbcTemplate.query(query, params,
                 (rs, rowNum) -> rs.getString("user_id")
         );
 
-        if(isUserWriteBoard.isEmpty())
-            return false;
-        else
+        if(result.isEmpty())
             return true;
+        else
+            return false;
     }
 
     private class BoardRowMapper implements RowMapper<BoardDTO>{

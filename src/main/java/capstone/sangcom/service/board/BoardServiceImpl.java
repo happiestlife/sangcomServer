@@ -11,6 +11,7 @@ import capstone.sangcom.repository.dao.board.BoardDAO;
 import capstone.sangcom.repository.dao.board.BoardPathDAO;
 import capstone.sangcom.util.board.ImageUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,16 +20,17 @@ import org.springframework.web.multipart.MultipartFile;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
+import java.util.logging.SimpleFormatter;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService{
 
-
+    private final ImageUtils imageUtils;
 
     private final BoardRepository boardRepository;
 
@@ -37,15 +39,17 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     @Transactional
-    public boolean create(BoardDAO boardDAO, List<MultipartFile> images) {
+    public boolean create(String userId, String type, UpdateBoardDTO boardData) {
         // 게시글 저장 후 게시글 Id 가져오기
-        int boardId = boardRepository.insert(boardDAO);
+        int boardId = boardRepository.insert(new BoardDAO(
+                -1, boardData.getTitle(), boardData.getBody(),
+                userId, type));
 
         // 게시글 이미지에 대한 저장 경로 생성 후 DB에 저장
         List<String> paths = new ArrayList<>();
-        for (MultipartFile image : images)
-            paths.add(ImageUtils.makePath(ImageUtils.BOARD, image));
-
+        for (MultipartFile image : boardData.getImages()) {
+            paths.add(imageUtils.makePath(ImageUtils.BOARD, image));
+        }
         for (String path : paths) {
             if(boardPathRepository.insert(new BoardPathDAO(boardId, path)) == null)
                 return false;
@@ -53,9 +57,9 @@ public class BoardServiceImpl implements BoardService{
 
         // 서비스 계층에서 이미지 실제 폴더에 저장
         int i = 0;
-        for (MultipartFile image : images) {
+        for (MultipartFile image : boardData.getImages()) {
             try {
-                ImageUtils.store(image, new File(paths.get(i++)));
+                imageUtils.store(image, new File(paths.get(i++)));
             } catch (IOException e) {
                 return false;
             }
@@ -92,37 +96,43 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     @Transactional
-    public boolean update(UpdateBoardDTO updateBoardDTO) {
+    public boolean update(String userId, int boardId, UpdateBoardDTO updateBoardDTO) {
         // 게시글을 작성한 사용자가 맞는지 확인 -> 서비스 계층에서 구현
-        if(boardRepository.isUserWriteBoard(updateBoardDTO.getBoardId(), updateBoardDTO.getUserId()))
+        if(boardRepository.isUserWriteBoard(boardId, userId))
             return false;
 
+        System.out.println("사용자가 맞습니당");
         // 기존의 게시글의 이미지 삭제
-        boardPathRepository.delete(updateBoardDTO.getBoardId());
+        boardPathRepository.delete(boardId);
 
+        System.out.println("이미지 경로 삭제 완료");
         // 게시글 수정
-        if(!boardRepository.updateBoard(updateBoardDTO))
+        if(!boardRepository.updateBoard(boardId, updateBoardDTO))
             return false;
 
         // 게시글 속 새로운 이미지 경로 저장
         List<String> paths = new ArrayList<>();
         for (MultipartFile image : updateBoardDTO.getImages()) {
-            String path = ImageUtils.makePath(ImageUtils.BOARD, image);
+            String path = imageUtils.makePath(ImageUtils.BOARD, image);
 
             paths.add(path);
-            boardPathRepository.insert(new BoardPathDAO(updateBoardDTO.getBoardId(), path));
+            if(boardPathRepository.insert(new BoardPathDAO(boardId, path)) == null)
+                return false;
         }
 
+        System.out.println("경로 저장 완료");
         // 서비스 계층에서 실제 이미지 저장
         int i = 0;
         for (MultipartFile image : updateBoardDTO.getImages()) {
             try {
-                ImageUtils.store(image, new File(paths.get(i++)));
+                imageUtils.store(image, new File(paths.get(i++)));
             } catch (IOException e) {
+                System.out.println("EXCEPTION IS OCCURRED");
                 return false;
             }
         }
-        return false;
+
+        return true;
     }
 
     @Override
