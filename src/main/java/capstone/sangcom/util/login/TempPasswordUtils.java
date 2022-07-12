@@ -58,8 +58,6 @@ public class TempPasswordUtils {
                 arr = SPECIAL_CHARACTER;
                 break;
         }
-        System.out.println("part " + part);
-        System.out.println(random.nextInt(arr.length));
 
         return arr[random.nextInt(arr.length)];
     }

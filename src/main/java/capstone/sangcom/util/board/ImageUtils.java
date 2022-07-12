@@ -1,6 +1,7 @@
 package capstone.sangcom.util.board;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -14,16 +15,19 @@ public class ImageUtils {
     public static final int PROFILE = 1;
 
     @Value("${image.boardPath}")
-    private static String BOARD_IMAGE_PATH;
+    private String BOARD_IMAGE_PATH;
 
     @Value("${image.profilePath}")
-    private static String PROFILE_IMAGE_PATH;
+    private String PROFILE_IMAGE_PATH;
 
-    public static String makePath(int type, MultipartFile image) {
-        return image.getOriginalFilename() + new Date().getTime() + ".jpg";
+    public String makePath(int type, MultipartFile image) {
+        if(type == BOARD)
+            return BOARD_IMAGE_PATH + new Date().getTime() + image.getOriginalFilename();
+        else
+            return PROFILE_IMAGE_PATH + new Date().getTime() + image.getOriginalFilename();
     }
 
-    public static void store(MultipartFile image, File imageFile) throws IOException {
+    public void store(MultipartFile image, File imageFile) throws IOException {
         image.transferTo(imageFile);
     }
 

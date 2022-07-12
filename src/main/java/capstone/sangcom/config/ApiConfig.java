@@ -23,7 +23,7 @@ public class ApiConfig implements WebMvcConfigurer {
             "/api/notice",
 
             // board 관련
-            "/api/board/goodcount/**", "/api/board/scrapcount/**", "/api/board/search", "/api/board",
+            "/api/board/goodcount/**", "/api/board/scrapcount/**", "/api/board/search",
 
             // user 관련
             "/api/user/profile",

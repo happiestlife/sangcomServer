@@ -2,6 +2,7 @@ package capstone.sangcom.config.interceptor;
 
 import capstone.sangcom.util.auth.JwtUtils;
 import capstone.sangcom.entity.JwtUser;
+import io.jsonwebtoken.Jwt;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
