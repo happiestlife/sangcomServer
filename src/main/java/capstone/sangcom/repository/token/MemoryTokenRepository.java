@@ -1,6 +1,6 @@
 package capstone.sangcom.repository.token;
 
-import capstone.sangcom.repository.dao.TokenDAO;
+import capstone.sangcom.repository.dao.auth.TokenDAO;
 
 import java.util.HashMap;
 

@@ -1,4 +1,4 @@
-package capstone.sangcom.controller.api.response.common;
+package capstone.sangcom.config.interceptor;
 
 import capstone.sangcom.controller.api.response.common.SimpleResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;

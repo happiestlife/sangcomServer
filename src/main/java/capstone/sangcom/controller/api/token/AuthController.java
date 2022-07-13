@@ -1,6 +1,6 @@
 package capstone.sangcom.controller.api.token;
 
-import capstone.sangcom.util.auth.JwtManager;
+import capstone.sangcom.util.auth.JwtUtils;
 import capstone.sangcom.controller.api.response.login.TokenResponse;
 import capstone.sangcom.dto.tokenSection.RefreshTokenDTO;
 import capstone.sangcom.dto.tokenSection.TokenValidateDTO;
@@ -16,15 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-public class TokenController {
+public class AuthController {
 
     private final TokenService tokenService;
 
     @PostMapping("/refresh")
     public ResponseEntity<TokenResponse> reissueAccessToken(@RequestBody RefreshTokenDTO refreshTokenDTO) {
-        System.out.println("reissue");
         String accessToken = tokenService.createNewTokenWithRefreshToken(refreshTokenDTO.getToken());
-        System.out.println(accessToken);
         if (accessToken == null)
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
@@ -36,10 +34,10 @@ public class TokenController {
 
     @GetMapping("/valid")
     public ResponseEntity<TokenValidateDTO> validateToken(HttpServletRequest request){
-        String token = JwtManager.getTokenFromHeader(request.getHeader("Authorization"));
+        String token = JwtUtils.getTokenFromHeader(request.getHeader("Authorization"));
 
-        if(JwtManager.isValidToken(token)){
-            JwtUser user = JwtManager.getUserFromToken(token);
+        if(JwtUtils.isValidToken(token)){
+            JwtUser user = JwtUtils.getUserFromToken(token);
 
             return ResponseEntity
                     .ok(new TokenValidateDTO(true, user));

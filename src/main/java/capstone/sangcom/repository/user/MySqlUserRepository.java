@@ -34,12 +34,12 @@ public class MySqlUserRepository implements UserRepository{
         }
     }
 
-    private NamedParameterJdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate jdbcTemplate;
 
     private final UserRowMapper userRowMapper;
 
-    public MySqlUserRepository(DataSource dataSource) {
-        this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+    public MySqlUserRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.jdbcTemplate = namedParameterJdbcTemplate;
         this.userRowMapper = new UserRowMapper();
     }
 

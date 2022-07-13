@@ -8,12 +8,11 @@ import capstone.sangcom.entity.User;
 import capstone.sangcom.service.auth.student.StudentAuthService;
 import capstone.sangcom.service.mail.MailService;
 import capstone.sangcom.service.user.UserService;
-import capstone.sangcom.util.login.TempPasswordManager;
+import capstone.sangcom.util.login.TempPasswordUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,8 +45,7 @@ public class FindController {
         String id = findPasswordDTO.getId();
 
         User user = userService.findById(id);
-        String tmpPassword = TempPasswordManager.makeTemporaryPassword();
-        System.out.println(tmpPassword);
+        String tmpPassword = TempPasswordUtils.makeTemporaryPassword();
 
         if(user == null || !userService.editPassword(id, tmpPassword))
             return ResponseEntity

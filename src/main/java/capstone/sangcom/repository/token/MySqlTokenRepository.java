@@ -1,6 +1,6 @@
 package capstone.sangcom.repository.token;
 
-import capstone.sangcom.repository.dao.TokenDAO;
+import capstone.sangcom.repository.dao.auth.TokenDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.RowMapper;
@@ -35,8 +35,8 @@ public class MySqlTokenRepository implements TokenRepository {
 
     private final TokenRowMapper rowMapper;
 
-    public MySqlTokenRepository(DataSource dataSource) {
-        jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+    public MySqlTokenRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        jdbcTemplate = namedParameterJdbcTemplate;
         rowMapper = new TokenRowMapper();
     }
 

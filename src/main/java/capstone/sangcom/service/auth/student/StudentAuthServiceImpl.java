@@ -2,7 +2,7 @@ package capstone.sangcom.service.auth.student;
 
 import capstone.sangcom.dto.userSection.auth.AuthStudentDTO;
 import capstone.sangcom.repository.auth.AuthStudentRepository;
-import capstone.sangcom.repository.dao.AuthStudentDAO;
+import capstone.sangcom.repository.dao.auth.AuthStudentDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

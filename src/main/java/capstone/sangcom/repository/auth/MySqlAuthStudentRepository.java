@@ -1,6 +1,6 @@
 package capstone.sangcom.repository.auth;
 
-import capstone.sangcom.repository.dao.AuthStudentDAO;
+import capstone.sangcom.repository.dao.auth.AuthStudentDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.RowMapper;
@@ -35,8 +35,8 @@ public class MySqlAuthStudentRepository implements AuthStudentRepository {
 
     private final AuthStudentRowMapper rowMapper;
 
-    public MySqlAuthStudentRepository(DataSource dataSource) {
-        this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+    public MySqlAuthStudentRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.jdbcTemplate = namedParameterJdbcTemplate;
         this.rowMapper = new AuthStudentRowMapper();
     }
 
@@ -106,7 +106,7 @@ public class MySqlAuthStudentRepository implements AuthStudentRepository {
 
     private Map<String, Object> makeParam(AuthStudentDAO authStudentDAO) {
         Map<String, Object> params = new HashMap<>();
-        params.put("student_id", authStudentDAO.getStudentId());
+        params.put("student_id", authStudentDAO.getStudent_id());
         params.put("name", authStudentDAO.getName());
 
         return params;

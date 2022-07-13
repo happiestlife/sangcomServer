@@ -1,12 +1,11 @@
 package capstone.sangcom.repository;
 
-import capstone.sangcom.repository.dao.TokenDAO;
+import capstone.sangcom.repository.dao.auth.TokenDAO;
 import capstone.sangcom.repository.token.MySqlTokenRepository;
 import capstone.sangcom.repository.user.MySqlUserRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.ActiveProfiles;
 
 import static capstone.sangcom.testCase.token.TokenTestCase.*;

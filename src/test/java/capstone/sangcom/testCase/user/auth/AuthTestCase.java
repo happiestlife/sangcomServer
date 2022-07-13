@@ -1,6 +1,6 @@
 package capstone.sangcom.testCase.user.auth;
 
-import capstone.sangcom.repository.dao.AuthStudentDAO;
+import capstone.sangcom.repository.dao.auth.AuthStudentDAO;
 
 public class AuthTestCase {
 

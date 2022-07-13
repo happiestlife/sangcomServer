@@ -1,6 +1,7 @@
 package capstone.sangcom.config;
 
 import capstone.sangcom.config.interceptor.LoginApiInterceptor;
+import capstone.sangcom.config.interceptor.MasterAuthInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
@@ -22,7 +23,7 @@ public class ApiConfig implements WebMvcConfigurer {
             "/api/notice",
 
             // board 관련
-            "/api/board/goodcount/**", "/api/board/scrapcount/**", "/api/board/search", "/api/board",
+            "/api/board/goodcount/**", "/api/board/scrapcount/**", "/api/board/search",
 
             // user 관련
             "/api/user/profile",
@@ -42,11 +43,20 @@ public class ApiConfig implements WebMvcConfigurer {
                 .addPathPatterns("/api/**")
                 .excludePathPatterns(EXCLUDE_API_PATHS)
                 .order(1);
+
+        registry.addInterceptor(masterAuthInterceptor())
+                .addPathPatterns("/api/user/auth/student", "/api/user/auth/student/all")
+                .order(1);
     }
 
     @Bean
     public LoginApiInterceptor jwtApiInterceptor() {
         return new LoginApiInterceptor();
+    }
+
+    @Bean
+    public MasterAuthInterceptor masterAuthInterceptor() {
+        return new MasterAuthInterceptor();
     }
 
     @Bean

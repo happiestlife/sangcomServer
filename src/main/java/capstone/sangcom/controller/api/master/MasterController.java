@@ -3,7 +3,7 @@ package capstone.sangcom.controller.api.master;
 import capstone.sangcom.controller.api.response.common.SimpleResponse;
 import capstone.sangcom.dto.userSection.auth.AuthStudentDTO;
 import capstone.sangcom.entity.JwtUser;
-import capstone.sangcom.repository.dao.AuthStudentDAO;
+import capstone.sangcom.repository.dao.auth.AuthStudentDAO;
 import capstone.sangcom.service.auth.master.MasterAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

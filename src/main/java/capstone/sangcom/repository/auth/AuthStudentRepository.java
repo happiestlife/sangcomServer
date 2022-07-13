@@ -1,6 +1,6 @@
 package capstone.sangcom.repository.auth;
 
-import capstone.sangcom.repository.dao.AuthStudentDAO;
+import capstone.sangcom.repository.dao.auth.AuthStudentDAO;
 
 import java.util.List;
 

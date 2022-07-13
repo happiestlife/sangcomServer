@@ -2,8 +2,10 @@ package capstone.sangcom.util.login;
 
 import java.util.Random;
 
-public class TempPasswordManager {
-
+/**
+ * 비밀번호 찾기에서 5~15자리 임시 비밀번호를 생성해주는 Util
+ */
+public class TempPasswordUtils {
     private static final String UPPER_CASE_ALPHABET[] = {
             "A", "B", "C", "D", "E", "F", "G",
             "H", "I", "J", "K", "L", "M", "N",
@@ -29,7 +31,7 @@ public class TempPasswordManager {
     public static String makeTemporaryPassword() {
         Random random = new Random(System.currentTimeMillis());
 
-        int length = random.nextInt(10) + 1;
+        int length = random.nextInt(10) + 5;
 
         String temporaryPassword = "";
         for (int i = 0; i < length; i++) {
@@ -56,8 +58,6 @@ public class TempPasswordManager {
                 arr = SPECIAL_CHARACTER;
                 break;
         }
-        System.out.println("part " + part);
-        System.out.println(random.nextInt(arr.length));
 
         return arr[random.nextInt(arr.length)];
     }

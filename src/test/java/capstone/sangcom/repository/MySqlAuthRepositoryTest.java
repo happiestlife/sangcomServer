@@ -1,7 +1,7 @@
 package capstone.sangcom.repository;
 
 import capstone.sangcom.repository.auth.MySqlAuthStudentRepository;
-import capstone.sangcom.repository.dao.AuthStudentDAO;
+import capstone.sangcom.repository.dao.auth.AuthStudentDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +52,7 @@ class MySqlAuthRepositoryTest {
 
     @Test
     public void 학번조회_실패_존재하지않는아이디() {
-        assertThat(repository.find(new AuthStudentDAO("wrongId", AUTH_STUDENT_DAO_1.getStudentId()))).isNull();
+        assertThat(repository.find(new AuthStudentDAO("wrongId", AUTH_STUDENT_DAO_1.getStudent_id()))).isNull();
     }
 
     @Test
@@ -72,7 +72,7 @@ class MySqlAuthRepositoryTest {
 
     @Test
     public void 학번삭제_실패_존재하지않는아이디() {
-        assertThat(repository.delete(new AuthStudentDAO("wrongId", AUTH_STUDENT_DAO_1.getStudentId()))).isFalse();
+        assertThat(repository.delete(new AuthStudentDAO("wrongId", AUTH_STUDENT_DAO_1.getStudent_id()))).isFalse();
 
         assertThat(repository.findAll().size()).isSameAs(1);
     }
@@ -80,7 +80,7 @@ class MySqlAuthRepositoryTest {
     private void compareAuthStudent(AuthStudentDAO standard, AuthStudentDAO compare) {
 
         assertThat(compare.getName()).isEqualTo(standard.getName());
-        assertThat(compare.getStudentId()).isEqualTo(standard.getStudentId());
+        assertThat(compare.getStudent_id()).isEqualTo(standard.getStudent_id());
 
     }
 }
