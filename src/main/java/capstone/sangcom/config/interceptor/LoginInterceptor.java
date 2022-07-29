@@ -1,7 +1,6 @@
 package capstone.sangcom.config.interceptor;
 
-import capstone.sangcom.config.auth.JwtManager;
-import capstone.sangcom.controller.api.FailHeader;
+import capstone.sangcom.util.auth.JwtUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.Cookie;
@@ -21,7 +20,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        request.setAttribute("user", JwtManager.getUserFromToken(token));
+        request.setAttribute("user", JwtUtils.getUserFromToken(token));
 
         return true;
     }
@@ -33,8 +32,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         String token = null;
         for (Cookie cookie : cookies) {
             if(cookie.getName() == "auth")
-                token = JwtManager.getTokenFromHeader(cookie.getValue());
-            if(JwtManager.isValidToken(token))
+                token = JwtUtils.getTokenFromHeader(cookie.getValue());
+            if(JwtUtils.isValidToken(token))
                 return token;
         }
 

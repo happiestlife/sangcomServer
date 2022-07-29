@@ -1,8 +1,11 @@
 package capstone.sangcom.repository.user;
 
-import capstone.sangcom.dto.login.UpdateUserInfoDTO;
+import capstone.sangcom.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
 import capstone.sangcom.entity.UserRole;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -15,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Repository
 public class MySqlUserRepository implements UserRepository{
 
@@ -30,28 +34,36 @@ public class MySqlUserRepository implements UserRepository{
         }
     }
 
-    private NamedParameterJdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate jdbcTemplate;
 
     private final UserRowMapper userRowMapper;
 
-    public MySqlUserRepository(DataSource dataSource) {
-        this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+    public MySqlUserRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.jdbcTemplate = namedParameterJdbcTemplate;
         this.userRowMapper = new UserRowMapper();
     }
 
     @Override
-    public User create(User user) {
+    public User insert(User user) {
         String query = "INSERT INTO " + USER_TABLE +
                 " VALUES(:id, :password, :name, :phone, :schoolgrade," +
                 " :schoolclass, :schoolnumber, :role, :year, :birth, :email)";
 
         Map<String, Object> params = makeUserParam(user);
-        jdbcTemplate.update(query, params);
 
-        return user;
+        try {
+            int rs = jdbcTemplate.update(query, params);
+
+            if (rs == 1) return user;
+            else return null;
+        } catch (DuplicateKeyException e) {
+            log.info("[DuplicateKeyException] Id is already exist");
+
+            return null;
+        }
     }
 
-    //        int update = jdbcTemplate.update("INSERT INTO :table VALUES(:id, :password, :name, :phone, :schoolgrade, :schoolclass, :schoolnumber, :role, :year, :birth, :email)"
+//        int update = jdbcTemplate.update("INSERT INTO :table VALUES(:id, :password, :name, :phone, :schoolgrade, :schoolclass, :schoolnumber, :role, :year, :birth, :email)"
 //                , USER_TABLE
 //                , user.getId(), user.getPassword(), user.getName(), user.getPhone()
 //                , user.getSchoolgrade(), user.getSchoolclass(), user.getSchoolnumber()
@@ -65,10 +77,10 @@ public class MySqlUserRepository implements UserRepository{
         params.put("table", USER_TABLE);
         params.put("id", id);
 
-        List<User> result = jdbcTemplate.query(query, params, userRowMapper);
+        List<User> rs = jdbcTemplate.query(query, params, userRowMapper);
 
-        if(result.size() != 0)
-            return result.get(0);
+        if(rs.size() != 0)
+            return rs.get(0);
         else
             return null;
     }
@@ -86,10 +98,15 @@ public class MySqlUserRepository implements UserRepository{
         params.put("id", id);
         params.put("password", password);
 
-        int rs = jdbcTemplate.update(query, params);
+        try {
+            int rs = jdbcTemplate.update(query, params);
 
-        if(rs == 1) return true;
-        else return false;
+            if(rs == 1) return true;
+            else return false;
+        }catch (DataIntegrityViolationException e){
+            log.info("[DataIntegrityViolationException] Inserted data is over the length");
+            return false;
+        }
     }
 
     @Override
@@ -100,10 +117,15 @@ public class MySqlUserRepository implements UserRepository{
                 " WHERE id = :id";
         Map<String, Object> params = makeDetailUserParam(id, updateUserInfoDTO);
 
-        int rs = jdbcTemplate.update(query, params);
+        try {
+            int rs = jdbcTemplate.update(query, params);
 
-        if(rs == 1) return true;
-        else return false;
+            if(rs == 1) return true;
+            else return false;
+        }catch (DataIntegrityViolationException e){
+            log.info("[DataIntegrityViolationException] Inserted data is over the length");
+            return false;
+        }
     }
 
     @Override

@@ -1,12 +1,13 @@
 package capstone.sangcom.repository.user;
 
-import capstone.sangcom.dto.login.UpdateUserInfoDTO;
+import capstone.sangcom.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
 
 import java.util.*;
 
 //@Repository
 public class MemoryUserRepository implements UserRepository{
+
     private Map<String, User> repository;
 
     public MemoryUserRepository() {
@@ -14,12 +15,13 @@ public class MemoryUserRepository implements UserRepository{
     }
 
     @Override
-    public User create(User user){
+    public User insert(User user){
         if (!repository.containsKey(user.getId())) {
             repository.put(user.getId(), user);
-        }
 
-        return repository.get(user);
+            return repository.get(user.getId());
+        }else
+            return null;
     }
 
     @Override
@@ -28,6 +30,17 @@ public class MemoryUserRepository implements UserRepository{
             return repository.get(id);
         else
             return null;
+    }
+
+    @Override
+    public List<User> findAll() {
+        List<User> users = null;
+
+        for (String id : repository.keySet()) {
+            users.add(repository.get(id));
+        }
+
+        return users;
     }
 
     @Override
@@ -73,6 +86,19 @@ public class MemoryUserRepository implements UserRepository{
             return true;
         }else
             return false;
+    }
+
+    public void removeAll() {
+        repository.clear();
+    }
+
+    public List<User> selectAll() {
+        List<User> list = new ArrayList<User>();
+        for (String s : repository.keySet()) {
+            list.add(repository.get(s));
+        };
+
+        return list;
     }
 
 }

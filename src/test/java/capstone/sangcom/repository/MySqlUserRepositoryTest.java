@@ -1,45 +1,28 @@
 package capstone.sangcom.repository;
 
-import capstone.sangcom.dto.login.UpdateUserInfoDTO;
+import capstone.sangcom.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
-import capstone.sangcom.entity.UserRole;
 import capstone.sangcom.repository.user.MySqlUserRepository;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.List;
+
+import static capstone.sangcom.testCase.user.UserTestCase.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
 class MySqlUserRepositoryTest {
 
-    public final static User USER1 = new User("test1", "testPw1", "test1", "11112345678",
-            1, 1, 1, UserRole.valueOf("ADMIN"),
-            2020, "2022-06-01", "test1@naver.com");
-
-    public final static User USER2 = new User("test2", "testPw2", "test2", "22212345678",
-            2, 2, 2, UserRole.valueOf("TEACHER"),
-            2020, "2022-06-02", "test2@naver.com");
-
-    public final static User USER3 = new User("test3", "testPw3", "test3", "33312345678",
-            3, 3, 3, UserRole.valueOf("STUDENT"),
-            2020, "2022-06-03", "test3@naver.com");
-
-    public final static User USER4 = new User("test4", "testPw4", "test4", "44412345678",
-            4, 4, 4, UserRole.valueOf("STUDENT"),
-            2020, "2022-06-04", "test4@naver.com");
-
     private final static UpdateUserInfoDTO UPDATE_TEST_DATA[] = {
             new UpdateUserInfoDTO("test", 10, 10, 10, "2022-05-01", 1999, "testEmail"),
             new UpdateUserInfoDTO("OVER_PHONE_SIZE_OVER_PHONE_SIZE_", 9, 9, 9, "2022-05-02", 1990, "OVER_SIZE_PHONE"),
     };
+
+    private final static String WRONG_ID = "WRONG_ID";
 
     private final static String NEW_PASSWORD = "NEW_PASSWORD";
 
@@ -53,9 +36,9 @@ class MySqlUserRepositoryTest {
 
     @BeforeEach
     public void given() {
-        repository.create(USER1);
-        repository.create(USER2);
-        repository.create(USER3);
+        repository.insert(USER1);
+        repository.insert(USER2);
+        repository.insert(USER3);
     }
 
     @AfterEach
@@ -65,15 +48,14 @@ class MySqlUserRepositoryTest {
 
     @Test
     public void 회원가입_성공() {
-        repository.create(USER4);
+        repository.insert(USER4);
 
         assertThat(repository.findAll().size()).isEqualTo(4);
     }
 
     @Test
     public void 회원가입_실패_동일아이디존재() {
-        org.junit.jupiter.api.Assertions.assertThrows(DuplicateKeyException.class,
-                ()-> repository.create(USER3));
+        assertThat(repository.insert(USER3)).isNull();
     }
 
     @Test
@@ -85,9 +67,18 @@ class MySqlUserRepositoryTest {
 
     @Test
     public void 아이디로회원조회_실패_존재하지않는아이디() {
-        assertThat(repository.findById("wrongId")).isEqualTo(null);
+        assertThat(repository.findById(WRONG_ID)).isEqualTo(null);
     }
 
+    @Test
+    public void 전체회원조회_성공() {
+        List<User> users = repository.findAll();
+        assertThat(users.size()).isEqualTo(3);
+
+        compareUser(USER1, users.get(0));
+        compareUser(USER2, users.get(1));
+        compareUser(USER3 ,users.get(2));
+    }
 
     @Test
     public void 개인세부정보수정_성공() {
@@ -99,14 +90,14 @@ class MySqlUserRepositoryTest {
     @Test
     // 아이디 존재 x시 어떤 익셉션 발생할지 아직 모름
     public void 개인세부정보수정_실패_존재하지않는아이디() {
-        repository.update("wrongId", UPDATE_TEST_DATA[0]);
+        repository.update(WRONG_ID, UPDATE_TEST_DATA[0]);
 
     }
 
     @Test
     // 핸드폰 크기(VARCHAR(20))보다 큰 데이터 입력시 어떤 익셉션 발생할지 아직 모름
     public void 개인세부정보수정_실패_요구사항에맞지않는값입력() {
-        Assertions.assertThrows(DataIntegrityViolationException.class, () ->repository.update(USER1.getId(), UPDATE_TEST_DATA[1]));
+        assertThat(repository.update(USER1.getId(), UPDATE_TEST_DATA[1])).isFalse();
     }
 
     @Test
@@ -126,7 +117,7 @@ class MySqlUserRepositoryTest {
 
     @Test
     public void 비밀번호변경_실패_존재하지않는아이디() {
-        repository.update("wrongId", NEW_PASSWORD);
+        repository.update(WRONG_ID, NEW_PASSWORD);
     }
 
 
@@ -140,7 +131,7 @@ class MySqlUserRepositoryTest {
 
     @Test
     public void 회원탈퇴_실패_존재하지않는아이디() {
-        assertThat(repository.delete("wrongId")).isFalse();
+        assertThat(repository.delete(WRONG_ID)).isFalse();
 
         assertThat(repository.findAll().size()).isEqualTo(3);
     }

@@ -35,10 +35,15 @@ dependencies {
 	// 암호화
 	implementation 'org.bouncycastle:bcprov-jdk15on:1.70'
 
+	// excel 관련 라이브러리
+	implementation group: 'org.apache.poi', name: 'poi', version: '4.1.2'
+	implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
+	implementation group: 'commons-io', name: 'commons-io', version: '2.4'
+
 	// 데이터베이스
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-    implementation 'org.jetbrains:annotations:20.1.0'
-    // 테스트용 DB : H2
+	implementation 'org.jetbrains:annotations:20.1.0'
+	// 테스트용 DB : H2
 	runtimeOnly 'com.h2database:h2'
 	// 실제 운영용 DB : MySQL
 	runtimeOnly 'mysql:mysql-connector-java'
