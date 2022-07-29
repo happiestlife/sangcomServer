@@ -1,8 +1,8 @@
 package capstone.sangcom.controller.api;
 
-import capstone.sangcom.dto.login.FindPasswordDTO;
 import capstone.sangcom.dto.login.MailDTO;
 import capstone.sangcom.dto.login.SetPasswordDTO;
+import capstone.sangcom.dto.loginSection.find.FindPasswordDTO;
 import capstone.sangcom.entity.User;
 import capstone.sangcom.service.user.EmailService;
 import capstone.sangcom.service.user.UserService;

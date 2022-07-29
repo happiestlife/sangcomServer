@@ -23,7 +23,6 @@ public class EmailServiceImpl implements EmailService{
     private PasswordEncoder passwordEncoder;
     private JavaMailSender emailSender;
 
-    @Bean
     @Override
     public void sendFeedback(MailDTO mailDTO) {
         SimpleMailMessage message = new SimpleMailMessage();
