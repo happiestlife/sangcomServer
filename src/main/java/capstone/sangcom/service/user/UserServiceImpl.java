@@ -4,10 +4,14 @@ import capstone.sangcom.dto.loginSection.find.FindPasswordDTO;
 import capstone.sangcom.dto.loginSection.login.LoginDTO;
 import capstone.sangcom.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
+import capstone.sangcom.entity.UserDTO;
 import capstone.sangcom.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,7 +19,6 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-//    private final UserDAO userDAO;
 
     @Override
     public User login(LoginDTO loginDTO) {
@@ -47,16 +50,11 @@ public class UserServiceImpl implements UserService{
         return userRepository.findById(id);
     }
 
-//    @Override
-//    public User getUserInfo(String id) {
-//        User user = null;
-//        try{
-//            user = userDAO.getUserInfoDAO(id);
-//        }catch(Exception e){
-//            e.printStackTrace();
-//        }
-//        return user;
-//    }
+    @Override
+    public UserDTO getUserInfo(String id) {
+        User user = userRepository.findById(id);
+        return new UserDTO(user);
+    }
 
     @Override
     public boolean editProfile(String id) {

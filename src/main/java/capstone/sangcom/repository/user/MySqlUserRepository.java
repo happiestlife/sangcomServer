@@ -2,6 +2,7 @@ package capstone.sangcom.repository.user;
 
 import capstone.sangcom.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
+import capstone.sangcom.entity.UserDTO;
 import capstone.sangcom.entity.UserRole;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
