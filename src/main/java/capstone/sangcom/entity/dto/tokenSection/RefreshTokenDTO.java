@@ -1,4 +1,4 @@
-package capstone.sangcom.dto.tokenSection;
+package capstone.sangcom.entity.dto.tokenSection;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

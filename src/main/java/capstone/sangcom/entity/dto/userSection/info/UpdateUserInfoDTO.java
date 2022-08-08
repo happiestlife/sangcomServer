@@ -1,4 +1,4 @@
-package capstone.sangcom.dto.userSection.info;
+package capstone.sangcom.entity.dto.userSection.info;
 
 import lombok.Data;
 

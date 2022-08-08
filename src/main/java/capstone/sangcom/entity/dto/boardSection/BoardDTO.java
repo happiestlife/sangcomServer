@@ -1,6 +1,5 @@
-package capstone.sangcom.dto.boardSection;
+package capstone.sangcom.entity.dto.boardSection;
 
-import capstone.sangcom.repository.dao.board.BoardDAO;
 import lombok.Data;
 
 @Data

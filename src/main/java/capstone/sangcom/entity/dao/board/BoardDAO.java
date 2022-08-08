@@ -1,4 +1,4 @@
-package capstone.sangcom.repository.dao.board;
+package capstone.sangcom.entity.dao.board;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

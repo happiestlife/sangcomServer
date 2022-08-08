@@ -1,4 +1,4 @@
-package capstone.sangcom.dto.userSection.auth;
+package capstone.sangcom.entity.dto.userSection.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

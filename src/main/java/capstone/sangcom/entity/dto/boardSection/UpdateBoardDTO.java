@@ -1,4 +1,4 @@
-package capstone.sangcom.dto.boardSection;
+package capstone.sangcom.entity.dto.boardSection;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;

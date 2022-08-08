@@ -1,4 +1,4 @@
-package capstone.sangcom.dto.mailSection;
+package capstone.sangcom.entity.dto.mailSection;
 
 import lombok.Data;
 

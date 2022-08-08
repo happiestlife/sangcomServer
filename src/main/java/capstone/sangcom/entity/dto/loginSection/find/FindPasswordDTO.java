@@ -1,4 +1,4 @@
-package capstone.sangcom.dto.loginSection.find;
+package capstone.sangcom.entity.dto.loginSection.find;
 
 
 import lombok.*;
