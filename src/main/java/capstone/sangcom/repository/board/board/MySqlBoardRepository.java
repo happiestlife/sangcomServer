@@ -1,10 +1,9 @@
 package capstone.sangcom.repository.board.board;
 
-import capstone.sangcom.dto.boardSection.BoardDTO;
-import capstone.sangcom.dto.boardSection.BoardDetailDTO;
-import capstone.sangcom.dto.boardSection.ReadBoardDTO;
-import capstone.sangcom.dto.boardSection.UpdateBoardDTO;
-import capstone.sangcom.repository.dao.board.BoardDAO;
+import capstone.sangcom.entity.dto.boardSection.BoardDTO;
+import capstone.sangcom.entity.dto.boardSection.BoardDetailDTO;
+import capstone.sangcom.entity.dto.boardSection.UpdateBoardDTO;
+import capstone.sangcom.entity.dao.board.BoardDAO;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -12,7 +11,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -78,6 +76,15 @@ public class MySqlBoardRepository implements BoardRepository {
     }
 
     @Override
+    public List<String> findUser(String boardId) {
+        String query = "SELECT user_id FROM " + BOARD_TABLE + " WHERE board_id = :board_id";
+        return jdbcTemplate.query(query,
+                new MapSqlParameterSource()
+                        .addValue("board_id", boardId),
+                ((rs, rowNum) -> rs.getString("user_id")));
+    }
+
+    @Override
     // 게시글 종류에 해당하는 모든 게시글 조회
     public List<BoardDTO> readAll(String type) {
         String query = "SELECT " + BOARD_TABLE + ".*, " +
@@ -98,10 +105,14 @@ public class MySqlBoardRepository implements BoardRepository {
         String query = "SELECT " + BOARD_TABLE + ".*, " +
                 "(SELECT COUNT(board_id) FROM " + BOARD_GOOD_TABLE + " WHERE " + BOARD_TABLE + ".board_id=" + BOARD_GOOD_TABLE + ".board_id) AS goodCount, " +
                 "(SELECT COUNT(board_id) FROM " + REPLY_TABLE + " WHERE " + BOARD_TABLE + ".board_id=" + REPLY_TABLE + ".board_id) AS replyCount, " +
-                "(SELECT COUNT(board_id) FROM " + SCRAP_TABLE + " WHERE " + BOARD_TABLE + ".board_id=" + SCRAP_TABLE + ".board_id) AS scrapCount " +
+                "(SELECT COUNT(board_id) FROM " + SCRAP_TABLE + " WHERE " + BOARD_TABLE + ".board_id=" + SCRAP_TABLE + ".board_id) AS scrapCount, " +
                 "IF((SELECT COUNT(board_id) FROM " + BOARD_GOOD_TABLE + " WHERE user_id=:user_id AND " + BOARD_GOOD_TABLE + ".board_id=" + BOARD_TABLE + ".board_id) > 0, 'Y', 'N') AS goodCheck, " +
                 "IF((SELECT COUNT(board_id) FROM " + SCRAP_TABLE + " WHERE user_id=:user_id AND " + SCRAP_TABLE + ".board_id=" + BOARD_TABLE + ".board_id) > 0, 'Y', 'N') AS scrapCheck " +
-                "FROM " + BOARD_TABLE + " WHERE board_id = :board_id";
+                "FROM " + BOARD_TABLE + " WHERE board_id =:board_id";
+
+//        if((select count(board_id) from boardgood WHERE user_id=? AND boardgood.board_id=board.board_id) > 0 , 'Y', 'N') as goodCheck,
+//        if((select count(board_id) from scrap WHERE user_id=? AND scrap.board_id=board.board_id) > 0 , 'Y', 'N') as scrapCheck
+//        from board where board_id = ?
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("user_id", userId);
@@ -114,6 +125,21 @@ public class MySqlBoardRepository implements BoardRepository {
             boardDetail.setUserCheck("Y");
 
         return boardDetail;
+    }
+
+    @Override
+    public List<BoardDTO> readBoardWithReply(String userId) {
+        String query = "SELECT " + BOARD_TABLE + ".*, " +
+                "(SELECT COUNT(board_id) FROM " + BOARD_GOOD_TABLE + " WHERE " + BOARD_TABLE + ".board_id = " + BOARD_GOOD_TABLE + ".board_id) AS goodCount, " +
+                "(SELECT COUNT(board_id) FROM " + REPLY_TABLE + " WHERE " + BOARD_TABLE + ".board_id = " + REPLY_TABLE + ".board_id) AS replyCount, " +
+                "(SELECT COUNT(board_id) FROM " + SCRAP_TABLE + " WHERE " + BOARD_TABLE + ".board_id = " + SCRAP_TABLE + ".board_id) AS scrapCount" +
+                "FROM (SELECT DISTINCT board_id FROM " + REPLY_TABLE + " WHERE user_id = :user_id) AS MR INNER JOIN " + BOARD_TABLE + " ON MR.board_id = " + BOARD_TABLE + ".board_id " +
+                "ORDER BY regdate DESC";
+
+        return jdbcTemplate.query(query,
+                new MapSqlParameterSource()
+                        .addValue("user_id", userId),
+                boardRowMapper);
     }
 
     @Override

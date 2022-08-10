@@ -1,29 +1,26 @@
 package capstone.sangcom.service.board;
 
-import capstone.sangcom.dto.boardSection.BoardDTO;
-import capstone.sangcom.dto.boardSection.BoardDetailDTO;
-import capstone.sangcom.dto.boardSection.ReadBoardDTO;
-import capstone.sangcom.dto.boardSection.UpdateBoardDTO;
+import capstone.sangcom.entity.dto.boardSection.BoardDTO;
+import capstone.sangcom.entity.dto.boardSection.BoardDetailDTO;
+import capstone.sangcom.entity.dto.boardSection.ReadBoardDTO;
+import capstone.sangcom.entity.dto.boardSection.UpdateBoardDTO;
 import capstone.sangcom.entity.UserRole;
 import capstone.sangcom.repository.board.board.BoardRepository;
 import capstone.sangcom.repository.board.boardPath.BoardPathRepository;
-import capstone.sangcom.repository.dao.board.BoardDAO;
-import capstone.sangcom.repository.dao.board.BoardPathDAO;
+import capstone.sangcom.repository.reply.ReplyRepository;
+import capstone.sangcom.entity.dao.board.BoardDAO;
+import capstone.sangcom.entity.dao.board.BoardPathDAO;
 import capstone.sangcom.util.board.ImageUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
-import java.util.logging.SimpleFormatter;
 
 @Service
 @Slf4j
@@ -35,7 +32,6 @@ public class BoardServiceImpl implements BoardService{
     private final BoardRepository boardRepository;
 
     private final BoardPathRepository boardPathRepository;
-
 
     @Override
     @Transactional
@@ -95,23 +91,30 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
+    public List<BoardDTO> readBoardWithMyReply(String id) {
+        return boardRepository.readBoardWithReply(id);
+    }
+
+    @Override
     @Transactional
     public boolean update(String userId, int boardId, UpdateBoardDTO updateBoardDTO) {
         // 게시글을 작성한 사용자가 맞는지 확인 -> 서비스 계층에서 구현
         if(boardRepository.isUserWriteBoard(boardId, userId))
             return false;
 
-        System.out.println("사용자가 맞습니당");
         // 기존의 게시글의 이미지 삭제
+        List<String> paths = boardPathRepository.find(boardId);
         boardPathRepository.delete(boardId);
+        for (String imagePath : paths) {
+            imageUtils.delete(imagePath);
+        }
 
-        System.out.println("이미지 경로 삭제 완료");
         // 게시글 수정
         if(!boardRepository.updateBoard(boardId, updateBoardDTO))
             return false;
 
         // 게시글 속 새로운 이미지 경로 저장
-        List<String> paths = new ArrayList<>();
+        paths = new ArrayList<>();
         for (MultipartFile image : updateBoardDTO.getImages()) {
             String path = imageUtils.makePath(ImageUtils.BOARD, image);
 
@@ -120,14 +123,13 @@ public class BoardServiceImpl implements BoardService{
                 return false;
         }
 
-        System.out.println("경로 저장 완료");
         // 서비스 계층에서 실제 이미지 저장
         int i = 0;
         for (MultipartFile image : updateBoardDTO.getImages()) {
             try {
                 imageUtils.store(image, new File(paths.get(i++)));
             } catch (IOException e) {
-                System.out.println("EXCEPTION IS OCCURRED");
+                System.out.println("IMAGE INSERT EXCEPTION IS OCCURRED");
                 return false;
             }
         }
@@ -151,11 +153,9 @@ public class BoardServiceImpl implements BoardService{
 
         // 이미지 삭제 -> 서비스 계층에서 구현
         for (String path : paths) {
-            File file = new File(path);
-            if(file.exists())
-                file.delete();
+            imageUtils.delete(path);
         }
 
-        return false;
+        return true;
     }
 }
