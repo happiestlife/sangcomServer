@@ -7,13 +7,13 @@ import capstone.sangcom.entity.User;
 import capstone.sangcom.entity.UserDTO;
 import capstone.sangcom.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
 
@@ -69,6 +69,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional
     public boolean editUserInfo(String id, UpdateUserInfoDTO updateUserInfoDTO) {
         return userRepository.update(id, updateUserInfoDTO);
     }

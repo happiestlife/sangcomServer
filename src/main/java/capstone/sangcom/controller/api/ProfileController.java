@@ -1,5 +1,6 @@
 package capstone.sangcom.controller.api;
 
+import capstone.sangcom.controller.api.response.common.SimpleResponse;
 import capstone.sangcom.controller.api.response.user.UserResponse;
 import capstone.sangcom.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.entity.JwtUser;
@@ -13,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
+@RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class ProfileController {
     private final UserService userService;
-
 
     /**
      * 회원정보보기
@@ -32,9 +33,17 @@ public class ProfileController {
     /**
      * 회원정보수정
      * */
-    @PutMapping("/info")
+    @PutMapping("/infos")
     @ResponseStatus(HttpStatus.OK)
-    public void updateUserInfo(String id, @RequestBody UpdateUserInfoDTO updateUserInfoDTO) throws Exception {
-        userService.editUserInfo(id, updateUserInfoDTO);
+    public ResponseEntity<SimpleResponse> updateUserInfo(HttpServletRequest request, @RequestBody UpdateUserInfoDTO updateUserInfoDTO){
+        JwtUser user = (JwtUser) request.getAttribute("user");
+
+        if (userService.editUserInfo(user.getId(), updateUserInfoDTO))
+            return ResponseEntity
+                    .ok(new SimpleResponse(true));
+        else
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new SimpleResponse(false));
     }
 }
