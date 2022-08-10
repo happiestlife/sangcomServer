@@ -31,4 +31,11 @@ public class ImageUtils {
         image.transferTo(imageFile);
     }
 
+    public void delete(String path) {
+        File file = new File(path);
+        if (file.exists()) {
+            file.delete();
+        }
+    }
+
 }
