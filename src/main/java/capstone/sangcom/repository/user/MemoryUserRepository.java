@@ -1,6 +1,6 @@
 package capstone.sangcom.repository.user;
 
-import capstone.sangcom.dto.userSection.info.UpdateUserInfoDTO;
+import capstone.sangcom.entity.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
 
 import java.util.*;

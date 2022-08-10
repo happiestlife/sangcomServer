@@ -1,9 +1,9 @@
 package capstone.sangcom.controller.api.master;
 
 import capstone.sangcom.controller.api.response.common.SimpleResponse;
-import capstone.sangcom.dto.userSection.auth.AuthStudentDTO;
+import capstone.sangcom.entity.dto.userSection.auth.AuthStudentDTO;
 import capstone.sangcom.entity.JwtUser;
-import capstone.sangcom.repository.dao.auth.AuthStudentDAO;
+import capstone.sangcom.entity.dao.auth.AuthStudentDAO;
 import capstone.sangcom.service.auth.master.MasterAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user/auth")
 public class MasterController {

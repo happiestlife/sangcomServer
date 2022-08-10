@@ -1,6 +1,6 @@
 package capstone.sangcom.service.mail;
 
-import capstone.sangcom.dto.mailSection.MailInfoDTO;
+import capstone.sangcom.entity.dto.mailSection.MailInfoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

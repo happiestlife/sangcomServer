@@ -1,6 +1,6 @@
 package capstone.sangcom.controller.api.response.board;
 
-import capstone.sangcom.dto.boardSection.BoardDetailDTO;
+import capstone.sangcom.entity.dto.boardSection.BoardDetailDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

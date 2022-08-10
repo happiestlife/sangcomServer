@@ -1,6 +1,6 @@
 package capstone.sangcom.repository.board.boardPath;
 
-import capstone.sangcom.repository.dao.board.BoardPathDAO;
+import capstone.sangcom.entity.dao.board.BoardPathDAO;
 
 import java.util.List;
 

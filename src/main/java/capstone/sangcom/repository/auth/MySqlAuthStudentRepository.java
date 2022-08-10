@@ -1,6 +1,6 @@
 package capstone.sangcom.repository.auth;
 
-import capstone.sangcom.repository.dao.auth.AuthStudentDAO;
+import capstone.sangcom.entity.dao.auth.AuthStudentDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.RowMapper;
@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;

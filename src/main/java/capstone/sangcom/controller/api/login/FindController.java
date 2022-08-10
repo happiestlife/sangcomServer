@@ -1,9 +1,9 @@
 package capstone.sangcom.controller.api.login;
 
 import capstone.sangcom.controller.api.response.common.SimpleResponse;
-import capstone.sangcom.dto.loginSection.find.FindPasswordDTO;
-import capstone.sangcom.dto.mailSection.MailInfoDTO;
-import capstone.sangcom.dto.userSection.auth.AuthStudentDTO;
+import capstone.sangcom.entity.dto.loginSection.find.FindPasswordDTO;
+import capstone.sangcom.entity.dto.mailSection.MailInfoDTO;
+import capstone.sangcom.entity.dto.userSection.auth.AuthStudentDTO;
 import capstone.sangcom.entity.User;
 import capstone.sangcom.service.auth.student.StudentAuthService;
 import capstone.sangcom.service.mail.MailService;
