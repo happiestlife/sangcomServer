@@ -1,5 +1,6 @@
 package capstone.sangcom.repository.report;
 
+import capstone.sangcom.dto.reportSection.ReplyReportDTO;
 import capstone.sangcom.dto.reportSection.ReportDTO;
 
 public interface ReportRepository {

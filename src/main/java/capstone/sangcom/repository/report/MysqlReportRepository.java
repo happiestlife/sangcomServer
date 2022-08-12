@@ -2,6 +2,7 @@ package capstone.sangcom.repository.report;
 
 import capstone.sangcom.dto.boardSection.BoardDTO;
 import capstone.sangcom.dto.boardSection.BoardDetailDTO;
+import capstone.sangcom.dto.reportSection.ReplyReportDTO;
 import capstone.sangcom.dto.reportSection.ReportDTO;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -26,7 +27,7 @@ public class MysqlReportRepository implements ReportRepository{
     }
 
     @Override
-    // 자신이 신고한 신고목록 조회
+    // 자신이 신고한 신고목록 조회(게시판)
     public ReportDTO getMyReport(String userId) {
         String query = "SELECT * FROM" + BOARD_REPORT_TABLE + "WHERE send_id= :id";
 
@@ -38,6 +39,7 @@ public class MysqlReportRepository implements ReportRepository{
 
         return reportDTO;
     }
+
     private class ReportRowMapper implements RowMapper<ReportDTO>{
 
         @Override

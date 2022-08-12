@@ -1,7 +1,6 @@
 package capstone.sangcom.controller.api.reply;
 
-import capstone.sangcom.controller.api.response.ReportResponse;
-import capstone.sangcom.controller.api.response.common.SimpleResponse;
+import capstone.sangcom.controller.api.response.reply.ReportResponse;
 import capstone.sangcom.dto.reportSection.ReadReportDTO;
 import capstone.sangcom.dto.reportSection.ReportDTO;
 import capstone.sangcom.entity.JwtUser;
@@ -24,7 +23,7 @@ public class ReportController {
 
     private final ReportService reportService;
     /**
-     * 자신이 신고한 신고목록 조회
+     * 자신이 신고한 신고목록 조회(게시판)
      * GET
      * /api/board/report/me
      * */

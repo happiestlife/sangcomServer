@@ -1,4 +1,4 @@
-package capstone.sangcom.controller.api.response;
+package capstone.sangcom.controller.api.response.reply;
 import capstone.sangcom.dto.reportSection.ReportDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

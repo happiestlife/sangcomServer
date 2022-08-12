@@ -1,6 +1,8 @@
 package capstone.sangcom.service.report;
 
+import capstone.sangcom.dto.reportSection.ReadReplyReportDTO;
 import capstone.sangcom.dto.reportSection.ReadReportDTO;
+import capstone.sangcom.dto.reportSection.ReplyReportDTO;
 import capstone.sangcom.dto.reportSection.ReportDTO;
 import capstone.sangcom.repository.report.ReportRepository;
 import lombok.RequiredArgsConstructor;
