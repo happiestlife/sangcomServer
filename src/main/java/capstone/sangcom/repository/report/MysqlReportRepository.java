@@ -29,7 +29,7 @@ public class MysqlReportRepository implements ReportRepository{
     @Override
     // 자신이 신고한 신고목록 조회(게시판)
     public ReportDTO getMyReport(String userId) {
-        String query = "SELECT * FROM" + BOARD_REPORT_TABLE + "WHERE send_id= :id";
+        String query = "SELECT * FROM " + BOARD_REPORT_TABLE + " WHERE send_id= :user_id";
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("user_id", userId);

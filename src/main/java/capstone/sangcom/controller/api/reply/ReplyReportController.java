@@ -1,18 +1,17 @@
 package capstone.sangcom.controller.api.reply;
 
+import capstone.sangcom.controller.api.response.common.SimpleResponse;
 import capstone.sangcom.controller.api.response.reply.ReplyReportResponse;
+import capstone.sangcom.dto.reportSection.PostReplyReportDTO;
 import capstone.sangcom.dto.reportSection.ReadReplyReportDTO;
 import capstone.sangcom.dto.reportSection.ReplyReportDTO;
-import capstone.sangcom.dto.reportSection.ReportDTO;
 import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.service.report.ReplyReportService;
-import capstone.sangcom.service.report.ReportService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -40,6 +39,22 @@ public class ReplyReportController {
         return ResponseEntity
                 .ok(new ReplyReportResponse(true, replyReportDTO));
 
+    }
+
+    /**
+     * 댓글 신고 요청하기
+     * Post
+     * /api/reply/report
+     * */
+    @PostMapping
+    public ResponseEntity<SimpleResponse> reportReply(@RequestBody PostReplyReportDTO postReplyReportDTO){
+        if(replyReportService.reportReply(postReplyReportDTO)){
+            return ResponseEntity.ok(new SimpleResponse(true));
+        }else{
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new SimpleResponse(false));
+        }
     }
 
 }
