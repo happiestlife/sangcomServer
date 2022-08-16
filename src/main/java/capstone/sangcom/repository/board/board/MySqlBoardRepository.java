@@ -132,7 +132,7 @@ public class MySqlBoardRepository implements BoardRepository {
         String query = "SELECT " + BOARD_TABLE + ".*, " +
                 "(SELECT COUNT(board_id) FROM " + BOARD_GOOD_TABLE + " WHERE " + BOARD_TABLE + ".board_id = " + BOARD_GOOD_TABLE + ".board_id) AS goodCount, " +
                 "(SELECT COUNT(board_id) FROM " + REPLY_TABLE + " WHERE " + BOARD_TABLE + ".board_id = " + REPLY_TABLE + ".board_id) AS replyCount, " +
-                "(SELECT COUNT(board_id) FROM " + SCRAP_TABLE + " WHERE " + BOARD_TABLE + ".board_id = " + SCRAP_TABLE + ".board_id) AS scrapCount" +
+                "(SELECT COUNT(board_id) FROM " + SCRAP_TABLE + " WHERE " + BOARD_TABLE + ".board_id = " + SCRAP_TABLE + ".board_id) AS scrapCount " +
                 "FROM (SELECT DISTINCT board_id FROM " + REPLY_TABLE + " WHERE user_id = :user_id) AS MR INNER JOIN " + BOARD_TABLE + " ON MR.board_id = " + BOARD_TABLE + ".board_id " +
                 "ORDER BY regdate DESC";
 
