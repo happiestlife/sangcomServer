@@ -1,5 +1,7 @@
 package capstone.sangcom.service.auth.master;
 
+import capstone.sangcom.entity.dto.masterSection.UpdateStudentRoleDTO;
+import capstone.sangcom.entity.UserRole;
 import capstone.sangcom.entity.dto.userSection.auth.AuthStudentDTO;
 import capstone.sangcom.entity.ExcelData;
 import capstone.sangcom.entity.JwtUser;
@@ -101,16 +103,6 @@ public class MasterAuthServiceImpl implements MasterAuthService{
     }
 
     @Override
-    @Transactional
-    public boolean deleteStudent(ArrayList<AuthStudentDTO> list) {
-        for (AuthStudentDTO authStudentDTO : list) {
-            if(!authStudentRepository.delete(new AuthStudentDAO(authStudentDTO.getStudentId(), authStudentDTO.getName())))
-                return false;
-        }
-        return true;
-    }
-
-    @Override
     public List<JwtUser> getRegisteredStudent() {
         List<User> users = userRepository.findAll();
         if(users == null)
@@ -123,6 +115,21 @@ public class MasterAuthServiceImpl implements MasterAuthService{
         }
 
         return result;
+    }
+
+    @Override
+    public boolean updateStudentRole(UpdateStudentRoleDTO updateStudentRoleDTO) {
+        return userRepository.update(updateStudentRoleDTO.getUser_id(), UserRole.valueOf(updateStudentRoleDTO.getRole()));
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteStudent(ArrayList<AuthStudentDTO> list) {
+        for (AuthStudentDTO authStudentDTO : list) {
+            if(!authStudentRepository.delete(new AuthStudentDAO(authStudentDTO.getStudentId(), authStudentDTO.getName())))
+                return false;
+        }
+        return true;
     }
 
     private JwtUser userToJwtUser(User user) {

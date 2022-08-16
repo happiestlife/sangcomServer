@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -125,6 +126,20 @@ public class MySqlUserRepository implements UserRepository{
             log.info("[DataIntegrityViolationException] Inserted data is over the length");
             return false;
         }
+    }
+
+    @Override
+    public boolean update(String id, UserRole role) {
+        String query = "UPDATE " + USER_TABLE + " SET role = :role WHERE id = :id";
+        int rs = jdbcTemplate.update(query,
+                new MapSqlParameterSource()
+                        .addValue("role", role.toString())
+                        .addValue("id", id));
+
+        if(rs == 1)
+            return true;
+        else
+            return false;
     }
 
     @Override
