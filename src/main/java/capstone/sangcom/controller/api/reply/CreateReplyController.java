@@ -5,12 +5,10 @@ import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.entity.dto.replySection.CreateAndUpdateReplyDTO;
 import capstone.sangcom.entity.dto.replySection.ReplyCreateDTO;
 import capstone.sangcom.entity.dto.replySection.ReplyDTO;
-import capstone.sangcom.service.reply.ReplyService;
+import capstone.sangcom.service.board.reply.ReplyService;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
