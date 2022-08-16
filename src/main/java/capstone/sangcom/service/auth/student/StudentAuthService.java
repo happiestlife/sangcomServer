@@ -1,7 +1,7 @@
 package capstone.sangcom.service.auth.student;
 
 
-import capstone.sangcom.dto.userSection.auth.AuthStudentDTO;
+import capstone.sangcom.entity.dto.userSection.auth.AuthStudentDTO;
 
 public interface StudentAuthService {
 

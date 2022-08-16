@@ -1,6 +1,6 @@
 package capstone.sangcom.repository.token;
 
-import capstone.sangcom.repository.dao.auth.TokenDAO;
+import capstone.sangcom.entity.dao.auth.TokenDAO;
 
 import java.util.HashMap;
 
@@ -44,12 +44,17 @@ public class MemoryTokenRepository implements TokenRepository{
     }
 
     @Override
-    public String delete(String token) {
+    public String deleteByToken(String token) {
         if (repository.containsKey(token)) {
             repository.remove(token);
 
             return token;
         }else
             return null;
+    }
+
+    @Override
+    public boolean deleteById(String id) {
+        return false;
     }
 }

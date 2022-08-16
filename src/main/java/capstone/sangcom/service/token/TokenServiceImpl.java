@@ -3,7 +3,7 @@ package capstone.sangcom.service.token;
 import capstone.sangcom.util.auth.JwtUtils;
 import capstone.sangcom.controller.api.response.login.TokenResponse;
 import capstone.sangcom.entity.User;
-import capstone.sangcom.repository.dao.auth.TokenDAO;
+import capstone.sangcom.entity.dao.auth.TokenDAO;
 import capstone.sangcom.repository.token.TokenRepository;
 import capstone.sangcom.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class TokenServiceImpl implements TokenService{
     public String createNewTokenWithRefreshToken(String refreshToken) {
         TokenDAO token = tokenRepository.findByToken(refreshToken);
         if(token == null || (JwtUtils.isValidToken(token.getRefreshToken()) == false)){
-            tokenRepository.delete(refreshToken);
+            tokenRepository.deleteByToken(refreshToken);
 
             return null;
         }
@@ -41,10 +41,17 @@ public class TokenServiceImpl implements TokenService{
         String refreshToken = JwtUtils.createRefreshToken(user);
 
         String result = tokenRepository.insert(new TokenDAO(user.getId(), refreshToken));
+        if(result == null){
+            tokenRepository.deleteByToken(refreshToken);
 
-        if(result != null)
-            return new TokenResponse(accessToken, refreshToken);
-        else
-            return null;
+            tokenRepository.insert(new TokenDAO(user.getId(), refreshToken));
+        }
+
+        return new TokenResponse(accessToken, refreshToken);
+    }
+
+    @Override
+    public boolean delete(String id) {
+        return tokenRepository.deleteById(id);
     }
 }

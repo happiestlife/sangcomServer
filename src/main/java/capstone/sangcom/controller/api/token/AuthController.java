@@ -2,8 +2,8 @@ package capstone.sangcom.controller.api.token;
 
 import capstone.sangcom.util.auth.JwtUtils;
 import capstone.sangcom.controller.api.response.login.TokenResponse;
-import capstone.sangcom.dto.tokenSection.RefreshTokenDTO;
-import capstone.sangcom.dto.tokenSection.TokenValidateDTO;
+import capstone.sangcom.entity.dto.tokenSection.RefreshTokenDTO;
+import capstone.sangcom.entity.dto.tokenSection.TokenValidateDTO;
 import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.service.token.TokenService;
 import lombok.RequiredArgsConstructor;

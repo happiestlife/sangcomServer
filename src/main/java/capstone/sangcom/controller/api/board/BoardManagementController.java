@@ -1,16 +1,12 @@
 package capstone.sangcom.controller.api.board;
 
-import capstone.sangcom.controller.api.response.board.BoardResponse;
 import capstone.sangcom.controller.api.response.common.SimpleResponse;
-import capstone.sangcom.dto.boardSection.UpdateBoardDTO;
+import capstone.sangcom.entity.dto.boardSection.UpdateBoardDTO;
 import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.service.board.BoardService;
-import io.jsonwebtoken.Jwt;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +18,9 @@ public class BoardManagementController {
 
     private final BoardService boardService;
 
-    // 게시글 생성
+    /**
+     * 게시글 생성
+     */
     @PostMapping
     public ResponseEntity<SimpleResponse> createBoard(HttpServletRequest request,
                                                       @RequestParam String type,
@@ -38,7 +36,9 @@ public class BoardManagementController {
                     .body(new SimpleResponse(false));
     }
 
-    // 게시글 수정
+    /**
+     * 게시글 수정
+     */
     @PutMapping("/{boardId}")
     public ResponseEntity<SimpleResponse> updateBoard(HttpServletRequest request,
                                                       @PathVariable int boardId,
@@ -54,7 +54,10 @@ public class BoardManagementController {
                     .body(new SimpleResponse(false));
     }
 
-    // 게시글 삭제
+
+    /**
+     * 게시글 삭제
+     */
     @DeleteMapping("/{boardId}")
     public ResponseEntity<SimpleResponse> deleteBoard(HttpServletRequest request,
                                                       @PathVariable int boardId) {
