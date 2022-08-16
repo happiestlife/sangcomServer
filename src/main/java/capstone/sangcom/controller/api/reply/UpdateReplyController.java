@@ -18,7 +18,9 @@ public class UpdateReplyController {
 
     private final ReplyService replyService;
 
-
+    /**
+     * 댓글 수정
+     */
     @PutMapping("/{boardId}/{replyId}")
     public ResponseEntity<SimpleResponse> updateReply(HttpServletRequest request,
                                                       @PathVariable int replyId,

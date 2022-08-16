@@ -21,6 +21,9 @@ public class ReadReplyController {
 
     private final ReplyService replyService;
 
+    /**
+     * 댓글 조회
+     */
     @GetMapping("/{boardId}")
     public ResponseEntity<ReadReplyResponse> readAllReply(HttpServletRequest request,
                                                           @PathVariable int boardId) {

@@ -20,6 +20,9 @@ public class DeleteReplyController {
 
     private final ReplyService replyService;
 
+    /**
+     * 댓글 삭제
+     */
     @DeleteMapping("/{boardId}/{replyId}")
     public ResponseEntity<SimpleResponse> deleteReply(HttpServletRequest request,
                                                       @PathVariable int replyId) {

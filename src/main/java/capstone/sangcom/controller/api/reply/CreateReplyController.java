@@ -22,6 +22,9 @@ public class CreateReplyController {
 
     private final ReplyService replyService;
 
+    /**
+     * 댓글 작성
+     */
     @PostMapping("/{boardId}")
     public ResponseEntity<CreateReplyResponse> createReplyAyBoard(HttpServletRequest request,
                                                                   @PathVariable int boardId,
@@ -37,6 +40,9 @@ public class CreateReplyController {
                     .body(new CreateReplyResponse(false, null));
     }
 
+    /**
+     * 댓글에 대한 댓글 작성
+     */
     @PostMapping("/{boardId}/{replyId}")
     public ResponseEntity<CreateReplyResponse> createReplyAtReply(HttpServletRequest request,
                                                                   @PathVariable int boardId,
