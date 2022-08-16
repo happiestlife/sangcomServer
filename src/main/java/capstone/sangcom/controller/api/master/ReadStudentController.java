@@ -1,7 +1,9 @@
 package capstone.sangcom.controller.api.master;
 
+import capstone.sangcom.controller.api.response.master.RegisteredStudentResponse;
 import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.entity.dao.auth.AuthStudentDAO;
+import capstone.sangcom.entity.dto.masterSection.RegisteredStudentDTO;
 import capstone.sangcom.service.auth.master.MasterAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,16 +40,16 @@ public class ReadStudentController {
     /**
      * 회원가입한 모든 학생 정보 조회
      */
-    @GetMapping("/student/all")
-    public ResponseEntity<List<JwtUser>> getAllUser() {
-        List<JwtUser> users = masterAuthService.getRegisteredStudent();
+    @GetMapping("/master/student")
+    public ResponseEntity<RegisteredStudentResponse> getAllUser() {
+        List<RegisteredStudentDTO> studentsList = masterAuthService.getRegisteredStudent();
 
-        if(users != null)
+        if (studentsList != null)
             return ResponseEntity
-                    .ok(users);
+                    .ok(new RegisteredStudentResponse(true, studentsList));
         else
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .build();
+                    .body(new RegisteredStudentResponse(false, null));
     }
 }
