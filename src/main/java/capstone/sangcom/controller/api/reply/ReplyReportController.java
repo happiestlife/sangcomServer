@@ -2,9 +2,9 @@ package capstone.sangcom.controller.api.reply;
 
 import capstone.sangcom.controller.api.response.common.SimpleResponse;
 import capstone.sangcom.controller.api.response.reply.ReplyReportResponse;
-import capstone.sangcom.dto.reportSection.PostReplyReportDTO;
-import capstone.sangcom.dto.reportSection.ReadReplyReportDTO;
-import capstone.sangcom.dto.reportSection.ReplyReportDTO;
+import capstone.sangcom.entity.dto.reportSection.PostReplyReportDTO;
+import capstone.sangcom.entity.dto.reportSection.ReadReplyReportDTO;
+import capstone.sangcom.entity.dto.reportSection.ReplyReportDTO;
 import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.service.report.ReplyReportService;
 import lombok.RequiredArgsConstructor;

@@ -2,9 +2,10 @@ package capstone.sangcom.controller.api;
 
 import capstone.sangcom.controller.api.response.common.SimpleResponse;
 import capstone.sangcom.controller.api.response.user.UserResponse;
-import capstone.sangcom.dto.userSection.info.UpdateUserInfoDTO;
+
 import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.entity.UserDTO;
+import capstone.sangcom.entity.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

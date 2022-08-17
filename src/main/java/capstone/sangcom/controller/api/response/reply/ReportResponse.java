@@ -1,5 +1,5 @@
 package capstone.sangcom.controller.api.response.reply;
-import capstone.sangcom.dto.reportSection.ReportDTO;
+import capstone.sangcom.entity.dto.reportSection.ReportDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

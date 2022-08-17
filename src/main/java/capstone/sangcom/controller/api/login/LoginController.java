@@ -2,17 +2,11 @@ package capstone.sangcom.controller.api.login;
 
 import capstone.sangcom.controller.api.response.common.SimpleResponse;
 import capstone.sangcom.controller.api.response.login.LoginResponse;
-<<<<<<< HEAD
-import capstone.sangcom.dto.loginSection.login.LoginDTO;
 import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.service.login.LoginService;
 import capstone.sangcom.service.user.UserService;
-=======
 import capstone.sangcom.entity.dto.loginSection.login.LoginDTO;
-import capstone.sangcom.entity.JwtUser;
-import capstone.sangcom.service.login.LoginService;
 import capstone.sangcom.service.token.TokenService;
->>>>>>> 0edede4c97e7a462525aaa2b294797bce1307d04
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

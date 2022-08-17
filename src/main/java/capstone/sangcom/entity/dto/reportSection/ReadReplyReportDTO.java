@@ -1,8 +1,6 @@
-package capstone.sangcom.dto.reportSection;
+package capstone.sangcom.entity.dto.reportSection;
 
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 public class ReadReplyReportDTO {

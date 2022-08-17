@@ -1,11 +1,12 @@
 package capstone.sangcom.repository.report;
 
-import capstone.sangcom.dto.boardSection.BoardDTO;
-import capstone.sangcom.dto.boardSection.BoardDetailDTO;
-import capstone.sangcom.dto.reportSection.ReplyReportDTO;
-import capstone.sangcom.dto.reportSection.ReportDTO;
+import capstone.sangcom.entity.dao.replyReport.ReportBoardDAO;
+import capstone.sangcom.entity.dto.reportSection.ReportDTO;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
@@ -38,6 +39,23 @@ public class MysqlReportRepository implements ReportRepository{
         if(reportDTO == null) return null;
 
         return reportDTO;
+    }
+
+    @Override
+    public int reportBoard(ReportBoardDAO reportBoardDAO) {
+        String query = "INSERT INTO " + BOARD_REPORT_TABLE + " (board_id, recv_id, send_id, body) VALUES (:board_id, :reply_id, :recv_id, :send_id, :body)";
+
+        MapSqlParameterSource params = new MapSqlParameterSource()
+                .addValue("board_id", reportBoardDAO.getBoard_id())
+                .addValue("recv_id", reportBoardDAO.getRevc_id())
+                .addValue("send_id", reportBoardDAO.getSend_id())
+                .addValue("body", reportBoardDAO.getBody());
+
+        KeyHolder key = new GeneratedKeyHolder();
+        if(jdbcTemplate.update(query, params, key, new String[]{"report_id"}) != 1)
+            return -1;
+
+        return key.getKey().intValue();
     }
 
     private class ReportRowMapper implements RowMapper<ReportDTO>{

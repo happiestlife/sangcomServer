@@ -1,9 +1,9 @@
 package capstone.sangcom.service.report;
 
-import capstone.sangcom.dto.reportSection.PostReplyReportDTO;
-import capstone.sangcom.dto.reportSection.ReadReplyReportDTO;
-import capstone.sangcom.dto.reportSection.ReplyReportDTO;
-import capstone.sangcom.repository.dao.replyReport.ReplyReportDAO;
+import capstone.sangcom.entity.dto.reportSection.PostReplyReportDTO;
+import capstone.sangcom.entity.dto.reportSection.ReadReplyReportDTO;
+import capstone.sangcom.entity.dto.reportSection.ReplyReportDTO;
+import capstone.sangcom.entity.dao.replyReport.ReplyReportDAO;
 import capstone.sangcom.repository.report.ReplyReportRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

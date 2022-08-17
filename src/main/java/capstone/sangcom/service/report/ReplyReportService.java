@@ -1,7 +1,7 @@
 package capstone.sangcom.service.report;
 
-import capstone.sangcom.dto.reportSection.PostReplyReportDTO;
-import capstone.sangcom.dto.reportSection.ReadReplyReportDTO;
+import capstone.sangcom.entity.dto.reportSection.PostReplyReportDTO;
+import capstone.sangcom.entity.dto.reportSection.ReadReplyReportDTO;
 
 public interface ReplyReportService {
     public ReadReplyReportDTO getMyReplyReport(String userId);

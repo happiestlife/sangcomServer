@@ -1,4 +1,4 @@
-package capstone.sangcom.dto.reportSection;
+package capstone.sangcom.entity.dto.reportSection;
 
 import lombok.Data;
 

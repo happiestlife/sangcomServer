@@ -1,9 +1,8 @@
 package capstone.sangcom.repository.report;
 
-import capstone.sangcom.dto.reportSection.ReplyReportDTO;
-import capstone.sangcom.dto.reportSection.ReplyReportDetailDTO;
-import capstone.sangcom.dto.reportSection.ReportDTO;
-import capstone.sangcom.repository.dao.replyReport.ReplyReportDAO;
+import capstone.sangcom.entity.dto.reportSection.ReplyReportDTO;
+import capstone.sangcom.entity.dto.reportSection.ReplyReportDetailDTO;
+import capstone.sangcom.entity.dao.replyReport.ReplyReportDAO;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -22,13 +21,13 @@ public class MysqlReplyReportRepository implements ReplyReportRepository{
 
     private final RowMapper<ReplyReportDTO> replyReportDTORowMapper;
 
-    private final RowMapper<ReplyReportDetailDTO> replyReportDetailDTORowMapper;
+//    private final RowMapper<ReplyReportDetailDTO> replyReportDetailDTORowMapper;
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
     public MysqlReplyReportRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate){
         jdbcTemplate = namedParameterJdbcTemplate;
-        replyReportDetailDTORowMapper = new ReplyReportDetailRowMapper();
+//        replyReportDetailDTORowMapper = new ReplyReportDetailRowMapper();
         replyReportDTORowMapper = new ReplyReportRowMapper();
     }
     @Override
@@ -75,19 +74,19 @@ public class MysqlReplyReportRepository implements ReplyReportRepository{
     }
 
 
-    private class ReplyReportDetailRowMapper implements RowMapper<ReplyReportDetailDTO>{
-
-        @Override
-        public ReplyReportDetailDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new ReplyReportDetailDTO(
-                    rs.getInt("report_id"),
-                    rs.getInt("board_id"),
-                    rs.getInt("reply_id"),
-                    rs.getString("send_id"),
-                    rs.getString("recv_id"),
-                    rs.getString("body"),
-                    rs.getString("regdate"));
-        }
-
-    }
+//    private class ReplyReportDetailRowMapper implements RowMapper<ReplyReportDetailDTO>{
+//
+//        @Override
+//        public ReplyReportDetailDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+//            return new ReplyReportDetailDTO(
+//                    rs.getInt("report_id"),
+//                    rs.getInt("board_id"),
+//                    rs.getInt("reply_id"),
+//                    rs.getString("send_id"),
+//                    rs.getString("recv_id"),
+//                    rs.getString("body"),
+//                    rs.getString("regdate"));
+//        }
+//
+//    }
 }
