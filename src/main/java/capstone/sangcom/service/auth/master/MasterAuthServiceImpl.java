@@ -1,11 +1,11 @@
 package capstone.sangcom.service.auth.master;
 
-import capstone.sangcom.dto.userSection.auth.AuthStudentDTO;
+import capstone.sangcom.entity.dto.userSection.auth.AuthStudentDTO;
 import capstone.sangcom.entity.ExcelData;
 import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.entity.User;
 import capstone.sangcom.repository.auth.AuthStudentRepository;
-import capstone.sangcom.repository.dao.auth.AuthStudentDAO;
+import capstone.sangcom.entity.dao.auth.AuthStudentDAO;
 import capstone.sangcom.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

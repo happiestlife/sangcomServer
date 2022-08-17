@@ -1,8 +1,7 @@
 package capstone.sangcom.repository.user;
 
-import capstone.sangcom.dto.userSection.info.UpdateUserInfoDTO;
+import capstone.sangcom.entity.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
-import capstone.sangcom.entity.UserDTO;
 import capstone.sangcom.entity.UserRole;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -12,7 +11,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;

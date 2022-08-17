@@ -6,4 +6,5 @@ import capstone.sangcom.entity.User;
 public interface TokenService {
     public String createNewTokenWithRefreshToken(String refreshToken);
     public TokenResponse createToken(User user);
+    public boolean delete(String id);
 }

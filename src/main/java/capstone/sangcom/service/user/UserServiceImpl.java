@@ -1,10 +1,7 @@
 package capstone.sangcom.service.user;
 
-import capstone.sangcom.dto.loginSection.find.FindPasswordDTO;
-import capstone.sangcom.dto.loginSection.login.LoginDTO;
-import capstone.sangcom.dto.userSection.info.UpdateUserInfoDTO;
+import capstone.sangcom.entity.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
-import capstone.sangcom.entity.UserDTO;
 import capstone.sangcom.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,48 +9,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
+
     private final PasswordEncoder passwordEncoder;
-
-    @Override
-    public User login(LoginDTO loginDTO) {
-        User user = userRepository.findById(loginDTO.getId());
-        if (user.equals(loginDTO.getPassword()))
-            return user;
-        else
-            return null;
-    }
-
-    @Override
-    public String findPassword(FindPasswordDTO findPasswordDTO) {
-        return null;
-    }
-
-    @Override
-    public boolean userCheck(FindPasswordDTO findPasswordDTO) {
-        User user = userRepository.findById(findPasswordDTO.getId());
-        if (user != null && user.getName().equals(findPasswordDTO.getName()) && user.getSchoolnumber().equals(findPasswordDTO.getStudentId())){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
 
     @Override
     public User findById(String id) {
         return userRepository.findById(id);
-    }
-
-    @Override
-    public UserDTO getUserInfo(String id) {
-        User user = userRepository.findById(id);
-        return new UserDTO(user);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package capstone.sangcom.repository.token;
 
-import capstone.sangcom.repository.dao.auth.TokenDAO;
+import capstone.sangcom.entity.dao.auth.TokenDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.RowMapper;
@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -73,6 +72,7 @@ public class MySqlTokenRepository implements TokenRepository {
             return null;
     }
 
+
     @Override
     public String update(TokenDAO tokenDao) {
         String query = "UPDATE " + TOKEN_TABLE + " SET token = :token WHERE id = :id";
@@ -87,7 +87,21 @@ public class MySqlTokenRepository implements TokenRepository {
     }
 
     @Override
-    public String delete(String token) {
+    public boolean deleteById(String id) {
+        String query = "DELETE FROM " + TOKEN_TABLE + " WHERE id = :id";
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+
+        int rs = jdbcTemplate.update(query, params);
+
+        if(rs == 1)
+            return true;
+        else
+            return false;
+    }
+
+    @Override
+    public String deleteByToken(String token) {
         String query = "DELETE FROM " + TOKEN_TABLE + " WHERE token = :token";
         Map<String, Object> params = new HashMap<>();
         params.put("token", token);
