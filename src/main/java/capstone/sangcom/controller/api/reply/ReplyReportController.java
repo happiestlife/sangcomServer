@@ -1,11 +1,13 @@
 package capstone.sangcom.controller.api.reply;
 
 import capstone.sangcom.controller.api.response.common.SimpleResponse;
+import capstone.sangcom.controller.api.response.reply.ReplyReportPageResponse;
 import capstone.sangcom.controller.api.response.reply.ReplyReportResponse;
 import capstone.sangcom.entity.dto.reportSection.PostReplyReportDTO;
 import capstone.sangcom.entity.dto.reportSection.ReadReplyReportDTO;
 import capstone.sangcom.entity.dto.reportSection.ReplyReportDTO;
 import capstone.sangcom.entity.JwtUser;
+import capstone.sangcom.entity.dto.reportSection.ReplyReportPageDTO;
 import capstone.sangcom.service.report.ReplyReportService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -43,7 +46,7 @@ public class ReplyReportController {
 
     /**
      * 댓글 신고 요청하기
-     * Post
+     * POST
      * /api/reply/report
      * */
     @PostMapping
@@ -56,5 +59,26 @@ public class ReplyReportController {
                     .body(new SimpleResponse(false));
         }
     }
+
+    /**
+     * 댓글 신고 조회 (master만 조회 - 전체 데이터 조회 ver)
+     * GET
+     * /api/reply/report/:page
+     * */
+    @GetMapping("/{page}")
+    public ResponseEntity<ReplyReportPageResponse> getReplyReport(){
+        List<ReplyReportPageDTO> replyReportPageDTOS = replyReportService.getReplyReport();
+
+        if(replyReportPageDTOS != null){
+            return ResponseEntity
+                    .ok(new ReplyReportPageResponse(true, replyReportPageDTOS));
+        }
+        else{
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .build();
+        }
+    }
+
 
 }

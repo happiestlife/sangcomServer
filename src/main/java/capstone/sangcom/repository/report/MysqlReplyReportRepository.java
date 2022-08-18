@@ -3,6 +3,7 @@ package capstone.sangcom.repository.report;
 import capstone.sangcom.entity.dto.reportSection.ReplyReportDTO;
 import capstone.sangcom.entity.dto.reportSection.ReplyReportDetailDTO;
 import capstone.sangcom.entity.dao.replyReport.ReplyReportDAO;
+import capstone.sangcom.entity.dto.reportSection.ReplyReportPageDTO;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 
 @Repository
 public class MysqlReplyReportRepository implements ReplyReportRepository{
@@ -20,6 +22,8 @@ public class MysqlReplyReportRepository implements ReplyReportRepository{
     private final String REPLY_REPORT_TABLE = "replyreport";
 
     private final RowMapper<ReplyReportDTO> replyReportDTORowMapper;
+
+    private final RowMapper<ReplyReportPageDTO> replyReportPageRowMapper;
 
 //    private final RowMapper<ReplyReportDetailDTO> replyReportDetailDTORowMapper;
 
@@ -29,6 +33,7 @@ public class MysqlReplyReportRepository implements ReplyReportRepository{
         jdbcTemplate = namedParameterJdbcTemplate;
 //        replyReportDetailDTORowMapper = new ReplyReportDetailRowMapper();
         replyReportDTORowMapper = new ReplyReportRowMapper();
+        replyReportPageRowMapper = new ReplyReportPageRowMapper();
     }
     @Override
     public ReplyReportDTO getMyReplyReport(String userId) {
@@ -61,6 +66,17 @@ public class MysqlReplyReportRepository implements ReplyReportRepository{
         return key.getKey().intValue();
     }
 
+    @Override
+    public List<ReplyReportPageDTO> getReplyReport() {
+        String query = "SELECT * FROM " + REPLY_REPORT_TABLE + "ORDER BY regdate DESC, report_id DESC ";//LIMIT (?, 10)
+        List<ReplyReportPageDTO> rrp = jdbcTemplate.query(query, replyReportPageRowMapper);
+
+        if(rrp.size() != 0)
+            return rrp;
+        else
+            return null;
+    }
+
     private class ReplyReportRowMapper implements RowMapper<ReplyReportDTO>{
         @Override
         public ReplyReportDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -68,6 +84,19 @@ public class MysqlReplyReportRepository implements ReplyReportRepository{
                     rs.getInt("reply_id"),
                     rs.getString("recv_id"),
                     rs.getString("send_id"),
+                    rs.getString("body"),
+                    rs.getString("regdate"));
+        }
+    }
+
+    private class ReplyReportPageRowMapper implements RowMapper<ReplyReportPageDTO>{
+        @Override
+        public ReplyReportPageDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new ReplyReportPageDTO(
+                    rs.getInt("report_id"),
+                    rs.getInt("reply_id"),
+                    rs.getString("send_id"),
+                    rs.getString("recv_id"),
                     rs.getString("body"),
                     rs.getString("regdate"));
         }
