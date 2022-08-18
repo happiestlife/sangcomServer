@@ -1,5 +1,6 @@
 package capstone.sangcom.repository.user;
 
+import capstone.sangcom.entity.UserRole;
 import capstone.sangcom.entity.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
 
@@ -59,6 +60,11 @@ public class MemoryUserRepository implements UserRepository{
             return true;
         }else
             return false;
+    }
+
+    @Override
+    public boolean update(String id, UserRole role) {
+        return false;
     }
 
     @Override
