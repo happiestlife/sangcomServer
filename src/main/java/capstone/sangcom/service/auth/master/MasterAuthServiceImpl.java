@@ -1,5 +1,8 @@
 package capstone.sangcom.service.auth.master;
 
+import capstone.sangcom.entity.dto.masterSection.RegisteredStudentDTO;
+import capstone.sangcom.entity.dto.masterSection.UpdateStudentRoleDTO;
+import capstone.sangcom.entity.UserRole;
 import capstone.sangcom.entity.dto.userSection.auth.AuthStudentDTO;
 import capstone.sangcom.entity.ExcelData;
 import capstone.sangcom.entity.JwtUser;
@@ -101,6 +104,26 @@ public class MasterAuthServiceImpl implements MasterAuthService{
     }
 
     @Override
+    public List<RegisteredStudentDTO> getRegisteredStudent() {
+        List<User> users = userRepository.findAll();
+        if(users == null)
+            return null;
+
+        ArrayList<RegisteredStudentDTO> result = new ArrayList<>();
+
+        for (User user : users) {
+            result.add(getRegisterStudentData(user));
+        }
+
+        return result;
+    }
+
+    @Override
+    public boolean updateStudentRole(UpdateStudentRoleDTO updateStudentRoleDTO) {
+        return userRepository.update(updateStudentRoleDTO.getUser_id(), UserRole.valueOf(updateStudentRoleDTO.getRole()));
+    }
+
+    @Override
     @Transactional
     public boolean deleteStudent(ArrayList<AuthStudentDTO> list) {
         for (AuthStudentDTO authStudentDTO : list) {
@@ -110,23 +133,8 @@ public class MasterAuthServiceImpl implements MasterAuthService{
         return true;
     }
 
-    @Override
-    public List<JwtUser> getRegisteredStudent() {
-        List<User> users = userRepository.findAll();
-        if(users == null)
-            return null;
-
-        ArrayList<JwtUser> result = new ArrayList<>();
-
-        for (User user : users) {
-            result.add(userToJwtUser(user));
-        }
-
-        return result;
-    }
-
-    private JwtUser userToJwtUser(User user) {
-        return new JwtUser(user.getId(), user.getSchoolgrade(), user.getSchoolclass(),
-                user.getSchoolnumber(), user.getRole(), user.getYear(), user.getName());
+    private RegisteredStudentDTO getRegisterStudentData(User user) {
+        return new RegisteredStudentDTO(user.getId(), user.getName(), user.getRole().getValue(),
+                user.getSchoolgrade(), user.getSchoolclass(), user.getSchoolnumber());
     }
 }

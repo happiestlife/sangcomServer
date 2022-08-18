@@ -1,4 +1,4 @@
-package capstone.sangcom.service.reply;
+package capstone.sangcom.service.board.reply;
 
 import capstone.sangcom.entity.dto.replySection.ReplyCreateDTO;
 import capstone.sangcom.entity.dto.replySection.ReplyDTO;

@@ -3,7 +3,7 @@ package capstone.sangcom.controller.api.reply;
 import capstone.sangcom.controller.api.response.common.SimpleResponse;
 import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.entity.dto.replySection.CreateAndUpdateReplyDTO;
-import capstone.sangcom.service.reply.ReplyService;
+import capstone.sangcom.service.board.reply.ReplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
