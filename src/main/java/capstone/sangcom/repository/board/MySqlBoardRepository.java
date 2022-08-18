@@ -1,4 +1,4 @@
-package capstone.sangcom.repository.board.board;
+package capstone.sangcom.repository.board;
 
 import capstone.sangcom.entity.dto.boardSection.BoardDTO;
 import capstone.sangcom.entity.dto.boardSection.BoardDetailDTO;

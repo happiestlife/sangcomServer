@@ -1,4 +1,4 @@
-package capstone.sangcom.repository.board.boardPath;
+package capstone.sangcom.repository.boardPath;
 
 import capstone.sangcom.entity.dao.board.BoardPathDAO;
 import lombok.RequiredArgsConstructor;

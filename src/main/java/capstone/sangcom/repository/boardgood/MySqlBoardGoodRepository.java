@@ -1,4 +1,4 @@
-package capstone.sangcom.repository.boardgood;
+package capstone.sangcom.repository.boardGood;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
@@ -34,14 +34,14 @@ public class MySqlBoardGoodRepository implements BoardGoodRepository {
     }
 
     @Override
-    public int getBoardGoodCheckedByUser(int boardId, String userId) {
+    public int getBoardGoodId(int boardId, String userId) {
         String query = "SELECT good_id FROM " + BOARD_GOOD_TABLE + " WHERE board_id = :board_id AND user_id = :user_id";
         List<Integer> goodId = jdbcTemplate.query(
                 query,
                 new MapSqlParameterSource()
                         .addValue("board_id", boardId)
                         .addValue("user_id", userId)
-                , (rs, rowNum) -> rs.getInt("board_id")
+                , (rs, rowNum) -> rs.getInt("good_id")
         );
 
         if(!goodId.isEmpty())
@@ -68,11 +68,11 @@ public class MySqlBoardGoodRepository implements BoardGoodRepository {
     }
 
     @Override
-    public boolean delete(int boardId) {
-        String query = "DELETE FROM " + BOARD_GOOD_TABLE + " WHERE board_id = :board_id";
+    public boolean delete(int goodId) {
+        String query = "DELETE FROM " + BOARD_GOOD_TABLE + " WHERE good_id = :good_id";
         int rs = jdbcTemplate.update(query
                 , new MapSqlParameterSource()
-                        .addValue("board_id", boardId));
+                        .addValue("good_id", goodId));
 
         if(rs == 1)
             return true;

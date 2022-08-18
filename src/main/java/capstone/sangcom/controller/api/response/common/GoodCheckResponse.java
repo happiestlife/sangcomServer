@@ -1,9 +1,9 @@
-package capstone.sangcom.controller.api.response.board;
+package capstone.sangcom.controller.api.response.common;
 
 import lombok.Data;
 
 @Data
-public class BoardGoodCheckResponse {
+public class GoodCheckResponse {
     private final boolean success;
     private final String stat;
 }
