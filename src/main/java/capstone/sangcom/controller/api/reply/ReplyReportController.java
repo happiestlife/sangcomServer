@@ -61,6 +61,18 @@ public class ReplyReportController {
     }
 
     /**
+     * id 값에 따른 댓글 신고 목록 조회 ( 댓글, Master권한 )
+     * GET
+     * /api/reply/report/?id={신고받은 id값}
+     * */
+    @GetMapping()
+    public ResponseEntity<ReplyReportResponse> getReplyReportById(@RequestParam String recvId){ // api 명세서가 잘못된느낌?
+        List<ReplyReportDTO> replyReportDTOS = replyReportService.getReplyReportById(recvId);
+
+        return ResponseEntity.ok(new ReplyReportResponse(true, replyReportDTOS));
+    }
+
+    /**
      * 댓글 신고 조회 (master만 조회 - 전체 데이터 조회 ver)
      * GET
      * /api/reply/report/:page
@@ -79,6 +91,4 @@ public class ReplyReportController {
                     .build();
         }
     }
-
-
 }

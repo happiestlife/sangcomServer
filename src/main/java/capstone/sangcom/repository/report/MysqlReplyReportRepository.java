@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class MysqlReplyReportRepository implements ReplyReportRepository{
@@ -64,6 +65,15 @@ public class MysqlReplyReportRepository implements ReplyReportRepository{
             return -1;
 
         return key.getKey().intValue();
+    }
+
+    @Override
+    public List<ReplyReportDTO> getReplyReportById(String recvId) {
+        String query = "SELECT * FROM " + REPLY_REPORT_TABLE + " WHERE recv_id = :recv_id";
+        Map<String, Object> params = new HashMap<>();
+        params.put("recv_id", recvId);
+
+        return jdbcTemplate.query(query, params, replyReportDTORowMapper);
     }
 
     @Override

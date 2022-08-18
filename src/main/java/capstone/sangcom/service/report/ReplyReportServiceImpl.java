@@ -35,6 +35,11 @@ public class ReplyReportServiceImpl implements ReplyReportService{
     }
 
     @Override
+    public List<ReplyReportDTO> getReplyReportById(String recvId) {
+        return replyReportRepository.getReplyReportById(recvId);
+    }
+
+    @Override
     @Transactional
     public List<ReplyReportPageDTO> getReplyReport() {
         return replyReportRepository.getReplyReport();
