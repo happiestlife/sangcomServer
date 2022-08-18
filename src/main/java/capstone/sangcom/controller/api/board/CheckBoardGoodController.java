@@ -1,7 +1,7 @@
 package capstone.sangcom.controller.api.board;
 
-import capstone.sangcom.controller.api.response.common.GoodCheckResponse;
-import capstone.sangcom.controller.api.response.common.GoodCountResponse;
+import capstone.sangcom.controller.api.response.common.GoodAndScrapCheckResponse;
+import capstone.sangcom.controller.api.response.common.GoodAndScrapCountResponse;
 import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.service.board.boardGood.BoardGoodService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class CheckBoardGoodController {
      * 게시글 좋아요
      */
     @GetMapping("/good/{boardId}")
-    public ResponseEntity<GoodCheckResponse> checkBoardGood(
+    public ResponseEntity<GoodAndScrapCheckResponse> checkBoardGood(
                                                 HttpServletRequest request,
                                                 @PathVariable int boardId) {
         JwtUser user = (JwtUser) request.getAttribute("user");
@@ -33,22 +33,22 @@ public class CheckBoardGoodController {
         String stat = boardGoodService.checkGood(boardId, user.getId());
         if(stat != null)
             return ResponseEntity
-                    .ok(new GoodCheckResponse(true, stat));
+                    .ok(new GoodAndScrapCheckResponse(true, stat));
         else
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body(new GoodCheckResponse(false, null));
+                    .body(new GoodAndScrapCheckResponse(false, null));
     }
 
     /**
      * 게시글 좋아요 개수 조회
      */
     @GetMapping("/goodCount/{boardId}")
-    public ResponseEntity<GoodCountResponse> getBoardGoodCount(@PathVariable int boardId) {
+    public ResponseEntity<GoodAndScrapCountResponse> getBoardGoodCount(@PathVariable int boardId) {
         int goodCount = boardGoodService.getGoodCount(boardId);
 
         return ResponseEntity
-                .ok(new GoodCountResponse(true, goodCount));
+                .ok(new GoodAndScrapCountResponse(true, goodCount));
 
         // 익셉션 상황에 따른 실패 ResponseEntity 날리기
     }
