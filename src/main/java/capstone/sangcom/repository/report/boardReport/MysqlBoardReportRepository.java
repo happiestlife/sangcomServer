@@ -1,7 +1,8 @@
-package capstone.sangcom.repository.report;
+package capstone.sangcom.repository.report.boardReport;
 
 import capstone.sangcom.entity.dao.replyReport.ReportBoardDAO;
 import capstone.sangcom.entity.dto.reportSection.ReportDTO;
+import capstone.sangcom.repository.report.boardReport.BoardReportRepository;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -15,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Repository
-public class MysqlReportRepository implements ReportRepository{
+public class MysqlBoardReportRepository implements BoardReportRepository {
 
     private final String BOARD_REPORT_TABLE = "boardreport";
 
@@ -23,7 +24,7 @@ public class MysqlReportRepository implements ReportRepository{
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    public MysqlReportRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate){
+    public MysqlBoardReportRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate){
         jdbcTemplate = namedParameterJdbcTemplate;
         reportDTORowMapper = new ReportRowMapper();
     }

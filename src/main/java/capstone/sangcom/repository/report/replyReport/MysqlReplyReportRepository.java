@@ -1,9 +1,9 @@
 package capstone.sangcom.repository.report;
 
 import capstone.sangcom.entity.dto.reportSection.ReplyReportDTO;
-import capstone.sangcom.entity.dto.reportSection.ReplyReportDetailDTO;
 import capstone.sangcom.entity.dao.replyReport.ReplyReportDAO;
 import capstone.sangcom.entity.dto.reportSection.ReplyReportPageDTO;
+import capstone.sangcom.repository.report.replyReport.ReplyReportRepository;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class MysqlReplyReportRepository implements ReplyReportRepository{
+public class MysqlReplyReportRepository implements ReplyReportRepository {
 
     private final String REPLY_REPORT_TABLE = "replyreport";
 
@@ -77,15 +77,11 @@ public class MysqlReplyReportRepository implements ReplyReportRepository{
     @Override
     public List<ReplyReportPageDTO> getReplyReport(int page) {
         String query = "SELECT * FROM " + REPLY_REPORT_TABLE + " ORDER BY regdate DESC, report_id DESC LIMIT :page, 10";
-        int p = (page - 1) * 10;
 
         Map<String, Object> params = new HashMap<>();
-        params.put("page", p);
-        List<ReplyReportPageDTO> rrp = jdbcTemplate.query(query, params, replyReportPageRowMapper);
-        if(rrp.size() != 0)
-            return rrp;
-        else
-            return null;
+        params.put("page", (page - 1) * 10);
+
+        return jdbcTemplate.query(query, params, replyReportPageRowMapper);
     }
 
     private class ReplyReportRowMapper implements RowMapper<ReplyReportDTO>{

@@ -1,7 +1,6 @@
-package capstone.sangcom.service.report;
+package capstone.sangcom.service.report.reply;
 
 import capstone.sangcom.entity.dto.reportSection.PostReplyReportDTO;
-import capstone.sangcom.entity.dto.reportSection.ReadReplyReportDTO;
 import capstone.sangcom.entity.dto.reportSection.ReplyReportDTO;
 import capstone.sangcom.entity.dto.reportSection.ReplyReportPageDTO;
 
