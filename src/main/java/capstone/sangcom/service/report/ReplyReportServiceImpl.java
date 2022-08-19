@@ -21,10 +21,8 @@ public class ReplyReportServiceImpl implements ReplyReportService{
     private final ReplyReportRepository replyReportRepository;
     @Override
     @Transactional
-    public ReadReplyReportDTO getMyReplyReport(String userId) {
-        ReplyReportDTO replyReportDTO = replyReportRepository.getMyReplyReport(userId);
-
-        return new ReadReplyReportDTO(replyReportDTO);
+    public List<ReplyReportDTO> getMyReplyReport(String userId) {
+        return replyReportRepository.getMyReplyReport(userId);
     }
 
     @Override

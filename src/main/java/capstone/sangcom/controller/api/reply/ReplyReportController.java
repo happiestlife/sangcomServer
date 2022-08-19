@@ -34,10 +34,7 @@ public class ReplyReportController {
     @GetMapping("/me")
     public ResponseEntity<ReplyReportResponse> getMyReplyReport(HttpServletRequest request){
         JwtUser user = (JwtUser) request.getAttribute("user");
-        ReadReplyReportDTO readReplyReportDTO = replyReportService.getMyReplyReport(user.getId());
-
-        ArrayList<ReplyReportDTO> replyReportDTO = new ArrayList<>();
-        replyReportDTO.add(readReplyReportDTO.getReplyReportDTO());
+        List<ReplyReportDTO> replyReportDTO = replyReportService.getMyReplyReport(user.getId());
 
         return ResponseEntity
                 .ok(new ReplyReportResponse(true, replyReportDTO));

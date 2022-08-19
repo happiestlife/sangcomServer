@@ -37,16 +37,14 @@ public class MysqlReplyReportRepository implements ReplyReportRepository{
         replyReportPageRowMapper = new ReplyReportPageRowMapper();
     }
     @Override
-    public ReplyReportDTO getMyReplyReport(String userId) {
-        String query = "SELECT * FROM " + REPLY_REPORT_TABLE + "WHERE send_id= :user_id";
+    public List<ReplyReportDTO> getMyReplyReport(String userId) {
+        String query = "SELECT * FROM " + REPLY_REPORT_TABLE + " WHERE send_id=:user_id ";
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("user_id", userId);
 
-        ReplyReportDTO replyReportDTO = jdbcTemplate.queryForObject(query, params, replyReportDTORowMapper);
-        if(replyReportDTO == null) return null;
+        return jdbcTemplate.query(query, params, replyReportDTORowMapper);
 
-        return replyReportDTO;
     }
 
     @Override
