@@ -13,7 +13,7 @@ public class ReportBoardDAO {
     private final int report_id;
     private final int board_id;
     private final String send_id;
-    private final String revc_id;
+    private final String recv_id;
     private final String body;
     private final String regdate;
 
@@ -21,7 +21,7 @@ public class ReportBoardDAO {
         this.report_id = report_id;
         this.board_id = board_id;
         this.send_id = send_id;
-        this.revc_id = revc_id;
+        this.recv_id = revc_id;
         this.regdate = recordTime();
         this.body = body;
     }

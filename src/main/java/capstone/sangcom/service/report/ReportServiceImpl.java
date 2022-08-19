@@ -26,8 +26,8 @@ public class ReportServiceImpl implements ReportService{
     }
 
     @Override
-    public boolean reportBoard(PostReportBoardDTO postReportBoardDTO) {
-        reportRepository.reportBoard(new ReportBoardDAO(1, postReportBoardDTO.getBoard_id(), "asd",postReportBoardDTO.getRevc_id(), postReportBoardDTO.getBody(), "das"));
+    public boolean reportBoard(String userId, PostReportBoardDTO postReportBoardDTO) {
+        reportRepository.reportBoard(new ReportBoardDAO(1, postReportBoardDTO.getBoard_id(), userId,postReportBoardDTO.getRecv_id(), postReportBoardDTO.getBody(), "das"));
         return true;
     }
 }

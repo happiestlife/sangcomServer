@@ -44,8 +44,9 @@ public class ReportController {
      * /api/board/report
      * */
     @PostMapping
-    public ResponseEntity<SimpleResponse> reportBoard(@RequestBody PostReportBoardDTO postReportBoardDTO){
-        if(reportService.reportBoard(postReportBoardDTO)){
+    public ResponseEntity<SimpleResponse> reportBoard(HttpServletRequest request, @RequestBody PostReportBoardDTO postReportBoardDTO){
+        JwtUser user = (JwtUser) request.getAttribute("user");
+        if(reportService.reportBoard(user.getId(), postReportBoardDTO)){
             return ResponseEntity.ok(new SimpleResponse(true));
         }else{
             return ResponseEntity

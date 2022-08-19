@@ -41,11 +41,11 @@ public class MysqlReportRepository implements ReportRepository{
 
     @Override
     public int reportBoard(ReportBoardDAO reportBoardDAO) {
-        String query = "INSERT INTO " + BOARD_REPORT_TABLE + " (board_id, recv_id, send_id, body) VALUES (:board_id, :reply_id, :recv_id, :send_id, :body)";
+        String query = "INSERT INTO " + BOARD_REPORT_TABLE + " (board_id, recv_id, send_id, body) VALUES (:board_id, :recv_id, :send_id, :body)";
 
         MapSqlParameterSource params = new MapSqlParameterSource()
                 .addValue("board_id", reportBoardDAO.getBoard_id())
-                .addValue("recv_id", reportBoardDAO.getRevc_id())
+                .addValue("recv_id", reportBoardDAO.getRecv_id())
                 .addValue("send_id", reportBoardDAO.getSend_id())
                 .addValue("body", reportBoardDAO.getBody());
 

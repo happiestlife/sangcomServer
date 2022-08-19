@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface ReportService {
     public List<ReportDTO> getMyReport(String userId);
-    public boolean reportBoard(PostReportBoardDTO postReportBoardDTO);
+    public boolean reportBoard(String userId, PostReportBoardDTO postReportBoardDTO);
 }
