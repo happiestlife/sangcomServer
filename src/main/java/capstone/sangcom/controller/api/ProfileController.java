@@ -34,7 +34,7 @@ public class ProfileController {
     /**
      * 회원정보수정
      * */
-    @PutMapping("/infos")
+    @PutMapping("/info")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<SimpleResponse> updateUserInfo(HttpServletRequest request, @RequestBody UpdateUserInfoDTO updateUserInfoDTO){
         JwtUser user = (JwtUser) request.getAttribute("user");

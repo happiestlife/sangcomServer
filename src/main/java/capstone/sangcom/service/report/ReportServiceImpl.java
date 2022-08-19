@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -19,10 +21,8 @@ public class ReportServiceImpl implements ReportService{
 
     @Override
     @Transactional
-    public ReadReportDTO getMyReport(String userId) {
-        ReportDTO reportDTO = reportRepository.getMyReport(userId);
-
-        return new ReadReportDTO(reportDTO);
+    public List<ReportDTO> getMyReport(String userId) {
+        return reportRepository.getMyReport(userId);
     }
 
     @Override

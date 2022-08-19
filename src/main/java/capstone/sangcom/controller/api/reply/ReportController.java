@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -31,10 +32,7 @@ public class ReportController {
     @GetMapping("/me")
     public ResponseEntity<ReportResponse> getMyReport(HttpServletRequest request){
         JwtUser user = (JwtUser) request.getAttribute("user");
-        ReadReportDTO readReportDTO = reportService.getMyReport(user.getId());
-
-        ArrayList<ReportDTO> reportDTO = new ArrayList<>();
-        reportDTO.add(readReportDTO.getReportDTO());
+        List<ReportDTO> reportDTO = reportService.getMyReport(user.getId());
 
         return ResponseEntity
                 .ok(new ReportResponse(true, reportDTO));
