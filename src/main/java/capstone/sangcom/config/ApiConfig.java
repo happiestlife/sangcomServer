@@ -18,6 +18,7 @@ public class ApiConfig implements WebMvcConfigurer {
 
             // reply 관련
             "/api/reply/goodcount/**", "/api/reply/replycount/**",
+            "/api/reply/report/**",
 
             // notice 관련
             "/api/notice",

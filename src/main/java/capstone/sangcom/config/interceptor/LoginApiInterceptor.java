@@ -13,6 +13,7 @@ public class LoginApiInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String header = request.getHeader("Authorization");
+        System.out.println("ihnt");
         if (header != null) {
             String token = JwtUtils.getTokenFromHeader(header);
             if (JwtUtils.isValidToken(token)) {
