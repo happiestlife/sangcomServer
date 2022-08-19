@@ -10,5 +10,5 @@ public interface ReplyReportRepository {
     public List<ReplyReportDTO> getMyReplyReport(String userId);
     public int replyReport(ReplyReportDAO replyReportDAO);
     public List<ReplyReportDTO> getReplyReportById(String recvId);
-    public List<ReplyReportPageDTO> getReplyReport();
+    public List<ReplyReportPageDTO> getReplyReport(int page);
 }

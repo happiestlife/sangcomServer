@@ -67,7 +67,7 @@ public class MysqlReplyReportRepository implements ReplyReportRepository{
 
     @Override
     public List<ReplyReportDTO> getReplyReportById(String recvId) {
-        String query = "SELECT * FROM " + REPLY_REPORT_TABLE + " WHERE recv_id = :recv_id";
+        String query = "SELECT * FROM " + REPLY_REPORT_TABLE + " WHERE recv_id =:recv_id";
         Map<String, Object> params = new HashMap<>();
         params.put("recv_id", recvId);
 
@@ -75,10 +75,13 @@ public class MysqlReplyReportRepository implements ReplyReportRepository{
     }
 
     @Override
-    public List<ReplyReportPageDTO> getReplyReport() {
-        String query = "SELECT * FROM " + REPLY_REPORT_TABLE + "ORDER BY regdate DESC, report_id DESC ";//LIMIT (?, 10)
-        List<ReplyReportPageDTO> rrp = jdbcTemplate.query(query, replyReportPageRowMapper);
+    public List<ReplyReportPageDTO> getReplyReport(int page) {
+        String query = "SELECT * FROM " + REPLY_REPORT_TABLE + " ORDER BY regdate DESC, report_id DESC LIMIT :page, 10";
+        int p = (page - 1) * 10;
 
+        Map<String, Object> params = new HashMap<>();
+        params.put("page", p);
+        List<ReplyReportPageDTO> rrp = jdbcTemplate.query(query, params, replyReportPageRowMapper);
         if(rrp.size() != 0)
             return rrp;
         else

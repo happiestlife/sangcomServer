@@ -62,11 +62,12 @@ public class ReplyReportController {
     /**
      * id 값에 따른 댓글 신고 목록 조회 ( 댓글, Master권한 )
      * GET
-     * /api/reply/report/?id={신고받은 id값}
+     * /api/reply/report?id={신고받은 id값}
      * */
-    @GetMapping()
-    public ResponseEntity<ReplyReportResponse> getReplyReportById(@RequestParam String recvId){ // api 명세서가 잘못된느낌?
-        List<ReplyReportDTO> replyReportDTOS = replyReportService.getReplyReportById(recvId);
+    @GetMapping
+    public ResponseEntity<ReplyReportResponse> getReplyReportById(@RequestParam String id){ // api 명세서가 잘못된느낌?
+        System.out.println(id);
+        List<ReplyReportDTO> replyReportDTOS = replyReportService.getReplyReportById(id);
 
         return ResponseEntity.ok(new ReplyReportResponse(true, replyReportDTOS));
     }
@@ -77,8 +78,8 @@ public class ReplyReportController {
      * /api/reply/report/:page
      * */
     @GetMapping("/{page}")
-    public ResponseEntity<ReplyReportPageResponse> getReplyReport(){
-        List<ReplyReportPageDTO> replyReportPageDTOS = replyReportService.getReplyReport();
+    public ResponseEntity<ReplyReportPageResponse> getReplyReport(@PathVariable int page){
+        List<ReplyReportPageDTO> replyReportPageDTOS = replyReportService.getReplyReport(page);
 
         if(replyReportPageDTOS != null){
             return ResponseEntity

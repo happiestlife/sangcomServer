@@ -39,7 +39,7 @@ public class ReplyReportServiceImpl implements ReplyReportService{
 
     @Override
     @Transactional
-    public List<ReplyReportPageDTO> getReplyReport() {
-        return replyReportRepository.getReplyReport();
+    public List<ReplyReportPageDTO> getReplyReport(int page) {
+        return replyReportRepository.getReplyReport(page);
     }
 }
