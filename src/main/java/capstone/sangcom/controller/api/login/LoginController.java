@@ -57,4 +57,20 @@ public class LoginController {
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new SimpleResponse(false));
     }
+
+    /**
+     * 회원 탈퇴
+     */
+    @DeleteMapping("/quit")
+    public ResponseEntity<SimpleResponse> userOut(HttpServletRequest request){
+        JwtUser user = (JwtUser) request.getAttribute("user");
+
+        if (user2Service.leave(user.getId()))
+            return ResponseEntity.
+                    ok(new SimpleResponse(true));
+        else
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(null);
+    }
 }
