@@ -1,5 +1,6 @@
 package capstone.sangcom.repository;
 
+import capstone.sangcom.entity.dao.auth.AuthStudentDAO;
 import capstone.sangcom.repository.auth.MySqlAuthStudentRepository;
 import capstone.sangcom.repository.dao.auth.AuthStudentDAO;
 import org.junit.jupiter.api.BeforeEach;

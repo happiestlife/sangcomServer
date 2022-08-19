@@ -1,10 +1,7 @@
 package capstone.sangcom.service.report;
 
-import capstone.sangcom.entity.dto.reportSection.PostReplyReportDTO;
-import capstone.sangcom.entity.dto.reportSection.ReadReplyReportDTO;
-import capstone.sangcom.entity.dto.reportSection.ReplyReportDTO;
+import capstone.sangcom.entity.dto.reportSection.*;
 import capstone.sangcom.entity.dao.replyReport.ReplyReportDAO;
-import capstone.sangcom.entity.dto.reportSection.ReplyReportPageDTO;
 import capstone.sangcom.repository.report.ReplyReportRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +30,13 @@ public class ReplyReportServiceImpl implements ReplyReportService{
     }
 
     @Override
+    @Transactional
+    public List<ReplyReportCountDTO> countReplyReportById() {
+        return replyReportRepository.countReplyReportById();
+    }
+
+    @Override
+    @Transactional
     public List<ReplyReportDTO> getReplyReportById(String recvId) {
         return replyReportRepository.getReplyReportById(recvId);
     }

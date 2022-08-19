@@ -1,7 +1,7 @@
 package capstone.sangcom.repository.report;
 
+import capstone.sangcom.entity.dto.reportSection.ReplyReportCountDTO;
 import capstone.sangcom.entity.dto.reportSection.ReplyReportDTO;
-import capstone.sangcom.entity.dto.reportSection.ReplyReportDetailDTO;
 import capstone.sangcom.entity.dao.replyReport.ReplyReportDAO;
 import capstone.sangcom.entity.dto.reportSection.ReplyReportPageDTO;
 import org.springframework.jdbc.core.RowMapper;
@@ -24,6 +24,8 @@ public class MysqlReplyReportRepository implements ReplyReportRepository{
 
     private final RowMapper<ReplyReportDTO> replyReportDTORowMapper;
 
+    private final RowMapper<ReplyReportCountDTO> replyReportCountRowMapper;
+
     private final RowMapper<ReplyReportPageDTO> replyReportPageRowMapper;
 
 //    private final RowMapper<ReplyReportDetailDTO> replyReportDetailDTORowMapper;
@@ -33,6 +35,7 @@ public class MysqlReplyReportRepository implements ReplyReportRepository{
     public MysqlReplyReportRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate){
         jdbcTemplate = namedParameterJdbcTemplate;
 //        replyReportDetailDTORowMapper = new ReplyReportDetailRowMapper();
+        replyReportCountRowMapper = new ReplyReportCountRowMapper();
         replyReportDTORowMapper = new ReplyReportRowMapper();
         replyReportPageRowMapper = new ReplyReportPageRowMapper();
     }
@@ -64,6 +67,18 @@ public class MysqlReplyReportRepository implements ReplyReportRepository{
 
         return key.getKey().intValue();
     }
+//return jdbcTemplate.query(query,
+//                new MapSqlParameterSource()
+//                        .addValue("board_id", boardId),
+//                (rs, rowNum) -> rs.getString("user_id"));
+    //SELECT recv_id, count(*) as count FROM replyreport GROUP BY recv_id
+    @Override
+    public List<ReplyReportCountDTO> countReplyReportById() {
+        String query = "SELECT recv_id, COUNT(*) AS countss FROM " + REPLY_REPORT_TABLE + " GROUP BY recv_id ";
+
+                return jdbcTemplate.query(query, replyReportCountRowMapper);
+
+    }
 
     @Override
     public List<ReplyReportDTO> getReplyReportById(String recvId) {
@@ -87,6 +102,16 @@ public class MysqlReplyReportRepository implements ReplyReportRepository{
         else
             return null;
     }
+
+    private class ReplyReportCountRowMapper implements RowMapper<ReplyReportCountDTO> {
+        @Override
+        public ReplyReportCountDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new ReplyReportCountDTO(
+                    rs.getString("recv_id"),
+                    rs.getInt("countss"));
+        }
+    }
+
 
     private class ReplyReportRowMapper implements RowMapper<ReplyReportDTO>{
         @Override

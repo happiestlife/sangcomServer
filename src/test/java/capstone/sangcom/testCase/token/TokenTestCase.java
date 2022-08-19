@@ -1,6 +1,6 @@
 package capstone.sangcom.testCase.token;
 
-import capstone.sangcom.repository.dao.auth.TokenDAO;
+import capstone.sangcom.entity.dao.auth.TokenDAO;
 
 public class TokenTestCase {
 

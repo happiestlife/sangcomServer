@@ -1,4 +1,4 @@
-package capstone.sangcom.repository.boardGood;
+package capstone.sangcom.repository.boardgood;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class MySqlBoardGoodRepository implements BoardGoodRepository {
+public class MySqlBoardGoodRepository implements capstone.sangcom.repository.boardGood.BoardGoodRepository {
 
     private final String BOARD_GOOD_TABLE = "boardgood";
 

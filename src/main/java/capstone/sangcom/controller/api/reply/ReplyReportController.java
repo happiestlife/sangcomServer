@@ -1,13 +1,11 @@
 package capstone.sangcom.controller.api.reply;
 
 import capstone.sangcom.controller.api.response.common.SimpleResponse;
+import capstone.sangcom.controller.api.response.reply.ReplyReportCountResponse;
 import capstone.sangcom.controller.api.response.reply.ReplyReportPageResponse;
 import capstone.sangcom.controller.api.response.reply.ReplyReportResponse;
-import capstone.sangcom.entity.dto.reportSection.PostReplyReportDTO;
-import capstone.sangcom.entity.dto.reportSection.ReadReplyReportDTO;
-import capstone.sangcom.entity.dto.reportSection.ReplyReportDTO;
+import capstone.sangcom.entity.dto.reportSection.*;
 import capstone.sangcom.entity.JwtUser;
-import capstone.sangcom.entity.dto.reportSection.ReplyReportPageDTO;
 import capstone.sangcom.service.report.ReplyReportService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -60,13 +58,24 @@ public class ReplyReportController {
     }
 
     /**
+     * 신고당한 아이디 및 횟수 ( 댓글, Master권한)
+     * GET
+     * /api/reply/report/count
+     * */
+    @GetMapping("/count")
+    public ResponseEntity<ReplyReportCountResponse> countReplyReportById(){
+        List<ReplyReportCountDTO> replyReportCountDTOS = replyReportService.countReplyReportById();
+
+        return ResponseEntity.ok(new ReplyReportCountResponse(true, replyReportCountDTOS));
+    }
+
+    /**
      * id 값에 따른 댓글 신고 목록 조회 ( 댓글, Master권한 )
      * GET
      * /api/reply/report?id={신고받은 id값}
      * */
     @GetMapping
     public ResponseEntity<ReplyReportResponse> getReplyReportById(@RequestParam String id){ // api 명세서가 잘못된느낌?
-        System.out.println(id);
         List<ReplyReportDTO> replyReportDTOS = replyReportService.getReplyReportById(id);
 
         return ResponseEntity.ok(new ReplyReportResponse(true, replyReportDTOS));
