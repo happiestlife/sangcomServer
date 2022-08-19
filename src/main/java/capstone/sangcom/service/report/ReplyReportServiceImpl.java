@@ -27,8 +27,8 @@ public class ReplyReportServiceImpl implements ReplyReportService{
 
     @Override
     @Transactional
-    public boolean reportReply(PostReplyReportDTO postReplyReportDTO) {
-        replyReportRepository.replyReport(new ReplyReportDAO(-1, postReplyReportDTO.getBoard_id(), -1, "dsad", postReplyReportDTO.getRecv_id(), postReplyReportDTO.getBody()));
+    public boolean reportReply(String userId, PostReplyReportDTO postReplyReportDTO) {
+        replyReportRepository.replyReport(new ReplyReportDAO(1, postReplyReportDTO.getBoard_id(), 1, userId, postReplyReportDTO.getRecv_id(), postReplyReportDTO.getBody()));
         return true;
     }
 

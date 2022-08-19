@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ReplyReportService {
     public List<ReplyReportDTO> getMyReplyReport(String userId);
-    public boolean reportReply(PostReplyReportDTO postReplyReportDTO);
+    public boolean reportReply(String userId, PostReplyReportDTO postReplyReportDTO);
     public List<ReplyReportPageDTO> getReplyReport();
     public List<ReplyReportDTO> getReplyReportById(String recvId);
 }

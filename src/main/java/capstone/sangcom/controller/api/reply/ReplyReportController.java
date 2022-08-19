@@ -47,8 +47,10 @@ public class ReplyReportController {
      * /api/reply/report
      * */
     @PostMapping
-    public ResponseEntity<SimpleResponse> reportReply(@RequestBody PostReplyReportDTO postReplyReportDTO){
-        if(replyReportService.reportReply(postReplyReportDTO)){
+    public ResponseEntity<SimpleResponse> reportReply(HttpServletRequest request, @RequestBody PostReplyReportDTO postReplyReportDTO){
+        JwtUser user = (JwtUser) request.getAttribute("user");
+
+        if(replyReportService.reportReply(user.getId(), postReplyReportDTO)){
             return ResponseEntity.ok(new SimpleResponse(true));
         }else{
             return ResponseEntity
