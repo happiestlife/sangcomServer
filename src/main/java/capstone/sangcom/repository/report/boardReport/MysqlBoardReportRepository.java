@@ -1,8 +1,8 @@
 package capstone.sangcom.repository.report.boardReport;
 
 import capstone.sangcom.entity.dao.replyReport.ReportBoardDAO;
+import capstone.sangcom.entity.dto.boardSection.BoardReportDTO;
 import capstone.sangcom.entity.dto.reportSection.ReportDTO;
-import capstone.sangcom.repository.report.boardReport.BoardReportRepository;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -22,11 +22,14 @@ public class MysqlBoardReportRepository implements BoardReportRepository {
 
     private final RowMapper<ReportDTO> reportDTORowMapper;
 
+    private final RowMapper<BoardReportDTO> reportCountRowMapper;
+
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
     public MysqlBoardReportRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate){
         jdbcTemplate = namedParameterJdbcTemplate;
         reportDTORowMapper = new ReportRowMapper();
+        reportCountRowMapper = new ReportCountRowMapper();
     }
 
     @Override
@@ -57,8 +60,14 @@ public class MysqlBoardReportRepository implements BoardReportRepository {
         return key.getKey().intValue();
     }
 
-    private class ReportRowMapper implements RowMapper<ReportDTO>{
+    @Override
+    public List<BoardReportDTO> countReportById() {
+        String query = "SELECT recv_id, COUNT(*) AS countss FROM " + BOARD_REPORT_TABLE + " GROUP BY recv_id ";
 
+        return jdbcTemplate.query(query, reportCountRowMapper);
+    }
+
+    private class ReportRowMapper implements RowMapper<ReportDTO>{
         @Override
         public ReportDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new ReportDTO(
@@ -67,6 +76,15 @@ public class MysqlBoardReportRepository implements BoardReportRepository {
                     rs.getString("send_id"),
                     rs.getString("body"),
                     rs.getString("regdate"));
+        }
+    }
+
+    private class ReportCountRowMapper implements RowMapper<BoardReportDTO> {
+        @Override
+        public BoardReportDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new BoardReportDTO(
+                    rs.getString("recv_id"),
+                    rs.getInt("countss"));
         }
     }
 }
