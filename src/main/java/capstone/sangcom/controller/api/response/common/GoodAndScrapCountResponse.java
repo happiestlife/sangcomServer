@@ -3,7 +3,7 @@ package capstone.sangcom.controller.api.response.common;
 import lombok.Data;
 
 @Data
-public class GoodCheckResponse {
+public class GoodAndScrapCountResponse {
     private final boolean success;
-    private final String stat;
+    private final int goodCount;
 }

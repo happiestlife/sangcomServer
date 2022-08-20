@@ -1,6 +1,7 @@
 package capstone.sangcom.entity.dto.reportSection;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 public class PostReplyReportDTO {

@@ -1,6 +1,9 @@
-package capstone.sangcom.service.report;
+package capstone.sangcom.service.report.reply;
 
 import capstone.sangcom.entity.dto.reportSection.*;
+import capstone.sangcom.entity.dto.reportSection.PostReplyReportDTO;
+import capstone.sangcom.entity.dto.reportSection.ReplyReportDTO;
+import capstone.sangcom.entity.dto.reportSection.ReplyReportPageDTO;
 
 import java.util.List;
 

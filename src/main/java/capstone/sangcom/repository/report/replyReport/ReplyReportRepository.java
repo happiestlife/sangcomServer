@@ -1,4 +1,4 @@
-package capstone.sangcom.repository.report;
+package capstone.sangcom.repository.report.replyReport;
 
 import capstone.sangcom.entity.dto.reportSection.ReplyReportCountDTO;
 import capstone.sangcom.entity.dto.reportSection.ReplyReportDTO;

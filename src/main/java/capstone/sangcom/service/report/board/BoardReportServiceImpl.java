@@ -1,10 +1,9 @@
-package capstone.sangcom.service.report;
+package capstone.sangcom.service.report.board;
 
 import capstone.sangcom.entity.dao.replyReport.ReportBoardDAO;
 import capstone.sangcom.entity.dto.reportSection.PostReportBoardDTO;
-import capstone.sangcom.entity.dto.reportSection.ReadReportDTO;
 import capstone.sangcom.entity.dto.reportSection.ReportDTO;
-import capstone.sangcom.repository.report.ReportRepository;
+import capstone.sangcom.repository.report.boardReport.BoardReportRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,9 +14,9 @@ import java.util.List;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class ReportServiceImpl implements ReportService{
+public class BoardReportServiceImpl implements BoardReportService {
 
-    private final ReportRepository reportRepository;
+    private final BoardReportRepository reportRepository;
 
     @Override
     @Transactional

@@ -6,7 +6,10 @@ import capstone.sangcom.controller.api.response.reply.ReplyReportPageResponse;
 import capstone.sangcom.controller.api.response.reply.ReplyReportResponse;
 import capstone.sangcom.entity.dto.reportSection.*;
 import capstone.sangcom.entity.JwtUser;
-import capstone.sangcom.service.report.ReplyReportService;
+import capstone.sangcom.entity.dto.reportSection.PostReplyReportDTO;
+import capstone.sangcom.entity.dto.reportSection.ReplyReportDTO;
+import capstone.sangcom.entity.dto.reportSection.ReplyReportPageDTO;
+import capstone.sangcom.service.report.reply.ReplyReportService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -14,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -49,7 +51,8 @@ public class ReplyReportController {
         JwtUser user = (JwtUser) request.getAttribute("user");
 
         if(replyReportService.reportReply(user.getId(), postReplyReportDTO)){
-            return ResponseEntity.ok(new SimpleResponse(true));
+            return ResponseEntity
+                    .ok(new SimpleResponse(true));
         }else{
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
@@ -90,14 +93,9 @@ public class ReplyReportController {
     public ResponseEntity<ReplyReportPageResponse> getReplyReport(@PathVariable int page){
         List<ReplyReportPageDTO> replyReportPageDTOS = replyReportService.getReplyReport(page);
 
-        if(replyReportPageDTOS != null){
-            return ResponseEntity
-                    .ok(new ReplyReportPageResponse(true, replyReportPageDTOS));
-        }
-        else{
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .build();
-        }
+        return ResponseEntity
+                .ok(new ReplyReportPageResponse(true, replyReportPageDTOS));
+
+        // 오류인 경우 처리 필요
     }
 }

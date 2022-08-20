@@ -1,8 +1,11 @@
-package capstone.sangcom.service.report;
+package capstone.sangcom.service.report.reply;
 
 import capstone.sangcom.entity.dto.reportSection.*;
 import capstone.sangcom.entity.dao.replyReport.ReplyReportDAO;
-import capstone.sangcom.repository.report.ReplyReportRepository;
+import capstone.sangcom.entity.dto.reportSection.PostReplyReportDTO;
+import capstone.sangcom.entity.dto.reportSection.ReplyReportDTO;
+import capstone.sangcom.entity.dto.reportSection.ReplyReportPageDTO;
+import capstone.sangcom.repository.report.replyReport.ReplyReportRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,8 +28,11 @@ public class ReplyReportServiceImpl implements ReplyReportService{
     @Override
     @Transactional
     public boolean reportReply(String userId, PostReplyReportDTO postReplyReportDTO) {
-        replyReportRepository.replyReport(new ReplyReportDAO(1, postReplyReportDTO.getBoard_id(), 1, userId, postReplyReportDTO.getRecv_id(), postReplyReportDTO.getBody()));
-        return true;
+        if(replyReportRepository.replyReport(new ReplyReportDAO(1, postReplyReportDTO.getBoard_id(), 1,
+                userId, postReplyReportDTO.getRecv_id(), postReplyReportDTO.getBody())) == -1)
+            return false;
+        else
+            return true;
     }
 
     @Override
