@@ -1,9 +1,9 @@
-package capstone.sangcom.repository.report;
+package capstone.sangcom.repository.report.replyReport;
 
+import capstone.sangcom.entity.dto.reportSection.ReplyReportCountDTO;
 import capstone.sangcom.entity.dto.reportSection.ReplyReportDTO;
 import capstone.sangcom.entity.dao.replyReport.ReplyReportDAO;
 import capstone.sangcom.entity.dto.reportSection.ReplyReportPageDTO;
-import capstone.sangcom.repository.report.replyReport.ReplyReportRepository;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -24,15 +24,15 @@ public class MysqlReplyReportRepository implements ReplyReportRepository {
 
     private final RowMapper<ReplyReportDTO> replyReportDTORowMapper;
 
-    private final RowMapper<ReplyReportPageDTO> replyReportPageRowMapper;
+    private final RowMapper<ReplyReportCountDTO> replyReportCountRowMapper;
 
-//    private final RowMapper<ReplyReportDetailDTO> replyReportDetailDTORowMapper;
+    private final RowMapper<ReplyReportPageDTO> replyReportPageRowMapper;
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
     public MysqlReplyReportRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate){
         jdbcTemplate = namedParameterJdbcTemplate;
-//        replyReportDetailDTORowMapper = new ReplyReportDetailRowMapper();
+        replyReportCountRowMapper = new ReplyReportCountRowMapper();
         replyReportDTORowMapper = new ReplyReportRowMapper();
         replyReportPageRowMapper = new ReplyReportPageRowMapper();
     }
@@ -66,6 +66,14 @@ public class MysqlReplyReportRepository implements ReplyReportRepository {
     }
 
     @Override
+    public List<ReplyReportCountDTO> countReplyReportById() {
+        String query = "SELECT recv_id, COUNT(*) AS countss FROM " + REPLY_REPORT_TABLE + " GROUP BY recv_id ";
+
+                return jdbcTemplate.query(query, replyReportCountRowMapper);
+
+    }
+
+    @Override
     public List<ReplyReportDTO> getReplyReportById(String recvId) {
         String query = "SELECT * FROM " + REPLY_REPORT_TABLE + " WHERE recv_id =:recv_id";
         Map<String, Object> params = new HashMap<>();
@@ -83,6 +91,16 @@ public class MysqlReplyReportRepository implements ReplyReportRepository {
 
         return jdbcTemplate.query(query, params, replyReportPageRowMapper);
     }
+
+    private class ReplyReportCountRowMapper implements RowMapper<ReplyReportCountDTO> {
+        @Override
+        public ReplyReportCountDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new ReplyReportCountDTO(
+                    rs.getString("recv_id"),
+                    rs.getInt("countss"));
+        }
+    }
+
 
     private class ReplyReportRowMapper implements RowMapper<ReplyReportDTO>{
         @Override
@@ -108,21 +126,4 @@ public class MysqlReplyReportRepository implements ReplyReportRepository {
                     rs.getString("regdate"));
         }
     }
-
-
-//    private class ReplyReportDetailRowMapper implements RowMapper<ReplyReportDetailDTO>{
-//
-//        @Override
-//        public ReplyReportDetailDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-//            return new ReplyReportDetailDTO(
-//                    rs.getInt("report_id"),
-//                    rs.getInt("board_id"),
-//                    rs.getInt("reply_id"),
-//                    rs.getString("send_id"),
-//                    rs.getString("recv_id"),
-//                    rs.getString("body"),
-//                    rs.getString("regdate"));
-//        }
-//
-//    }
 }

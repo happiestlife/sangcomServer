@@ -1,11 +1,13 @@
 package capstone.sangcom.controller.api.reply;
 
 import capstone.sangcom.controller.api.response.common.SimpleResponse;
+import capstone.sangcom.controller.api.response.reply.ReplyReportCountResponse;
 import capstone.sangcom.controller.api.response.reply.ReplyReportPageResponse;
 import capstone.sangcom.controller.api.response.reply.ReplyReportResponse;
+import capstone.sangcom.entity.dto.reportSection.*;
+import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.entity.dto.reportSection.PostReplyReportDTO;
 import capstone.sangcom.entity.dto.reportSection.ReplyReportDTO;
-import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.entity.dto.reportSection.ReplyReportPageDTO;
 import capstone.sangcom.service.report.reply.ReplyReportService;
 import lombok.RequiredArgsConstructor;
@@ -56,6 +58,18 @@ public class ReplyReportController {
                     .status(HttpStatus.BAD_REQUEST)
                     .body(new SimpleResponse(false));
         }
+    }
+
+    /**
+     * 신고당한 아이디 및 횟수 ( 댓글, Master권한)
+     * GET
+     * /api/reply/report/count
+     * */
+    @GetMapping("/count")
+    public ResponseEntity<ReplyReportCountResponse> countReplyReportById(){
+        List<ReplyReportCountDTO> replyReportCountDTOS = replyReportService.countReplyReportById();
+
+        return ResponseEntity.ok(new ReplyReportCountResponse(true, replyReportCountDTOS));
     }
 
     /**
