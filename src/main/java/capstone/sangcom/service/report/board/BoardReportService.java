@@ -1,6 +1,7 @@
 package capstone.sangcom.service.report.board;
 
 import capstone.sangcom.entity.dto.boardSection.BoardReportDTO;
+import capstone.sangcom.entity.dto.boardSection.BoardReportPageDTO;
 import capstone.sangcom.entity.dto.reportSection.PostReportBoardDTO;
 import capstone.sangcom.entity.dto.reportSection.ReportDTO;
 
@@ -11,4 +12,5 @@ public interface BoardReportService {
     public boolean reportBoard(String userId, PostReportBoardDTO postReportBoardDTO);
     public List<BoardReportDTO> countReportById();
     public List<ReportDTO> getReportById(String id);
+    public List<BoardReportPageDTO> getReport(int page);
 }

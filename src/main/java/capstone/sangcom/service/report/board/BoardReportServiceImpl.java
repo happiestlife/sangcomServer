@@ -2,6 +2,7 @@ package capstone.sangcom.service.report.board;
 
 import capstone.sangcom.entity.dao.replyReport.ReportBoardDAO;
 import capstone.sangcom.entity.dto.boardSection.BoardReportDTO;
+import capstone.sangcom.entity.dto.boardSection.BoardReportPageDTO;
 import capstone.sangcom.entity.dto.reportSection.PostReportBoardDTO;
 import capstone.sangcom.entity.dto.reportSection.ReportDTO;
 import capstone.sangcom.repository.report.boardReport.BoardReportRepository;
@@ -42,5 +43,10 @@ public class BoardReportServiceImpl implements BoardReportService {
     @Transactional
     public List<ReportDTO> getReportById(String id) {
         return reportRepository.getReportById(id);
+    }
+
+    @Override
+    public List<BoardReportPageDTO> getReport(int page) {
+        return reportRepository.getReport(page);
     }
 }
