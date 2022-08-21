@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class MysqlBoardReportRepository implements BoardReportRepository {
@@ -65,6 +66,15 @@ public class MysqlBoardReportRepository implements BoardReportRepository {
         String query = "SELECT recv_id, COUNT(*) AS countss FROM " + BOARD_REPORT_TABLE + " GROUP BY recv_id ";
 
         return jdbcTemplate.query(query, reportCountRowMapper);
+    }
+
+    @Override
+    public List<ReportDTO> getReportById(String id) {
+        String query = "SELECT * FROM " + BOARD_REPORT_TABLE + " WHERE recv_id =:recv_id";
+        Map<String, Object> params = new HashMap<>();
+        params.put("recv_id", id);
+
+        return jdbcTemplate.query(query, params, reportDTORowMapper);
     }
 
     private class ReportRowMapper implements RowMapper<ReportDTO>{

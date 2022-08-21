@@ -1,10 +1,8 @@
 package capstone.sangcom.controller.api.board;
 
+import capstone.sangcom.controller.api.response.board.BoardReportByIdResponse;
 import capstone.sangcom.controller.api.response.board.BoardReportResponse;
 import capstone.sangcom.controller.api.response.common.SimpleResponse;
-import capstone.sangcom.controller.api.response.reply.ReplyReportCountResponse;
-import capstone.sangcom.controller.api.response.reply.ReplyReportPageResponse;
-import capstone.sangcom.controller.api.response.reply.ReplyReportResponse;
 import capstone.sangcom.controller.api.response.reply.ReportResponse;
 import capstone.sangcom.entity.dto.boardSection.BoardReportDTO;
 import capstone.sangcom.entity.dto.reportSection.*;
@@ -17,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -67,6 +66,40 @@ public class BoardReportController {
         List<BoardReportDTO> boardReportDTOS = boardReportService.countReportById();
 
         return ResponseEntity.ok(new BoardReportResponse(true, boardReportDTOS));
+    }
+
+    /**
+     * id값에 따른 게시판 신고 목록 조회 ( 게시판, Master권한 )
+     * GET
+     * /api/board/report?id={신고받은 id값}
+     * */
+    @GetMapping
+    public ResponseEntity<BoardReportByIdResponse> getReportById(@RequestParam String id){
+        List<ReportDTO> reportDTOSs = boardReportService.getReportById(id);
+
+        if (reportDTOSs.isEmpty()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BoardReportByIdResponse(false, null));
+        }
+
+        try{
+            List<ReportDTO> reportDTOS = boardReportService.getReportById(id);
+            return ResponseEntity.ok(new BoardReportByIdResponse(true, reportDTOS));
+        }catch (NullPointerException nullPointerException){
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new BoardReportByIdResponse(false, null));
+        }
+//        if(reportDTOS.isEmpty()){
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BoardReportByIdResponse(false, null));
+//        }
+//
+//        if(reportDTOS != null){
+//            return ResponseEntity.ok(new BoardReportByIdResponse(true, reportDTOS));
+//        } else{
+//            return ResponseEntity
+//                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(new BoardReportByIdResponse(false, null));
+//        }
     }
 
 }

@@ -37,4 +37,10 @@ public class BoardReportServiceImpl implements BoardReportService {
     public List<BoardReportDTO> countReportById() {
         return reportRepository.countReportById();
     }
+
+    @Override
+    @Transactional
+    public List<ReportDTO> getReportById(String id) {
+        return reportRepository.getReportById(id);
+    }
 }

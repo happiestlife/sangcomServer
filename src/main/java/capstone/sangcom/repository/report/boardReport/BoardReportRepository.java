@@ -10,4 +10,5 @@ public interface BoardReportRepository {
     public List<ReportDTO> getMyReport(String userId);
     public int reportBoard(ReportBoardDAO reportBoardDAO);
     public List<BoardReportDTO> countReportById();
+    public List<ReportDTO> getReportById(String id);
 }
