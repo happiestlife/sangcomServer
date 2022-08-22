@@ -5,7 +5,6 @@ import capstone.sangcom.controller.api.response.todo.GetTodoListResponse;
 import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.entity.dto.todoSection.GetTodoListDTO;
 import capstone.sangcom.entity.dto.todoSection.InsertTodoListDTO;
-import capstone.sangcom.controller.api.response.todo.TodoResponse;
 import capstone.sangcom.entity.dto.todoSection.UpdateTodoListDTO;
 import capstone.sangcom.service.todo.TodoService;
 import lombok.AllArgsConstructor;
