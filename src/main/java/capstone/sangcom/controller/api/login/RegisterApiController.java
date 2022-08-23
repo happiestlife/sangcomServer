@@ -58,8 +58,7 @@ public class RegisterApiController {
                     ok(new SimpleResponse(true));
         else
             return ResponseEntity.
-                    status(HttpStatus.BAD_REQUEST).
-                    body(new SimpleResponse(false));
+                    ok(new SimpleResponse(false));
     }
 
     /**
