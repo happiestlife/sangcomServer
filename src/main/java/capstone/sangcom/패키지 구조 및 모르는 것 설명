@@ -1,0 +1,32 @@
+< 패키지 설명 >
+repository : sql문이 어떤 것이 있는지 알려주는 인터페이스
+MySqlRepository : sql문으로 DB에서 데이터 가져오기
+service : 비지니스 로직에 어떤 기능이 있는지 알려주는 인터페이스
+serviceImpl : 비지니스 로직
+controller : 사용자로부터 받은 요청을 비즈니스 - 레포지토리 거쳐서 가공한 것을 반환 (CRUD ??)
+
+* 비지니스 로직 :
+
+< 패키지 작성 순서 >
+repository -> MySqlRepository -> service -> serviceImpl -> controller
+
+DAO(Data Access Object) : DB의 data에 접근하기 위한 객체
+DTO(Data Transfer Object) : 로직을 가지지 않는 데이터 객체
+
+EX)
+public List<BoardDTO> findBoard(String type, String title);
+    // 선택적인 갯수의 무언가를 반환.
+    // type, title에 해당하는 게시글을 BoardDTO 자료형(?= generic)에 담아서 반환한다
+    // List 여러개 게시글일 수 있어서
+    // List<BoardDTO>
+
+List 자료형 :
+배열과 비슷한 자바의 자료형.
+배열과 가장 큰 차이점은 List는 크기가 정해져 있지 않고 동적으로 변한다는 점이다.
+
+ArrayList :
+List 자료형 중 가장 간단한 형태의 자료형.
+
+Generics :
+ArrayList<String> pitches = new ArrayList<>(); 처럼
+객체를 포함하는 자료형도 어떤 객체를 포함하는지에 대해서 명확하게 표현하는 것

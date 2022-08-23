@@ -18,7 +18,7 @@ import java.net.URLEncoder;
  */
 
 @Controller
-public class SearchController_Example {
+public class SearchController_example {
     @RequestMapping(value = "/movie/search", produces = "application/json")
     public void movieSearch(
             @RequestParam(value = "search", required = false)

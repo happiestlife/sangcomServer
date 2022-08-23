@@ -1,8 +1,11 @@
 package capstone.sangcom.repository.todo;
 
+import capstone.sangcom.entity.dto.todoSection.GetTodoListDTO;
+import capstone.sangcom.entity.dto.todoSection.InsertTodoListDTO;
 import capstone.sangcom.entity.dto.todoSection.TodoDTO;
 //import capstone.sangcom.repository.board.board.MySqlBoardRepository;
 //import org.apache.poi.ss.formula.functions.T;
+import capstone.sangcom.entity.dto.todoSection.UpdateTodoListDTO;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -21,42 +24,51 @@ public class MySqlTodoRepository implements TodoRepository{
 
     private final String TODOLIST_TABLE = "todoList";
 
-    private final RowMapper<TodoDTO> todoRowMapper;
+    private final RowMapper<GetTodoListDTO> getTodoListDTORowMapper;
+    private final RowMapper<TodoDTO> todoDTORowMapper;
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
     public MySqlTodoRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         jdbcTemplate = namedParameterJdbcTemplate;
-        todoRowMapper = new TodoRowMapper();
+        todoDTORowMapper = new TodoRowMapper(); // ?
+        getTodoListDTORowMapper = new RowMapper<GetTodoListDTO>() { // 이게 맞나 ..
+            @Override
+            public GetTodoListDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return null;
+            }
+        };
     }
 
     @Override // todolist 등록
-    public int insert(TodoDTO todoDTO) {
+    public boolean insert(String user_id, InsertTodoListDTO insertTodoListDTO) {
         String query = "INSERT INTO " + TODOLIST_TABLE + " (user_id, body, year, month, day) VALUES (:user_id, :body, :year, :month, :day)";
 
-        MapSqlParameterSource params = new MapSqlParameterSource() //?????????????? get~() 이게 뭐지..
-                .addValue("user_id", todoDTO.getUser_id())
-                .addValue("body", todoDTO.getBody())
-                .addValue("year", todoDTO.getUser_id())
-                .addValue("month", todoDTO.getMonth())
-                .addValue("day", todoDTO.getDay());
+        MapSqlParameterSource params = new MapSqlParameterSource()
+                .addValue("user_id", user_id)
+                .addValue("body", insertTodoListDTO.getBody())
+                .addValue("year", insertTodoListDTO.getYear())
+                .addValue("month", insertTodoListDTO.getMonth())
+                .addValue("day", insertTodoListDTO.getDay());
 
         KeyHolder key = new GeneratedKeyHolder();
         if (jdbcTemplate.update(query, params, key, new String[]{"user_id"}) != 1)
-            return -1;
+            return false;
+//            return -1;
 
-        return key.getKey().intValue();
+        return true;
+//        return key.getKey().intValue();
     }
 
     @Override // todolist - 날짜별 조회
-     public List<TodoDTO> getTodoList(String user_id, TodoDTO todoDTO) {
+     public List<GetTodoListDTO> getTodoList(String user_id, GetTodoListDTO getTodoListDTO) {
         String query = "SELECT * FROM " + TODOLIST_TABLE + " WHERE user_id = :user_id AND year = :year AND month= :month AND day= :day";
 
         Map<String, Object> params = new HashMap<>();
         params.put("user_id", user_id);
-        params.put("todoDTO", todoDTO);
+        params.put("getTodoListDTO", getTodoListDTO);
 
-        return jdbcTemplate.query(query, params, todoRowMapper);    }
+        return jdbcTemplate.query(query, params, getTodoListDTORowMapper);    }
 
     @Override // todolist - user_id, list_id로 조회 // update, delite, check에 쓰임
     public List<TodoDTO> searchTodoList(String user_id, int list_id) {
@@ -66,16 +78,15 @@ public class MySqlTodoRepository implements TodoRepository{
         params.put("user_id", user_id);
         params.put("list_id", list_id);
 
-        return jdbcTemplate.query(query, params, todoRowMapper);
+        return jdbcTemplate.query(query, params, todoDTORowMapper);
     }
 
     @Override // todolist update
-    public boolean updateTodoList(String body, String user_id, int list_id) {
+    public boolean updateTodoList(String body, UpdateTodoListDTO updateTodoListDTO) {
         String query = "UPDATE " + TODOLIST_TABLE + " SET body= :body WHERE user_id= :user_id AND list_id= :list_id";
         Map<String, Object> params = new HashMap<>();
         params.put("body", body);
-        params.put("user_id", user_id);
-        params.put("list_id", list_id);
+        params.put("updateTodoListDTO", updateTodoListDTO);
 
         int update = jdbcTemplate.update(query, params);
         System.out.println(update);
@@ -95,6 +106,11 @@ public class MySqlTodoRepository implements TodoRepository{
             return false;
         else
             return true;    }
+
+//    @Override // 해당 할 일을
+//    public boolean isUserWriteTodoList(String userId, int listId) {
+//        return false;
+//    }
 
     @Override // todolist check
     public boolean checkTodoList(boolean listCheck, String user_id, int list_id) {

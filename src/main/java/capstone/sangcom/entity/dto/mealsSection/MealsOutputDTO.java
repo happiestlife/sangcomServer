@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.ArrayList;
 
 @Data
-public class MealsResponseDTO {
+public class MealsOutputDTO {
     private final String year;
     private final String month;
     private final String day;

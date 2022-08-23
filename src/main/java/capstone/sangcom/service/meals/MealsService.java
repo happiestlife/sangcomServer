@@ -1,14 +1,12 @@
-package capstone.sangcom.service.schoolMeals;
+package capstone.sangcom.service.meals;
 
-import capstone.sangcom.controller.api.response.meals.MealsResponse;
-import capstone.sangcom.entity.dto.mealsSection.MealsParameterDTO;
-import capstone.sangcom.entity.dto.mealsSection.MealsResponseDTO;
+import capstone.sangcom.entity.dto.mealsSection.MealsOutputDTO;
 
 import java.util.List;
 
 public interface MealsService {
 
-    public List<MealsResponseDTO> getMeals(String MLSV_FROM_YMD, String MLSV_TO_YMD);
+    public List<MealsOutputDTO> getMeals(String MLSV_FROM_YMD, String MLSV_TO_YMD);
 
     public boolean getMealsOK();
 
