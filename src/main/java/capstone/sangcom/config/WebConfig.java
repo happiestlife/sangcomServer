@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     private final String[] EXCLUDE_PATHS = {
             // 로그인 관련
-            "/login", "/register",
+            "/login", "/register", "/find/**",
 
             // 자바스크립트 파일, css 파일, 이미지(png) 파일
             "/css/**", "/js/**", "/fonts/**", "/image/**", "/icon/**",
