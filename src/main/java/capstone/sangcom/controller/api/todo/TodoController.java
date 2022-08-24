@@ -3,6 +3,7 @@ package capstone.sangcom.controller.api.todo;
 import capstone.sangcom.controller.api.response.common.SimpleResponse;
 import capstone.sangcom.controller.api.response.todo.GetTodoListResponse;
 import capstone.sangcom.entity.JwtUser;
+import capstone.sangcom.entity.User;
 import capstone.sangcom.entity.dto.todoSection.GetTodoListDTO;
 import capstone.sangcom.entity.dto.todoSection.InsertTodoListDTO;
 import capstone.sangcom.entity.dto.todoSection.UpdateTodoListDTO;
@@ -50,6 +51,7 @@ public class TodoController {
 //        const { body, year, month, day } = todoSchema.validateSync(req.body); //= @RequestBody 인 것 같음
 
         JwtUser user = (JwtUser) request.getAttribute("user"); // javascript - const user_id = req.body.data.id;
+//        User user = (User) request.getAttribute("user"); // javascript - const user_id = req.body.data.id;
 
         if (todoService.insert(user.getId(), insertTodoListDTO)) {
             return ResponseEntity

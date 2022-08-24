@@ -8,7 +8,11 @@ public interface MealsService {
 
     public List<MealsOutputDTO> getMeals(String MLSV_FROM_YMD, String MLSV_TO_YMD);
 
+//    public List<MealsOutputDTO> getMonthMeals(String MLSV_FROM_YMD, String MLSV_TO_YMD);
+      // 왜 써야하지?
+
     public boolean getMealsOK();
+    // 왜 써야하지?
 
 
 

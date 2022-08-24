@@ -8,6 +8,7 @@ import capstone.sangcom.entity.dto.todoSection.UpdateTodoListDTO;
 import capstone.sangcom.repository.todo.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +33,7 @@ public class TodoServiceImpl implements TodoService{
     @Transactional
     public boolean insert(String user_id, InsertTodoListDTO insertTodoListDTO) {
         // todo 저장 후 todo Body 가져오기
-        if(todoRepository.insert(user_id, insertTodoListDTO))
+        if(!todoRepository.insert(user_id, insertTodoListDTO))
             return false;
         else
             return true;

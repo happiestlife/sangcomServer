@@ -6,6 +6,7 @@ import capstone.sangcom.entity.dto.todoSection.TodoDTO;
 //import capstone.sangcom.repository.board.board.MySqlBoardRepository;
 //import org.apache.poi.ss.formula.functions.T;
 import capstone.sangcom.entity.dto.todoSection.UpdateTodoListDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

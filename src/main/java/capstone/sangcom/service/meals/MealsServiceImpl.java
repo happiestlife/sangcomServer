@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class MealsServiceImpl implements  MealsService{
+public class MealsServiceImpl implements MealsService{
     @Override
     public List<MealsOutputDTO> getMeals(String MLSV_FROM_YMD, String MLSV_TO_YMD) {
         return null;

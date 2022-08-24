@@ -4,12 +4,12 @@ import capstone.sangcom.entity.dto.todoSection.GetTodoListDTO;
 import capstone.sangcom.entity.dto.todoSection.InsertTodoListDTO;
 import capstone.sangcom.entity.dto.todoSection.TodoDTO;
 import capstone.sangcom.entity.dto.todoSection.UpdateTodoListDTO;
-import org.springframework.stereotype.Repository;
+//import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 
-@Repository
+//@Repository
 public interface TodoRepository {
 
     public boolean insert(String user_id, InsertTodoListDTO insertTodoListDTO);
