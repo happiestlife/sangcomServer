@@ -1,16 +1,13 @@
-package capstone.sangcom.entity;
+package capstone.sangcom.entity.dto.loginSection.register;
 
+import capstone.sangcom.entity.UserRole;
 import lombok.*;
 
-@Getter
-@Setter
-@Builder
-@ToString
-@AllArgsConstructor
-public class User{
-
+@Data
+public class RegisterFormDTO {
     private String id;
     private String password;
+    private String passwordCheck;
     private String name;
     private String phone;
     private Integer schoolgrade;
@@ -21,7 +18,7 @@ public class User{
     private String birth;
     private String email;
 
-    public User() {
+    public RegisterFormDTO() {
         role = UserRole.STUDENT;
     }
 }
