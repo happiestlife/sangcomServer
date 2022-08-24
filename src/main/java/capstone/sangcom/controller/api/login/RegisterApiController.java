@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
-public class RegisterController {
+public class RegisterApiController {
 
     private final UserService userService;
 
@@ -58,8 +58,7 @@ public class RegisterController {
                     ok(new SimpleResponse(true));
         else
             return ResponseEntity.
-                    status(HttpStatus.BAD_REQUEST).
-                    body(new SimpleResponse(false));
+                    ok(new SimpleResponse(false));
     }
 
     /**

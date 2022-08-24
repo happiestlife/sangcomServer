@@ -13,6 +13,6 @@ public interface LoginService {
 
     public LoginResponse login(LoginDTO loginDTO);
     public String findPassword(FindPasswordDTO findPasswordDTO);
-    public User register(User use);
+    public User register(User user);
 
 }

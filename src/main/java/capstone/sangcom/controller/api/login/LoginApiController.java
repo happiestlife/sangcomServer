@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
-public class LoginController {
+public class LoginApiController {
 
     private final LoginService userService;
     private final UserService user2Service;

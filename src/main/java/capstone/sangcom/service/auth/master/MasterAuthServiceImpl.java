@@ -73,7 +73,8 @@ public class MasterAuthServiceImpl implements MasterAuthService{
                     row.getCell(0).getStringCellValue(),
                     (int)row.getCell(1).getNumericCellValue(),
                     (int)row.getCell(2).getNumericCellValue(),
-                    (int)row.getCell(3).getNumericCellValue()
+                    (int)row.getCell(3).getNumericCellValue(),
+                    (int)row.getCell(4).getNumericCellValue()
             );
 
             data.add(cell);
@@ -84,7 +85,7 @@ public class MasterAuthServiceImpl implements MasterAuthService{
             String schoolClass = datum.getSchoolClass() < 10 ? "0" + datum.getSchoolClass() : String.valueOf(datum.getSchoolClass());
             String schoolNumber = datum.getSchoolNumber() < 10 ? "0" + datum.getSchoolNumber() : String.valueOf(datum.getSchoolNumber());
 
-            String studentId = schoolGrade + schoolClass + schoolNumber;
+            String studentId = datum.getYear() + schoolGrade + schoolClass + schoolNumber;
 
             AuthStudentDAO authData = new AuthStudentDAO(studentId, datum.getName());
 

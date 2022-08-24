@@ -18,12 +18,11 @@ import java.util.*;
 @Slf4j
 public class JwtUtils {
 
-    private static final int ACCESS_EXPIRE_TIME = 60 * 60 * 2;
+    public static final int ACCESS_EXPIRE_TIME = 60 * 60 * 2;
 
     //private static final int ACCESS_EXPIRE_TIME = 60;
-    private static final int REFRESH_EXPIRE_TIME = 60 * 60 * 24 * 14;
+    public static final int REFRESH_EXPIRE_TIME = 60 * 60 * 24 * 14;
     //private static final int REFRESH_EXPIRE_TIME = 60 * 5;
-
 
     private static final String secretKey = "ThisIsASecretKeyForSangComThisIsASecretKeyForSangComThisIsASecretKeyForSangCom";
 
