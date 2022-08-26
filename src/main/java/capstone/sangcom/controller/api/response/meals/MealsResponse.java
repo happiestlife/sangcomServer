@@ -13,5 +13,8 @@ import java.util.List;
 public class MealsResponse {
 
     private boolean success;
-    private final List<MealsOutputDTO> paths;
+    private List<MealsOutputDTO> mealsData;
+
+
+//    private final List<MealsOutputDTO> paths; // 무슨 뜻인지 모르겠다.
 }
