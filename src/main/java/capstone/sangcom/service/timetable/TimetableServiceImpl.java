@@ -40,4 +40,5 @@ public class TimetableServiceImpl implements TimetableService{
 
         return true;
     }
+    // BoardServiceImpl - "delete" 참고하여 작성함.
 }
