@@ -1,16 +1,19 @@
 package capstone.sangcom.repository.timetable;
 
+import capstone.sangcom.entity.dto.timetableSection.TimetableDTO;
+
+import java.util.List;
+
 public interface TimetableRepository {
 
     // 시간표 등록, 수정
-    public void insertSelect(int user_id, String days, Number period);
-    public boolean insert(int user_id, String subject, String days, Number period, String location, String teacher);
-    public boolean update(String subject, String location, String teacher, String days, Number period, int user_id);
+    public boolean insertTimetable(TimetableDTO timetableDTO);
+    public boolean updateTimetable(TimetableDTO timetableDTO);
 
     // 시간표 조회
-    public void getSelect(String subject, String days, Number period, String location, String teache, int user_id);
+    public List<TimetableDTO> getTimetable(); //(int user_id, TimetableDTO timetableDTO); API명세서에 파라미터가 없음..
 
     // 시간표 삭제
-    public boolean delete(int user_id, String days, Number period);
+    public boolean deleteTimetable(String days, Number period);
 
 }

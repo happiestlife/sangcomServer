@@ -20,36 +20,30 @@ public class MealsController {
 
     private final MealsService mealsService; // mealsService의 객체
 
+//    Neis neis = new Neis;
+
     /**
-     * 급식 받아오기
+     * 급식 받아오기 (시도교육청코드, 표준학교코드, 시작일자, 종료일자에 해당하는 급식)
      */
     @GetMapping("/cafeteria?MLSV_FROM_YMD={시작일자}&MLSV_TO_YMD={종료일자}")
-    public ResponseEntity<MealsResponse> getMealsInfo(MealsInputDTO mealsInputDTO,
+    public ResponseEntity<MealsResponse> getMealsInfo(@RequestParam MealsInputDTO mealsInput, // 시도교육청코드, 표준학교코드
                                                       @PathVariable("시작일자") String MLSV_FROM_YMD, // 시작일자 입력
-                                                      @PathVariable("종료일자") String MLSV_TO_YMD, // 종료일자 입력
-                                                      @RequestBody MealsOutputDTO mealsOutputDTO) { // MealsOutPutDTO 변수 받기
-        // @PathVariable: url 경로({시작일자}, {종료일자})를 변수화하여 사용할 수 있도록 해준다.
-        // @RequestBody: 변수를 받아오도록 한다.
+                                                      @PathVariable("종료일자") String MLSV_TO_YMD) { // 종료일자 입력
 
-
-        List<MealsOutputDTO> mealsOutPutDTOS = mealsService.getMeals(MLSV_FROM_YMD, MLSV_TO_YMD);
-
-
-//        List<MealsOutputDTO> mealsResponse = mealsService.getMeals(MLSV_FROM_YMD, MLSV_TO_YMD);
+        List<MealsOutputDTO> mealsOutPut = mealsService.getMeals(mealsInput, MLSV_FROM_YMD, MLSV_TO_YMD);
         // 서비스 단의 getMeals 메소드에 (MLSV_FROM_YMD, MLSV_TO_YMD)에 해당하는 선택적 갯수의 무언가를 반환한다.
-        // List의 generic은 MealsOutputDTO
 
         return ResponseEntity
-                .ok(new MealsResponse(true, (List<MealsOutputDTO>) mealsOutputDTO)); // 옵션 엔터 누름..
+                .ok(new MealsResponse(true, mealsOutPut)); // 성공 응답 메시지를 반환한다.
 
-        // if-else문을 왜 써야하지?
+        // if-else문을 안써도 되지 않나?
 //        if (mealsService.getMealsOK()) // mealsService의 getMealsOK() 메소드
 //            return ResponseEntity
-//                    .ok(new MealsResponse(true, mealsResponse));
+//                    .ok(new MealsResponse(true, mealsOutPut));
 //        else
 //            return ResponseEntity
 //                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-////                    .body(new MealsResponse(false), );
+//                    .body(new MealsResponse(false));
 //                    .build(); //.body 오류를 무시하기 위한 코드
     }
 

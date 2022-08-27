@@ -5,6 +5,7 @@ import capstone.sangcom.repository.timetable.TimetableRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,17 +17,27 @@ public class TimetableServiceImpl implements TimetableService{
     private final TimetableRepository timetableRepository;
 
     @Override
+    @Transactional
     public boolean insertTimetable(TimetableDTO timetableDTo) {
         return false;
     }
 
-    @Override
-    public List<TimetableDTO> getTimetable(TimetableDTO timetableDTo) {
-        return null;
-    }
 
     @Override
-    public boolean deleteTimetable(TimetableDTO timetableDTO) {
-        return false;
+    @Transactional
+    public List<TimetableDTO> getTimetable() {
+        return timetableRepository.getTimetable(); // API명세서에 파라미터 값이 없음.
+
+    }
+    // O
+
+    @Override
+    @Transactional
+    public boolean deleteTimetable(String days, Number period) {
+
+        if(!timetableRepository.deleteTimetable(days, period))
+            return false;
+
+        return true;
     }
 }

@@ -1,6 +1,7 @@
 package capstone.sangcom.controller.api.timetable;
 
 import capstone.sangcom.controller.api.response.common.SimpleResponse;
+import capstone.sangcom.controller.api.response.timetable.TimetableResponse;
 import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.entity.dto.timetableSection.TimetableDTO;
 import capstone.sangcom.service.timetable.TimetableService;
@@ -25,7 +26,7 @@ public class TimetableController {
     @PostMapping
     public ResponseEntity<SimpleResponse> insertTimetable(HttpServletRequest request,
                                                           TimetableDTO timetableData){
-        JwtUser user = (JwtUser) request.getAttribute("user");
+        JwtUser user = (JwtUser) request.getAttribute("user"); // const user_id = req.body.data.id;
 
         if(timetableService.insertTimetable(timetableData))
             return ResponseEntity
@@ -40,27 +41,30 @@ public class TimetableController {
      * 시간표 조회
      */
     @GetMapping
-    public ResponseEntity<SimpleResponse> getTimetable(TimetableDTO timetableDTO){
-        List<TimetableDTO> timetable = timetableService.getTimetable(timetableDTO);
+    public ResponseEntity<TimetableResponse> getTimetable(HttpServletRequest request){
+        JwtUser user = (JwtUser) request.getAttribute("user"); // const user_id = req.body.data.id;
+
+        List<TimetableDTO> timetable = timetableService.getTimetable();
 
         return ResponseEntity
-                .ok(new SimpleResponse(true));
+                .ok(new TimetableResponse(true, timetable));
     }
 
     /**
      * 시간표 삭제
      */
-//    @DeleteMapping
-//    public ResponseEntity<SimpleResponse> deleteTimetable(HttpServletRequest request,
-//                                                          TimetableDTO timetableDTO){
-//        JwtUser user = (JwtUser) request.getAttribute("user");
-//
-//        if(TimetableService.deleteTimetable(timetableDTO))
-//            return ResponseEntity
-//                    .ok(new SimpleResponse(true));
-//        else
-//            return ResponseEntity
-//                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                    .body(new SimpleResponse(false));
-//    }
+    @DeleteMapping
+    public ResponseEntity<SimpleResponse> deleteTimetable(HttpServletRequest request,
+                                                          TimetableDTO timetableDTO,
+                                                          String days, Number period){
+        JwtUser user = (JwtUser) request.getAttribute("user");
+
+        if(timetableService.deleteTimetable(days, period))
+            return ResponseEntity
+                    .ok(new SimpleResponse(true));
+        else
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new SimpleResponse(false));
+    }
 }

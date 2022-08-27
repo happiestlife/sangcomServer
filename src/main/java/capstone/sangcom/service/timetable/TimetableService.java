@@ -8,11 +8,11 @@ public interface TimetableService {
 
     // 시간표 등록
 //    public List<TimetableDTO> insertTimetable(TimetableDTO timetableDTO);
-    public boolean insertTimetable(TimetableDTO timetableDTo);
+    public boolean insertTimetable(TimetableDTO timetableDTO);
 
     // 시간표 조회
-    public List<TimetableDTO> getTimetable(TimetableDTO timetableDTo);
+    public List<TimetableDTO> getTimetable();
 
     // 시간표 삭제
-    public boolean deleteTimetable(TimetableDTO timetableDTO);
+    public boolean deleteTimetable(String days, Number period);
 }
