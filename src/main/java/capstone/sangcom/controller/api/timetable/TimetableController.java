@@ -25,10 +25,11 @@ public class TimetableController {
      */
     @PostMapping
     public ResponseEntity<SimpleResponse> insertTimetable(HttpServletRequest request,
+                                                          String user_id,
                                                           TimetableDTO timetableData){
         JwtUser user = (JwtUser) request.getAttribute("user"); // const user_id = req.body.data.id;
 
-        if(timetableService.insertTimetable(timetableData))
+        if(timetableService.insertTimetable(user_id, timetableData))
             return ResponseEntity
                     .ok(new SimpleResponse(true));
         else

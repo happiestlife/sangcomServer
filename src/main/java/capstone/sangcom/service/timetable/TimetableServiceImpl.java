@@ -18,8 +18,8 @@ public class TimetableServiceImpl implements TimetableService{
 
     @Override
     @Transactional
-    public boolean insertTimetable(TimetableDTO timetableDTo) {
-        return false;
+    public boolean insertTimetable(String user_id, TimetableDTO timetableDTO) {
+        return timetableRepository.insertTimetable(user_id, timetableDTO);
     }
 
 

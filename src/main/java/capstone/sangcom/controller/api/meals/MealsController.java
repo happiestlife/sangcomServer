@@ -31,7 +31,7 @@ public class MealsController {
                                                       @PathVariable("종료일자") String MLSV_TO_YMD) { // 종료일자 입력
 
         List<MealsOutputDTO> mealsOutPut = mealsService.getMeals(mealsInput, MLSV_FROM_YMD, MLSV_TO_YMD);
-        // 서비스 단의 getMeals 메소드에 (MLSV_FROM_YMD, MLSV_TO_YMD)에 해당하는 선택적 갯수의 무언가를 반환한다.
+        // 서비스 단의 getMeals 메소드에 "매개변수 mealsInput, MLSV_FROM_YMD, MLSV_TO_YMD 값"에 해당하는 선택적 갯수의 무언가를 반환한다.
 
         return ResponseEntity
                 .ok(new MealsResponse(true, mealsOutPut)); // 성공 응답 메시지를 반환한다.

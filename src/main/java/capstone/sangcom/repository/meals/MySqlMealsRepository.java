@@ -10,6 +10,11 @@ import java.util.List;
 @Repository
 public class MySqlMealsRepository implements MealsRepository{
 
+    @Override
+    public List<MealsOutputDTO> getMealsInfo(MealsInputDTO mealsInput, String MLSV_FROM_YMD, String MLSV_TO_YMD) {
+        return null;
+    }
+
 //    private final RowMapper<MealsOutputDTO> mealsRowMapper;
 //
 //    private final NamedParameterJdbcTemplate jdbcTemplate;
@@ -24,15 +29,10 @@ public class MySqlMealsRepository implements MealsRepository{
 //        this.jdbcTemplate = jdbcTemplate;
 //    }
 
-    private final MealsOutputDTO mealsOut;
 
-    public MySqlMealsRepository(MealsOutputDTO mealsOut) {
-        this.mealsOut = mealsOut;
-    }
-
-    @Override // 급식 출력
-    public List<MealsOutputDTO> getMealsInfo(MealsInputDTO mealsInput, String MLSV_FROM_YMD, String MLSV_TO_YMD) {
-        return mealsOut;
-    }
+//    @Override // 급식 출력
+//    public List<MealsOutputDTO> getMealsInfo(MealsInputDTO mealsInput, String MLSV_FROM_YMD, String MLSV_TO_YMD) {
+//        return
+//    }
 
 }

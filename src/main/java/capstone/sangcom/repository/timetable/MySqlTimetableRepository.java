@@ -134,6 +134,7 @@ public class MySqlTimetableRepository implements TimetableRepository{
         @Override
         public TimetableDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new TimetableDTO(
+                    rs.getString("user_id"),
                     rs.getString("subject"),
                     rs.getString("title"),
                     rs.getInt("period"), // 확실하지 않음

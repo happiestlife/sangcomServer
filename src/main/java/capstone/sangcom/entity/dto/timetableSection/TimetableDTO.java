@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class TimetableDTO {
 
+    private final String user_id;
     private final String subject;
     private final String days;
     private final Number period;

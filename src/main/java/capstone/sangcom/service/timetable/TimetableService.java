@@ -8,7 +8,7 @@ public interface TimetableService {
 
     // 시간표 등록
 //    public List<TimetableDTO> insertTimetable(TimetableDTO timetableDTO);
-    public boolean insertTimetable(TimetableDTO timetableDTO);
+    public boolean insertTimetable(String user_id, TimetableDTO timetableDTO);
 
     // 시간표 조회
     public List<TimetableDTO> getTimetable();
