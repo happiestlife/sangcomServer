@@ -1,8 +1,10 @@
 package capstone.sangcom.repository.user;
 
+import capstone.sangcom.entity.dto.userSection.info.ImageUploadDTO;
 import capstone.sangcom.entity.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
 import capstone.sangcom.entity.UserRole;
+import capstone.sangcom.util.user.ImageUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
@@ -159,6 +161,11 @@ public class MySqlUserRepository implements UserRepository{
     public List<User> findAll() {
         return jdbcTemplate.query("SELECT * FROM " + USER_TABLE
                 , userRowMapper);
+    }
+
+    @Override
+    public String imageUpload(String id, ImageUploadDTO imageUploadDTO) {
+        return null;
     }
 
     private Map<String, Object> makeUserParam(User user) {
