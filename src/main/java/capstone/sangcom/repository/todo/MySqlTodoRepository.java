@@ -1,12 +1,11 @@
 package capstone.sangcom.repository.todo;
 
-import capstone.sangcom.entity.dto.todoSection.GetTodoListDTO;
+import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.entity.dto.todoSection.InsertTodoListDTO;
-import capstone.sangcom.entity.dto.todoSection.TodoDTO;
+import capstone.sangcom.entity.dto.todoSection.GetTodolistResponseDTO;
 //import capstone.sangcom.repository.board.board.MySqlBoardRepository;
 //import org.apache.poi.ss.formula.functions.T;
 import capstone.sangcom.entity.dto.todoSection.UpdateTodoListDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -23,26 +22,20 @@ import java.util.Map;
 @Repository
 public class MySqlTodoRepository implements TodoRepository{
 
+
     private final String TODOLIST_TABLE = "todoList";
 
-    private final RowMapper<GetTodoListDTO> getTodoListDTORowMapper;
-    private final RowMapper<TodoDTO> todoDTORowMapper;
+    private final RowMapper<GetTodolistResponseDTO> getTodolistResponseRowMapper;
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
     public MySqlTodoRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-        jdbcTemplate = namedParameterJdbcTemplate;
-        todoDTORowMapper = new TodoRowMapper(); // ?
-        getTodoListDTORowMapper = new RowMapper<GetTodoListDTO>() { // 이게 맞나 ..
-            @Override
-            public GetTodoListDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return null;
-            }
-        };
+        this.jdbcTemplate = namedParameterJdbcTemplate;
+        getTodolistResponseRowMapper = new GetTodolistResponseRowMapper();
     }
 
     @Override // todolist 등록
-    public boolean insert(String user_id, InsertTodoListDTO insertTodoListDTO) {
+    public boolean insertTodolist(String user_id, InsertTodoListDTO insertTodoListDTO) {
         String query = "INSERT INTO " + TODOLIST_TABLE + " (user_id, body, year, month, day) VALUES (:user_id, :body, :year, :month, :day)";
 
         MapSqlParameterSource params = new MapSqlParameterSource()
@@ -62,24 +55,24 @@ public class MySqlTodoRepository implements TodoRepository{
     }
 
     @Override // todolist - 날짜별 조회
-     public List<GetTodoListDTO> getTodoList(String user_id, GetTodoListDTO getTodoListDTO) {
-        String query = "SELECT * FROM " + TODOLIST_TABLE + " WHERE user_id = :user_id AND year = :year AND month= :month AND day= :day";
+     public List<GetTodolistResponseDTO> getTodoList(String user_id) {
+        String query = "SELECT LIST_ID, BODY, LISTCHECK, YEAR, MONTH, DAY FROM " + TODOLIST_TABLE + " WHERE USER_ID =:user_id";
 
         Map<String, Object> params = new HashMap<>();
         params.put("user_id", user_id);
-        params.put("getTodoListDTO", getTodoListDTO);
+//        params.put("getTodoListDTO", getTodoListDTO);
 
-        return jdbcTemplate.query(query, params, getTodoListDTORowMapper);    }
+        return jdbcTemplate.query(query, params, getTodolistResponseRowMapper);    }
 
     @Override // todolist - user_id, list_id로 조회 // update, delite, check에 쓰임
-    public List<TodoDTO> searchTodoList(String user_id, int list_id) {
+    public List<GetTodolistResponseDTO> searchTodoList(String user_id, int list_id) {
         String query = "SELECT * FROM " + TODOLIST_TABLE + " WHERE user_id= :user_id AND list_id= :list_id";
 
         Map<String, Object> params = new HashMap<>();
         params.put("user_id", user_id);
         params.put("list_id", list_id);
 
-        return jdbcTemplate.query(query, params, todoDTORowMapper);
+        return jdbcTemplate.query(query, params, getTodolistResponseRowMapper);
     }
 
     @Override // todolist update
@@ -98,12 +91,12 @@ public class MySqlTodoRepository implements TodoRepository{
     }
 
     @Override // todolist delete
-    public boolean deleteTodoList(String user_id, int list_id) {
+    public boolean deleteTodoList(String user_id, int listId) {
         String query = "DELETE FROM " + TODOLIST_TABLE + " WHERE user_id= :user_id AND list_id= :list_id";
         if(jdbcTemplate.update(query,
                 new MapSqlParameterSource()
                         .addValue("user_id", user_id)
-                        .addValue("list_id", list_id)) != 1)
+                        .addValue("list_id", listId)) != 1)
             return false;
         else
             return true;    }
@@ -132,11 +125,12 @@ public class MySqlTodoRepository implements TodoRepository{
             return false;
     }
 
-    private class TodoRowMapper implements RowMapper<TodoDTO>{
+
+    private class GetTodolistResponseRowMapper implements RowMapper<GetTodolistResponseDTO>{
 
         @Override
-        public TodoDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new TodoDTO(
+        public GetTodolistResponseDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new GetTodolistResponseDTO(
                     rs.getString("user_id"),
                     rs.getInt("list_id"),
                     rs.getString("body"),
@@ -146,4 +140,5 @@ public class MySqlTodoRepository implements TodoRepository{
                     rs.getInt("day"));
         }
     }
+
 }

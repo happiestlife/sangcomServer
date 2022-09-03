@@ -3,7 +3,7 @@ package capstone.sangcom.entity.dto.todoSection;
 import lombok.Data;
 
 @Data
-public class TodoDTO {
+public class GetTodolistResponseDTO {
 
     private final String user_id;
     private final int list_id;

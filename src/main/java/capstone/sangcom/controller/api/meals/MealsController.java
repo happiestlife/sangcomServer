@@ -8,8 +8,11 @@ import capstone.sangcom.service.meals.MealsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -26,9 +29,12 @@ public class MealsController {
      * 급식 받아오기 (시도교육청코드, 표준학교코드, 시작일자, 종료일자에 해당하는 급식)
      */
     @GetMapping("/cafeteria?MLSV_FROM_YMD={시작일자}&MLSV_TO_YMD={종료일자}")
-    public ResponseEntity<MealsResponse> getMealsInfo(@RequestParam MealsInputDTO mealsInput, // 시도교육청코드, 표준학교코드
-                                                      @PathVariable("시작일자") String MLSV_FROM_YMD, // 시작일자 입력
-                                                      @PathVariable("종료일자") String MLSV_TO_YMD) { // 종료일자 입력
+    public ResponseEntity<MealsResponse> getMealsInfo(@RequestBody MealsInputDTO mealsInput, // 시도교육청코드, 표준학교코드
+                                                      @RequestParam @PathVariable("시작일자") String MLSV_FROM_YMD, // 시작일자 입력
+                                                      @RequestParam @PathVariable("종료일자") String MLSV_TO_YMD) { // 종료일자 입력
+
+
+
 
         List<MealsOutputDTO> mealsOutPut = mealsService.getMeals(mealsInput, MLSV_FROM_YMD, MLSV_TO_YMD);
         // 서비스 단의 getMeals 메소드에 "매개변수 mealsInput, MLSV_FROM_YMD, MLSV_TO_YMD 값"에 해당하는 선택적 갯수의 무언가를 반환한다.
@@ -50,5 +56,22 @@ public class MealsController {
     /**
      * 월별 급식 받아오기
      */
+
+
+//    /**
+//     * 외부 Api 받아오기 시도중
+//     */
+//    @GetMapping("/cafeteria?MLSV_FROM_YMD={시작일자}&MLSV_TO_YMD={종료일자}")
+//    public String getMealsInfo(HttpSession session, Model model) {
+//
+//        String
+//
+//
+//
+//    }
+
+
+
+
 
 }
