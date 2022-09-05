@@ -1,7 +1,8 @@
 package capstone.sangcom.repository;
 
+import capstone.sangcom.entity.dao.auth.AuthStudentDAO;
 import capstone.sangcom.repository.auth.MySqlAuthStudentRepository;
-import capstone.sangcom.repository.dao.auth.AuthStudentDAO;
+//import capstone.sangcom.repository.dao.auth.AuthStudentDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
