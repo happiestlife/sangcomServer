@@ -17,7 +17,7 @@ public class ApiConfig implements WebMvcConfigurer {
             "/api/school/cafeteria/**", "/api/school/schedule",
 
             // todo 관련
-            "/api/school/todo/**",
+//            "/api/school/todo/**",
 
             // reply 관련
             "/api/reply/goodcount/**", "/api/reply/good/**", "/api/reply/replycount/**",

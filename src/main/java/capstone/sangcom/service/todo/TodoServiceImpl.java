@@ -1,8 +1,6 @@
 package capstone.sangcom.service.todo;
 
-import capstone.sangcom.entity.dto.todoSection.GetTodolistResponseDTO;
-import capstone.sangcom.entity.dto.todoSection.InsertTodoListDTO;
-import capstone.sangcom.entity.dto.todoSection.UpdateTodoListDTO;
+import capstone.sangcom.entity.dto.todoSection.*;
 import capstone.sangcom.repository.todo.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +18,8 @@ public class TodoServiceImpl implements TodoService{
 
     @Override
     @Transactional         // 날짜별 todolist 조회
-    public List<GetTodolistResponseDTO> getTodolist(String user_id) {
-        return todoRepository.getTodoList(user_id);
+    public List<GetTodolistResponseDTO> getTodolist(String user_id, int year, int month, int day) {
+        return todoRepository.getTodoList(user_id, year, month, day);
     }
 
 
@@ -47,8 +45,8 @@ public class TodoServiceImpl implements TodoService{
 
     @Override
     @Transactional
-    public boolean updateTodolist(String userId, UpdateTodoListDTO updateTodoListDTO) {
-        if(!todoRepository.updateTodoList(userId, updateTodoListDTO))
+    public boolean updateTodolist(String userId, int list_id, UpdateTodoListDTO updateTodoListDTO) {
+        if(!todoRepository.updateTodoList(userId, list_id, updateTodoListDTO))
             return false;
 
         return true;
@@ -56,12 +54,12 @@ public class TodoServiceImpl implements TodoService{
 
     @Override
     @Transactional
-    public boolean deleteTodolist(String userId, int listId) {
+    public boolean deleteTodolist(String userId, int list_id) {
 //        // 게시글을 작성한 사용자가 맞는지 확인 -> 서비스 계층에서 구현
 //        if(todoRepository.isUserWriteTodoList(userId, listId))
 //            return false;
 
-        if(!todoRepository.deleteTodoList(userId,listId))
+        if(!todoRepository.deleteTodoList(userId,list_id))
             return false;
 
         return true;
@@ -69,9 +67,9 @@ public class TodoServiceImpl implements TodoService{
 
     @Override
     @Transactional
-    public boolean checkTodolist(boolean listCheck, String userId, int listId) {
+    public boolean checkTodolist(String userId, int list_id, ListCheckDTO listCheckDTO) {
 
-        if(!todoRepository.checkTodoList(listCheck, userId,listId))
+        if(!todoRepository.checkTodoList(userId, list_id, listCheckDTO))
             return false;
 
         return true;

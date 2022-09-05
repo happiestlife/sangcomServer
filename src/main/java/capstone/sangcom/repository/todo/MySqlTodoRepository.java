@@ -1,11 +1,9 @@
 package capstone.sangcom.repository.todo;
 
 import capstone.sangcom.entity.JwtUser;
-import capstone.sangcom.entity.dto.todoSection.InsertTodoListDTO;
-import capstone.sangcom.entity.dto.todoSection.GetTodolistResponseDTO;
+import capstone.sangcom.entity.dto.todoSection.*;
 //import capstone.sangcom.repository.board.board.MySqlBoardRepository;
 //import org.apache.poi.ss.formula.functions.T;
-import capstone.sangcom.entity.dto.todoSection.UpdateTodoListDTO;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -55,12 +53,15 @@ public class MySqlTodoRepository implements TodoRepository{
     }
 
     @Override // todolist - 날짜별 조회
-     public List<GetTodolistResponseDTO> getTodoList(String user_id) {
-        String query = "SELECT LIST_ID, BODY, LISTCHECK, YEAR, MONTH, DAY FROM " + TODOLIST_TABLE + " WHERE USER_ID =:user_id";
+     public List<GetTodolistResponseDTO> getTodoList(String user_id, int year, int month, int day) {
+//        String query = "SELECT LIST_ID, BODY, LISTCHECK, YEAR, MONTH, DAY FROM " + TODOLIST_TABLE + " WHERE USER_ID =:user_id";
+        String query = "SELECT * FROM " + TODOLIST_TABLE + " WHERE user_id= :user_id AND year= :year AND month= :month AND day= :day";
 
         Map<String, Object> params = new HashMap<>();
         params.put("user_id", user_id);
-//        params.put("getTodoListDTO", getTodoListDTO);
+        params.put("year", year);
+        params.put("month", month);
+        params.put("day", day);
 
         return jdbcTemplate.query(query, params, getTodolistResponseRowMapper);    }
 
@@ -76,11 +77,12 @@ public class MySqlTodoRepository implements TodoRepository{
     }
 
     @Override // todolist update
-    public boolean updateTodoList(String body, UpdateTodoListDTO updateTodoListDTO) {
+    public boolean updateTodoList(String user_id, int list_id, UpdateTodoListDTO updateTodoListDTO) {
         String query = "UPDATE " + TODOLIST_TABLE + " SET body= :body WHERE user_id= :user_id AND list_id= :list_id";
         Map<String, Object> params = new HashMap<>();
-        params.put("body", body);
-        params.put("updateTodoListDTO", updateTodoListDTO);
+        params.put("user_id", user_id);
+        params.put("list_id", list_id);
+        params.put("body", updateTodoListDTO.getBody());
 
         int update = jdbcTemplate.update(query, params);
         System.out.println(update);
@@ -91,12 +93,12 @@ public class MySqlTodoRepository implements TodoRepository{
     }
 
     @Override // todolist delete
-    public boolean deleteTodoList(String user_id, int listId) {
+    public boolean deleteTodoList(String user_id, int list_id) {
         String query = "DELETE FROM " + TODOLIST_TABLE + " WHERE user_id= :user_id AND list_id= :list_id";
         if(jdbcTemplate.update(query,
                 new MapSqlParameterSource()
                         .addValue("user_id", user_id)
-                        .addValue("list_id", listId)) != 1)
+                        .addValue("list_id", list_id)) != 1)
             return false;
         else
             return true;    }
@@ -107,19 +109,25 @@ public class MySqlTodoRepository implements TodoRepository{
 //    }
 
     @Override // todolist check
-    public boolean checkTodoList(boolean listCheck, String user_id, int list_id) {
+    public boolean checkTodoList(String user_id, int list_id, ListCheckDTO listCheckDTO) {
         String query = "UPDATE " + TODOLIST_TABLE + " SET listCheck= :listCheck WHERE user_id= :user_id AND list_id= :list_id";
 
         HashMap<String, Object> params = new HashMap<>();
-        params.put("listCheck", listCheck);
         params.put("user_id", user_id);
         params.put("list_id", list_id);
+        params.put("listCheck", listCheckDTO.getListCheck());
 
-        List<String> result = jdbcTemplate.query(query, params,
-                (rs, rowNum) -> rs.getString("user_id")
-        );
-
-        if(result.isEmpty())
+//        List<String> result = jdbcTemplate.query(query, params,
+//                (rs, rowNum) -> rs.getString("user_id")
+//        );
+//
+//        if(result.isEmpty())
+//            return true;
+//        else
+//            return false;
+        int update = jdbcTemplate.update(query, params);
+        System.out.println(update);
+        if((update != 0) && (listCheckDTO.getListCheck()==1)||(listCheckDTO.getListCheck()==0))
             return true;
         else
             return false;

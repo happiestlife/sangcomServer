@@ -4,9 +4,7 @@ import capstone.sangcom.controller.api.response.common.SimpleResponse;
 import capstone.sangcom.controller.api.response.todo.GetTodoListResponse;
 import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.entity.User;
-import capstone.sangcom.entity.dto.todoSection.GetTodolistResponseDTO;
-import capstone.sangcom.entity.dto.todoSection.InsertTodoListDTO;
-import capstone.sangcom.entity.dto.todoSection.UpdateTodoListDTO;
+import capstone.sangcom.entity.dto.todoSection.*;
 import capstone.sangcom.service.todo.TodoService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +19,7 @@ import java.util.List;
 //@CrossOrigin
 //@AllArgsConstructor
 @RestController
-@RequestMapping("/api/school/todo")
+@RequestMapping("/api/school")
 @RequiredArgsConstructor
 public class TodoController {
 
@@ -29,17 +27,16 @@ public class TodoController {
 
     /**
      * todo-list 날짜별 조회
-     * 22.08.22 수정
      */
-//    @GetMapping("?year={{year}}&month={{month}}&day={{day}}")
-    @RequestMapping(value="?year={{year}}&month={{monthj}}&day={{day}}", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseEntity<GetTodoListResponse> getTodolist(HttpServletRequest request
-                                                            ){
+//    @RequestMapping(value="/todo?year={year}&month={month}&day={day}", method = {RequestMethod.GET, RequestMethod.POST})
+    @GetMapping("/todo")
+    public ResponseEntity<GetTodoListResponse> getTodolist(HttpServletRequest request,
+                                                           @RequestParam int year,
+                                                           @RequestParam int month,
+                                                           @RequestParam int day){
         JwtUser user = (JwtUser) request.getAttribute("user"); // const user_id = req.body.data.id;
 
-//        List<GetTodolistResponseDTO> getTodolistResponseDTOS = todoService.getTodolist(user.getId(), new GetTodoListDTO(year, month, day)); // Api명세서 - 성공응답 메세지
-                                                                                    //List<> 라서 new가 붙는 것 같음.
-        List<GetTodolistResponseDTO> getTodolistResponseDTOS = todoService.getTodolist(user.getId());
+        List<GetTodolistResponseDTO> getTodolistResponseDTOS = todoService.getTodolist(user.getId(), year, month, day);
 
         return ResponseEntity
                 .ok(new GetTodoListResponse(true, getTodolistResponseDTOS)); // Api명세서 - 성공응답 메세지
@@ -48,7 +45,7 @@ public class TodoController {
     /**
      * todo-list 할 일 등록
      */
-    @PostMapping
+    @PostMapping("/todo")
     public ResponseEntity<SimpleResponse> insertTodoList(HttpServletRequest request,
                                                          @RequestBody InsertTodoListDTO insertTodoListDTO){
 //        SimpleResponse는 성공응답 메세지에 true값만 반환한다.
@@ -69,12 +66,13 @@ public class TodoController {
     /**
      * todo-list 할 일 수정
      */
-    @PutMapping("/:list_id")
+    @PutMapping("/todo/{list_id}")
     public ResponseEntity<SimpleResponse> updateTodoList(HttpServletRequest request,
-                                                  @RequestBody UpdateTodoListDTO updataTodoListDTO){ // @PathVariable 써야하나?
+                                                         @PathVariable int list_id,
+                                                         @RequestBody UpdateTodoListDTO updateTodoListDTO){ // @PathVariable 써야하나?
         JwtUser user = (JwtUser) request.getAttribute("user");
 
-        if (todoService.updateTodolist(user.getId(), updataTodoListDTO))
+        if (todoService.updateTodolist(user.getId(), list_id, updateTodoListDTO))
             return ResponseEntity
                     .ok(new SimpleResponse(true));
         else
@@ -86,12 +84,12 @@ public class TodoController {
     /**
      * todo-list 할 일 삭제
      */
-    @DeleteMapping("/{listId}")
+    @DeleteMapping("/todo/{list_id}")
     public ResponseEntity<SimpleResponse> deleteTodoList(HttpServletRequest request,
-                                                         @PathVariable int listId){
+                                                         @PathVariable int list_id){
         JwtUser user = (JwtUser) request.getAttribute("user");
 
-        if(todoService.deleteTodolist(user.getId(), listId))
+        if(todoService.deleteTodolist(user.getId(), list_id))
             return ResponseEntity
                     .ok(new SimpleResponse(true));
         else
@@ -104,13 +102,13 @@ public class TodoController {
     /**
      * todo-list 할 일 체크
      */
-    @GetMapping("/:list_id")
+    @GetMapping("/todo/{list_id}")
     public ResponseEntity<SimpleResponse> checkTodoList(HttpServletRequest request,
-                                                 boolean listCheck,
-                                                 @PathVariable int listId){
+                                                        @PathVariable int list_id,
+                                                        @RequestBody ListCheckDTO listCheckDTO){
         JwtUser user = (JwtUser) request.getAttribute("user");
 
-        if(todoService.checkTodolist(listCheck, user.getId(), listId))
+        if(todoService.checkTodolist(user.getId(), list_id, listCheckDTO))
             return ResponseEntity
                     .ok(new SimpleResponse(true));
         else
