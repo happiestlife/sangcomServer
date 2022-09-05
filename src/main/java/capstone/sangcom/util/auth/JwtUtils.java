@@ -51,11 +51,8 @@ public class JwtUtils {
     public static boolean isValidToken(String token) {
         try {
             Claims claims = getClaimsFormToken(token);
-            log.info("expireTime :" + claims.getExpiration());
-            log.info("email :" + claims.get("email"));
-            log.info("role :" + claims.get("role"));
+            
             return true;
-
         } catch (ExpiredJwtException exception) {
             log.error("Token Expired");
             return false;
