@@ -19,8 +19,8 @@ public class MealsServiceImpl implements MealsService{
 
     @Override
     @Transactional
-    public List<MealsOutputDTO> getMeals(MealsInputDTO mealsInput, String MLSV_FROM_YMD, String MLSV_TO_YMD) {
-        return mealsRepository.getMealsInfo(mealsInput, MLSV_FROM_YMD, MLSV_TO_YMD);
+    public List<MealsOutputDTO> getMeals(MealsInputDTO mealsInputDTO, String MLSV_FROM_YMD, String MLSV_TO_YMD) {
+        return mealsRepository.getMealsInfo(mealsInputDTO, MLSV_FROM_YMD, MLSV_TO_YMD);
     }
 
     @Override

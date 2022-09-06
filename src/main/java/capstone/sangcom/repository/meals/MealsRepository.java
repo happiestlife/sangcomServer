@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface MealsRepository {
 
-    public List<MealsOutputDTO> getMealsInfo(MealsInputDTO mealsInput, String MLSV_FROM_YMD, String MLSV_TO_YMD);
+    public List<MealsOutputDTO> getMealsInfo(MealsInputDTO mealsInputDTO, String MLSV_FROM_YMD, String MLSV_TO_YMD);
 
 }

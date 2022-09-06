@@ -30,14 +30,10 @@ public class MealsController {
 //     * 급식 받아오기 (시도교육청코드, 표준학교코드, 시작일자, 종료일자에 해당하는 급식)
 //     */
 //    @GetMapping("/cafeteria?MLSV_FROM_YMD={시작일자}&MLSV_TO_YMD={종료일자}")
-//    public ResponseEntity<MealsResponse> getMealsInfo(@RequestBody MealsInputDTO mealsInput, // 시도교육청코드, 표준학교코드
-//                                                      @RequestParam @PathVariable("시작일자") String MLSV_FROM_YMD, // 시작일자 입력
-//                                                      @RequestParam @PathVariable("종료일자") String MLSV_TO_YMD) { // 종료일자 입력
+//    public ResponseEntity<MealsResponse> getMealsInfo(@RequestParam String MLSV_FROM_YMD, // 시작일자 입력
+//                                                      @RequestParam String MLSV_TO_YMD) { // 종료일자 입력
 //
-//
-//
-//
-//        List<MealsOutputDTO> mealsOutPut = mealsService.getMeals(mealsInput, MLSV_FROM_YMD, MLSV_TO_YMD);
+//        List<MealsOutputDTO> mealsOutPut = mealsService.getMeals(MLSV_FROM_YMD, MLSV_TO_YMD);
 //        // 서비스 단의 getMeals 메소드에 "매개변수 mealsInput, MLSV_FROM_YMD, MLSV_TO_YMD 값"에 해당하는 선택적 갯수의 무언가를 반환한다.
 //
 //        return ResponseEntity
@@ -60,14 +56,14 @@ public class MealsController {
 
 
     /**
-     * RestTemplate으로 외부 Api 받아오기 시도중
+     * RestTemplate으로 외부 Api 받아오기  // 참고: https://hyeonyeee.tistory.com/34
      */
-    @GetMapping("/cafeteria?MLSV_FROM_YMD={시작일자}&MLSV_TO_YMD={종료일자}")
-    public ResponseEntity<MealsResponse> getNeisMealsInfo(@RequestBody MealsInputDTO mealsInput, // 시도교육청코드, 표준학교코드
-                                                          @RequestParam @PathVariable("시작일자") String MLSV_FROM_YMD, // 시작일자 입력
-                                                          @RequestParam @PathVariable("종료일자") String MLSV_TO_YMD) {
+    @GetMapping("/cafeteria")
+    public ResponseEntity<MealsResponse> getNeisMealsInfo(//@RequestBody MealsInputDTO mealsInput, // 시도교육청코드, 표준학교코드
+                                                          @RequestParam String MLSV_FROM_YMD, // 시작일자
+                                                          @RequestParam String MLSV_TO_YMD) { // 종료일자
 
-        String url = "http://testurl.com"; // neis-api url 적어줘야 함.
+        String url = "http://https://open.neis.go.kr/hub/mealServiceDietInfo"; // neis-api url
 
         // get parameter 담아주기
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
@@ -81,13 +77,20 @@ public class MealsController {
         HttpHeaders headers  = new HttpHeaders(); // 담아줄 header
         HttpEntity entity = new HttpEntity<>(headers); // http entity에 header 담아줌
 
-        List<MealsOutputDTO> mealsOutPut = mealsService.getMeals(mealsInput, MLSV_FROM_YMD, MLSV_TO_YMD);
-        // 서비스 단의 getMeals 메소드에 "매개변수 mealsInput, MLSV_FROM_YMD, MLSV_TO_YMD 값"에 해당하는 선택적 갯수의 무언가를 반환한다.
-
+        ResponseEntity<MealsResponse>  responseEntity = restTpl.exchange(url, HttpMethod.GET, entity, MealsResponse.class);
+//        L.info("responseEntity.getBody()" + responseEntity.getBody());
+//        List result = (List) responseEntity.getBody();
+//
+//        return ResponseEntity.ok(result);
         return ResponseEntity
-                .ok(new MealsResponse(true, mealsOutPut)); // 성공 응답 메시지를 반환한다.
+                .ok(new MealsResponse(true, responseEntity.getBody().getMealsOutput())); // 불확실
 
-        // 참고: https://hyeonyeee.tistory.com/34
+
+//        List<MealsOutputDTO> mealsOutPut = mealsService.getMeals(mealsInput, MLSV_FROM_YMD, MLSV_TO_YMD);
+//        // 서비스 단의 getMeals 메소드에 "매개변수 mealsInput, MLSV_FROM_YMD, MLSV_TO_YMD 값"에 해당하는 선택적 갯수의 무언가를 반환한다.
+//
+//        return ResponseEntity
+//                .ok(new MealsResponse(true, mealsOutPut)); // 성공 응답 메시지를 반환한다.
     }
 
 }
