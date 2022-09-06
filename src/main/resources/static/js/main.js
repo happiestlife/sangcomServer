@@ -53,3 +53,31 @@ function changeColor() {
   var bodyTag = document.getElementsByTagName("td");
   bodyTag[0].style.backgroundColor = color[num];
 }
+
+function idConfirm() {
+  var BASEURL = "localhost:8080";
+  var inputID = $('#inputID').val();
+  alert(inputID);
+
+  $.ajax({
+    type : 'post',
+    url : BASEURL,
+    success : function(data) {
+      alert(data);
+    },
+    error : function() {
+      alert('실패');
+    }
+  });
+}
+
+function studentIdConfirm() {
+  var userYear = $('#userYear').val();
+  // $("#셀렉트박스ID option:selected").val();
+  var userNum = $('#schoolnumber').val();
+  var userGrade = $('#schoolgrade option:selected').val();
+  var userClass = $('#schoolclass option:selected').val();
+  userClass="0"+userClass;
+  var studentID = userYear+userGrade+userClass+userNum;
+  alert(studentID);
+}
