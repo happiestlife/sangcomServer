@@ -13,13 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
 
 @Service
 @Slf4j
@@ -35,25 +29,25 @@ public class UserServiceImpl implements UserService{
     private final ImageUtils imageUtils;
 
     @Override
+    @Transactional
     public User findById(String id) {
         return userRepository.findById(id);
     }
 
     @Override
-    public UserDTO getUserInfo(String id) {
-        User user = userRepository.findById(id);
-        return new UserDTO(user);
-    }
-    @Override
-    public boolean editProfile(String id) {
-        return false;
-    }
-
-    @Override
+    @Transactional
     public boolean editPassword(String id, String newPassword) {
         String encodePassword = passwordEncoder.encode(newPassword);
 
         return userRepository.update(id, encodePassword);
+    }
+
+    @Override
+    @Transactional
+    public boolean checkPassword(String id, String password) {
+        String newPassword = userRepository.checkPassword(id, password);
+        System.out.println(newPassword);
+        return passwordEncoder.matches(password, newPassword);
     }
 
     @Override
@@ -67,6 +61,11 @@ public class UserServiceImpl implements UserService{
         return userRepository.delete(id);
     }
 
+    @Override
+    public UserDTO getUserInfo(String id) {
+        User user = userRepository.findById(id);
+        return new UserDTO(user);
+    }
 //    @Override
 //    @Transactional
 //    public boolean imageUpload(String id, ImageUploadDTO file) {
@@ -105,15 +104,14 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public boolean deleteImage(String userId, String path) {
-        if(userPathRepository.findById(userId, path)){
+        if(userPathRepository.findById(userId, path))
             return false;
-        }
 
         List<String> paths = userPathRepository.find(userId);
 
-        if(!userPathRepository.deleteImage(userId)){
+        if(!userPathRepository.deleteImage(userId))
             return false;
-        }
+
 
         for(String path1: paths){
             imageUtils.delete(path1);

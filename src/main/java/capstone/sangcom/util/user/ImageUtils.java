@@ -13,7 +13,7 @@ public class ImageUtils {
 
 //    public static final int PROFILE = 1;
 
-    @Value("${image.boardPath}")
+    @Value("${image.profilePath}")
     private String PROFILE_IMAGE_PATH;
 
     @Value("${image.profilePath}")

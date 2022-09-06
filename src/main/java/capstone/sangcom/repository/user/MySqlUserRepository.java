@@ -6,8 +6,10 @@ import capstone.sangcom.entity.User;
 import capstone.sangcom.entity.UserRole;
 import capstone.sangcom.util.user.ImageUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -109,6 +112,21 @@ public class MySqlUserRepository implements UserRepository{
             log.info("[DataIntegrityViolationException] Inserted data is over the length");
             return false;
         }
+    }
+
+    @Override
+    public String checkPassword(String id, String password) {
+        String query = "SELECT * FROM " + USER_TABLE + " WHERE id = :id";
+
+        return jdbcTemplate.query(query, new MapSqlParameterSource().addValue("id", id), new ResultSetExtractor<String>() {
+            @Override
+            public String extractData(ResultSet rs) throws SQLException, DataAccessException {
+                while(rs.next()){
+                    if (rs.getString("password") != null) return rs.getString("password");
+                }
+                return null;
+            }
+        });
     }
 
     @Override

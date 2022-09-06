@@ -10,6 +10,7 @@ import capstone.sangcom.entity.dto.userSection.info.ImageUploadDTO;
 import capstone.sangcom.entity.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.service.user.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +19,12 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class ProfileController {
+
     private final UserService userService;
 
     /**
@@ -74,10 +77,10 @@ public class ProfileController {
      * GET
      * /api/user/profile?id={user_id}
      * */
-    @GetMapping
-    public ResponseEntity<ShowImageResponse> showImage(@RequestParam String userId){
+    @GetMapping("/profile")
+    public ResponseEntity<ShowImageResponse> showImage(@RequestParam String id){
 
-        String paths = userService.showImage(userId);
+        String paths = userService.showImage(id);
 
         return ResponseEntity.ok(new ShowImageResponse(true, paths));
     }
@@ -89,16 +92,18 @@ public class ProfileController {
      * DELETE
      * /api/user/profile
      * */
-    @DeleteMapping("profile")
+    @DeleteMapping("/profile")
     public ResponseEntity<SimpleResponse> deleteImage(HttpServletRequest request, String path){
         JwtUser user = (JwtUser) request.getAttribute("user");
 
-        if (userService.deleteImage(user.getId(), path))
+        if (userService.deleteImage(user.getId(), path)) {
             return ResponseEntity.ok(new SimpleResponse(true));
-        else
+        }
+        else {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new SimpleResponse(false));
+        }
     }
 
 }

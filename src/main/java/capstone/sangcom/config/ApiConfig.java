@@ -26,14 +26,15 @@ public class ApiConfig implements WebMvcConfigurer {
             "/api/board/goodcount/**", "/api/board/scrapcount/**", "/api/board/search",
 
             // user 관련
-            "/api/user/profile",
+            "/api/user/profile", "/api/user/info",
 
             // login 관련
             "/api/user/login", "/api/user/register", "/api/user/confirm/name",
             "/api/user/auth/student/check", "/api/user/password/find",
 
             // auth 관련
-            "/api/auth/refresh", "/api/auth/valid"
+            "/api/auth/refresh", "/api/auth/valid",
+
 
     };
 
