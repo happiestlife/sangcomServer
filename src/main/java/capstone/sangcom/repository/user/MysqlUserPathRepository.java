@@ -66,7 +66,7 @@ public class MysqlUserPathRepository implements UserPathRepository{
 
     @Override
     public String showImage(String userId) {
-        String query = "SELECT path FROM " + IMAGE_PATH_TABLE + " WHERE user_id =:userId";
+        String query = "SELECT path FROM " + IMAGE_PATH_TABLE + " WHERE user_id = :user_id";
 
         return jdbcTemplate.query(query, new MapSqlParameterSource().addValue("user_id", userId), new ResultSetExtractor<String>() {
             @Override
@@ -79,7 +79,7 @@ public class MysqlUserPathRepository implements UserPathRepository{
 
     @Override
     public boolean deleteImage(String userId) {
-        String query = "DELETE FROM " + IMAGE_PATH_TABLE + " WHERE user_id =:userId";
+        String query = "DELETE FROM " + IMAGE_PATH_TABLE + " WHERE user_id = :user_id";
 
         if(jdbcTemplate.update(query,
                 new MapSqlParameterSource()
