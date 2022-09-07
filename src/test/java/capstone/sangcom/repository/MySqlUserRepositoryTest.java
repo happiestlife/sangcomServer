@@ -2,6 +2,7 @@ package capstone.sangcom.repository;
 
 import capstone.sangcom.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
+import capstone.sangcom.entity.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.repository.user.MySqlUserRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

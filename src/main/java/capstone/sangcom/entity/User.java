@@ -7,7 +7,6 @@ import lombok.*;
 @Builder
 @ToString
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User{
 
     private String id;
@@ -22,4 +21,7 @@ public class User{
     private String birth;
     private String email;
 
+    public User() {
+        role = UserRole.STUDENT;
+    }
 }

@@ -1,6 +1,6 @@
 package capstone.sangcom.repository;
 
-import capstone.sangcom.repository.dao.auth.TokenDAO;
+import capstone.sangcom.entity.dao.auth.TokenDAO;
 import capstone.sangcom.repository.token.MySqlTokenRepository;
 import capstone.sangcom.repository.user.MySqlUserRepository;
 import org.junit.jupiter.api.*;

@@ -1,14 +1,24 @@
 package capstone.sangcom.repository;
 
+<<<<<<< HEAD
 //import capstone.sangcom.dto.boardSection.BoardDTO;
 //import capstone.sangcom.dto.boardSection.ReadBoardDTO;
 //import capstone.sangcom.dto.boardSection.UpdateBoardDTO;
+=======
+import capstone.sangcom.dto.boardSection.BoardDTO;
+import capstone.sangcom.dto.boardSection.ReadBoardDTO;
+import capstone.sangcom.dto.boardSection.UpdateBoardDTO;
+>>>>>>> 4decbae6a55ac6b6d4106ded1837d8984be30835
 import capstone.sangcom.entity.dao.board.BoardDAO;
 import capstone.sangcom.entity.dto.boardSection.BoardDTO;
 import capstone.sangcom.entity.dto.boardSection.ReadBoardDTO;
 import capstone.sangcom.entity.dto.boardSection.UpdateBoardDTO;
+<<<<<<< HEAD
 import capstone.sangcom.repository.board.board.MySqlBoardRepository;
 //import capstone.sangcom.repository.dao.board.BoardDAO;
+=======
+import capstone.sangcom.repository.board.MySqlBoardRepository;
+>>>>>>> 4decbae6a55ac6b6d4106ded1837d8984be30835
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

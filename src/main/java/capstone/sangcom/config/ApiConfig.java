@@ -20,7 +20,7 @@ public class ApiConfig implements WebMvcConfigurer {
 //            "/api/school/todo/**",
 
             // reply 관련
-            "/api/reply/goodcount/**", "/api/reply/good/**", "/api/reply/replycount/**",
+            "/api/reply/goodcount/**", "/api/reply/replycount/**",
 
             // notice 관련
             "/api/notice",
@@ -46,10 +46,6 @@ public class ApiConfig implements WebMvcConfigurer {
                 .addPathPatterns("/api/**")
                 .excludePathPatterns(EXCLUDE_API_PATHS)
                 .order(1);
-
-        registry.addInterceptor(masterAuthInterceptor())
-                .addPathPatterns("/api/user/auth/student", "/api/user/auth/student/all")
-                .order(1);
     }
 
     @Bean
@@ -57,13 +53,4 @@ public class ApiConfig implements WebMvcConfigurer {
         return new LoginApiInterceptor();
     }
 
-    @Bean
-    public MasterAuthInterceptor masterAuthInterceptor() {
-        return new MasterAuthInterceptor();
-    }
-
-    @Bean
-    public Argon2PasswordEncoder argon2PasswordEncoder() {
-        return new Argon2PasswordEncoder();
-    }
 }
