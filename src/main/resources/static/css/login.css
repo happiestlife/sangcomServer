@@ -300,3 +300,7 @@
       float:inherit;
   }
 
+  .checkBtn {
+    width : 100px !important;
+    margin: 1px !important;
+  }
