@@ -1,6 +1,7 @@
 package capstone.sangcom.repository.user;
 
 import capstone.sangcom.entity.dto.userSection.info.ImageUploadDTO;
+import capstone.sangcom.entity.dto.userSection.info.ProfileDTO;
 import capstone.sangcom.entity.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
 import capstone.sangcom.entity.UserRole;
@@ -32,10 +33,20 @@ public class MySqlUserRepository implements UserRepository{
     private class UserRowMapper implements RowMapper<User>{
         @Override
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new User(rs.getString("id"), rs.getString("password"), rs.getString("name"),
+            return new User(rs.getString("id"),rs.getString("password"), rs.getString("name"),
                     rs.getString("phone"), rs.getInt("schoolgrade"), rs.getInt("schoolclass"),
-                    rs.getInt("schoolnumber"), UserRole.valueOf(rs.getString("role")), rs.getInt("year"),
-                    rs.getString("birth"), rs.getString("email"));
+                    rs.getInt("schoolnumber"),UserRole.valueOf(rs.getString("role")), rs.getInt("year"), rs.getString("birth"),
+                    rs.getString("email"));
+        }
+    }
+
+    private class UserRowMapper2 implements RowMapper<ProfileDTO>{
+        @Override
+        public ProfileDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new ProfileDTO(rs.getString("id"), rs.getString("name"),
+                                rs.getString("phone"), rs.getInt("schoolgrade"), rs.getInt("schoolclass"),
+                                rs.getInt("schoolnumber"), rs.getInt("year"), rs.getString("birth"),
+                    rs.getString("email"), UserRole.valueOf(rs.getString("role")));
         }
     }
 
@@ -43,9 +54,12 @@ public class MySqlUserRepository implements UserRepository{
 
     private final UserRowMapper userRowMapper;
 
+    private final UserRowMapper2 userRowMapper2;
+
     public MySqlUserRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.jdbcTemplate = namedParameterJdbcTemplate;
         this.userRowMapper = new UserRowMapper();
+        this.userRowMapper2 = new UserRowMapper2();
     }
 
     @Override
@@ -83,6 +97,22 @@ public class MySqlUserRepository implements UserRepository{
         params.put("id", id);
 
         List<User> rs = jdbcTemplate.query(query, params, userRowMapper);
+
+        if(rs.size() != 0)
+            return rs.get(0);
+        else
+            return null;
+    }
+
+    @Override
+    public ProfileDTO findById2(String id) {
+        String query = "SELECT * FROM " + USER_TABLE + " WHERE id = :id";
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("table", USER_TABLE);
+        params.put("id", id);
+
+        List<ProfileDTO> rs = jdbcTemplate.query(query, params, userRowMapper2);
 
         if(rs.size() != 0)
             return rs.get(0);

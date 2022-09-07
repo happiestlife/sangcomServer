@@ -5,8 +5,10 @@ import capstone.sangcom.controller.api.response.user.ShowImageResponse;
 import capstone.sangcom.controller.api.response.user.UserResponse;
 
 import capstone.sangcom.entity.JwtUser;
+import capstone.sangcom.entity.User;
 import capstone.sangcom.entity.UserDTO;
 import capstone.sangcom.entity.dto.userSection.info.ImageUploadDTO;
+import capstone.sangcom.entity.dto.userSection.info.ProfileDTO;
 import capstone.sangcom.entity.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +35,7 @@ public class ProfileController {
     @GetMapping("/info")
     public ResponseEntity<UserResponse> getUserInfo(HttpServletRequest request){
         JwtUser user = (JwtUser) request.getAttribute("user");
-        UserDTO user1 = userService.getUserInfo(user.getId());
+        ProfileDTO user1 = userService.getUserInfo(user.getId());
 
         return ResponseEntity.ok(new UserResponse(true, user1));
     }

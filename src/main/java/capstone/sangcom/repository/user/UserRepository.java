@@ -2,6 +2,7 @@ package capstone.sangcom.repository.user;
 
 import capstone.sangcom.entity.UserRole;
 import capstone.sangcom.entity.dto.userSection.info.ImageUploadDTO;
+import capstone.sangcom.entity.dto.userSection.info.ProfileDTO;
 import capstone.sangcom.entity.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
 
@@ -11,6 +12,7 @@ public interface UserRepository {
 
     public User insert(User user);
     public User findById(String id);
+    public ProfileDTO findById2(String id);
     public List<User> findAll();
     public boolean update();
     public boolean update(String id, String password);

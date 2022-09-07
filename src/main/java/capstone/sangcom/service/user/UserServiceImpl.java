@@ -3,6 +3,7 @@ package capstone.sangcom.service.user;
 import capstone.sangcom.entity.UserDTO;
 import capstone.sangcom.entity.dao.profile.ImagePathDAO;
 import capstone.sangcom.entity.dto.userSection.info.ImageUploadDTO;
+import capstone.sangcom.entity.dto.userSection.info.ProfileDTO;
 import capstone.sangcom.entity.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
 import capstone.sangcom.repository.user.UserPathRepository;
@@ -62,9 +63,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDTO getUserInfo(String id) {
-        User user = userRepository.findById(id);
-        return new UserDTO(user);
+    public ProfileDTO getUserInfo(String id) {
+        ProfileDTO user = userRepository.findById2(id);
+        return user;
     }
 //    @Override
 //    @Transactional
