@@ -1,4 +1,4 @@
-package capstone.sangcom.controller.api;
+package capstone.sangcom.controller.api.user;
 
 import capstone.sangcom.controller.api.response.common.SimpleResponse;
 import capstone.sangcom.controller.api.response.user.ShowImageResponse;
