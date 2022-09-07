@@ -56,19 +56,19 @@ public class MysqlUserPathRepository implements UserPathRepository{
 
     @Override
     public List<String> find(String userId) {
-        String query = "SELECT path FROM " + IMAGE_PATH_TABLE + " WHERE user_id = :userId";
+        String query = "SELECT path FROM " + IMAGE_PATH_TABLE + " WHERE id = :id";
 
         return jdbcTemplate.query(query,
                 new MapSqlParameterSource()
-                        .addValue("user_id", userId),
+                        .addValue("id", userId),
                 (rs, rowNum) -> rs.getString("path"));
     }
 
     @Override
     public String showImage(String userId) {
-        String query = "SELECT path FROM " + IMAGE_PATH_TABLE + " WHERE user_id = :user_id";
+        String query = "SELECT path FROM " + IMAGE_PATH_TABLE + " WHERE id = :id";
 
-        return jdbcTemplate.query(query, new MapSqlParameterSource().addValue("user_id", userId), new ResultSetExtractor<String>() {
+        return jdbcTemplate.query(query, new MapSqlParameterSource().addValue("id", userId), new ResultSetExtractor<String>() {
             @Override
             public String extractData(ResultSet rs) throws SQLException, DataAccessException {
                 rs.next();
@@ -79,11 +79,11 @@ public class MysqlUserPathRepository implements UserPathRepository{
 
     @Override
     public boolean deleteImage(String userId) {
-        String query = "DELETE FROM " + IMAGE_PATH_TABLE + " WHERE user_id = :user_id";
+        String query = "DELETE FROM " + IMAGE_PATH_TABLE + " WHERE id = :id";
 
         if(jdbcTemplate.update(query,
                 new MapSqlParameterSource()
-                        .addValue("user_id", userId)) != 1)
+                        .addValue("id", userId)) != 1)
             return false;
         else
             return true;
