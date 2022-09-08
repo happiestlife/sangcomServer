@@ -55,19 +55,33 @@ function changeColor() {
 }
 
 function idConfirm() {
-  var BASEURL = "localhost:8080";
-  var inputID = $('#inputID').val();
-  alert(inputID);
+  var BASEURL = "http://localhost:8080/api/user/confirm/name";
+  var body = {
+      id : $('#inputID').val()
+  }
+  console.log(body);
 
   $.ajax({
-    type : 'post',
-    url : BASEURL,
-    success : function(data) {
-      alert(data);
-    },
-    error : function() {
-      alert('실패');
-    }
+      type : 'POST',
+      url : BASEURL,
+      data : JSON.stringify(body),
+      datatype: "JSON",
+      contentType: "application/json; charset=utf-8",
+      success : function(data) {
+        alert("성공")
+          if(data.success == true) {
+              // $('#idConfirm').text(true).hide();
+              // console.log($('#idConfirm').val())
+              console.log(JSON.stringify(data));
+          }
+          else{
+              $('#checkId').text("중복된 아이디 입니다. 다른 아이디를 입력해주세요.").show()
+                  .css('color', 'red').css('font-weight', 'bold');
+          }
+      },
+      error : function() {
+        alert("실패");
+      }
   });
 }
 
@@ -77,7 +91,34 @@ function studentIdConfirm() {
   var userNum = $('#schoolnumber').val();
   var userGrade = $('#schoolgrade option:selected').val();
   var userClass = $('#schoolclass option:selected').val();
-  userClass="0"+userClass;
+  userClass="0"+userClass; //2022 + 1 + 01 + 01   (입학년도 + 학년 + 반 + 번호 반이랑 번호에는 0붙여서 입력)
   var studentID = userYear+userGrade+userClass+userNum;
-  alert(studentID);
+  var BASEURL = "http://localhost:8080/api/user/auth/student/check";
+  var body = {
+      name : $('#userName').val(),
+      studentId : studentID
+  }
+  console.log(body);
+
+  $.ajax({
+      type : 'POST',
+      url : BASEURL,
+      data : JSON.stringify(body),
+      datatype: "JSON",
+      contentType: "application/json; charset=utf-8",
+      success : function(data) {
+        alert("성공")
+          if(data.success == true) {
+              // $('#idConfirm').text(true).hide();
+              // console.log($('#idConfirm').val())
+              console.log(JSON.stringify(data));
+          }
+          else{
+              alert('학번인증에 실패하였습니다.');
+          }
+      },
+      error : function() {
+        alert("실패");
+      }
+  });
 }
