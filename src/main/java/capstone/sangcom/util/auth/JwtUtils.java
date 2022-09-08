@@ -18,7 +18,7 @@ import java.util.*;
 @Slf4j
 public class JwtUtils {
 
-    public static final int ACCESS_EXPIRE_TIME = 60 * 60 * 2;
+    public static final int ACCESS_EXPIRE_TIME = 60 * 60 * 4;
 
     //private static final int ACCESS_EXPIRE_TIME = 60;
     public static final int REFRESH_EXPIRE_TIME = 60 * 60 * 24 * 14;
