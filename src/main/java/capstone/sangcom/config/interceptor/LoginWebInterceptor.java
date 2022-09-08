@@ -15,8 +15,8 @@ public class LoginWebInterceptor implements HandlerInterceptor {
         Cookie[] cookies = request.getCookies();
 
         String token = findJwtCookie(cookies);
-        if(token == null) {
-            response.sendRedirect("/login");
+        if(token == null || JwtUtils.isValidToken(token) == false) {
+            response.sendRedirect("/auth/refresh");
             return false;
         }
 
@@ -29,13 +29,9 @@ public class LoginWebInterceptor implements HandlerInterceptor {
         if(cookies == null)
             return null;
 
-        String token = null;
         for (Cookie cookie : cookies) {
             if(cookie.getName().equals("acc")) {
-                token = cookie.getValue();
-                if (JwtUtils.isValidToken(token)) {
-                    return token;
-                }
+                return cookie.getValue();
             }
         }
 
