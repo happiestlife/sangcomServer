@@ -65,6 +65,7 @@ public class MySqlAuthStudentRepository implements AuthStudentRepository {
         Map<String, Object> params = makeParam(authStudentDAO);
 
         List<AuthStudentDAO> rs = jdbcTemplate.query(query, params, rowMapper);
+
         if(rs.size() == 1)
             return rs.get(0);
         else
