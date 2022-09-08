@@ -18,9 +18,9 @@ import java.util.*;
 @Slf4j
 public class JwtUtils {
 
-    public static final int ACCESS_EXPIRE_TIME = 60 * 60 * 2;
+    public static final int ACCESS_EXPIRE_TIME = 60 * 60 * 4;
 
-    //private static final int ACCESS_EXPIRE_TIME = 60;
+//    public static final int ACCESS_EXPIRE_TIME = 3;
     public static final int REFRESH_EXPIRE_TIME = 60 * 60 * 24 * 14;
     //private static final int REFRESH_EXPIRE_TIME = 60 * 5;
 
@@ -50,7 +50,7 @@ public class JwtUtils {
 
     public static boolean isValidToken(String token) {
         try {
-            Claims claims = getClaimsFormToken(token);
+            getClaimsFormToken(token);
             
             return true;
         } catch (ExpiredJwtException exception) {

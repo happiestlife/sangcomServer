@@ -9,7 +9,7 @@ import capstone.sangcom.repository.board.BoardRepository;
 import capstone.sangcom.repository.boardPath.BoardPathRepository;
 import capstone.sangcom.entity.dao.board.BoardDAO;
 import capstone.sangcom.entity.dao.board.BoardPathDAO;
-import capstone.sangcom.util.board.ImageUtils;
+import capstone.sangcom.util.image.ImageUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
