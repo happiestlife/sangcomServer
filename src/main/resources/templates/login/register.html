@@ -76,13 +76,14 @@
 
             <h2>회원가입</h2>
 
-              <label class="field field_v3 checkInput" for="api/regiseter/userID">
-                <input th:field="*{id}" class="field__input" placeholder="ex)asd123" required autocomplete="off" id="inputID">
+              <label class="field field_v3 checkInput" for="id">
+                <input th:field="*{id}" class="field__input" placeholder="ex)asd123" required autocomplete="off" id="id">
                 <span class="field__label-wrap">
                   <span class="field__label">ID 입력</span>
                 </span>
               </label>
               <input id="idConf" type="button" class="loginBtn checkBtn" onclick="idConfirm()" value="ID 중복확인">
+              <div id="checkId" hidden></div>
 
               <label class="field field_v3" for="api/regiseter/userPW">
                 <input th:field="*{password}" type="password" class="field__input" placeholder="ex)asd123!" required autocomplete="off" id ="api/regiseter/userPW" >
@@ -98,7 +99,7 @@
                 </span>
               </label>
 
-              <label class="field field_v3" for="api/regiseter/userName">
+              <label class="field field_v3" for="userName">
                 <input th:field="*{name}" class="field__input" placeholder="ex)asd123" required autocomplete="off" id="userName">
                 <span class="field__label-wrap">
                   <span class="field__label">이름</span>
@@ -131,13 +132,14 @@
                     <input th:field="*{schoolnumber}" type="text" name = "schoolnumber" id ="schoolnumber"  placeholder="ex)01"  style="width:60px" size="5"><br>
               </div>
 
-              <label class="field field_v3 checkInput" for="api/regiseter/userYear">
+              <label class="field field_v3 checkInput" for="userYear">
                 <input th:field="*{year}" type="number" class="field__input" placeholder="ex)2022" required autocomplete="off" id="userYear">
                 <span class="field__label-wrap">
                   <span class="field__label">입학년도</span>
                 </span>
               </label>
               <input type="button" onclick="studentIdConfirm()" class="loginBtn checkBtn" value="학번인증">
+              <div id="checkAuth" hidden></div>
 
               <label class="field field_v3" for="api/regiseter/userPhone">
                 <input th:field="*{phone}" type="tel" pattern="[0-9]{3}[0-9]{4}[0-9]{4}" class="field__input" placeholder="ex)01022222222 -제외" required autocomplete="off" id="api/regiseter/userPhone">
@@ -155,7 +157,7 @@
             <br>
 
           <div style="margin: 10px;">
-           <input class="loginBtn" id="" style="width:300px;" type="submit" name="api/DB/regiseter" value="회원가입" >
+           <input class="loginBtn" id="" style="width:300px;" type="submit" onclick="checkCondition()" name="api/DB/regiseter" value="회원가입" >
           </div>
 
         </form>
@@ -177,5 +179,6 @@
 <script type="text/javascript" th:src="@{/js/jqBootstrapValidation.js}" src="js/jqBootstrapValidation.js"></script>
 <!--<script type="text/javascript" th:src="@{/js/contact_me.js}" src="js/contact_me.js"></script>-->
 <script type="text/javascript" th:src="@{/js/main.js}" src="js/main.js"></script>
+<script type="text/javascript" th:src="@{/js/register.js}" src="js/register.js"></script>
 </body>
 </html>

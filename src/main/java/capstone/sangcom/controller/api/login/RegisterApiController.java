@@ -53,7 +53,7 @@ public class RegisterApiController {
      */
     @PostMapping("/confirm/name")
     public ResponseEntity<SimpleResponse> confirmDupId(@RequestBody ConfirmIdDTO confirmIdDTO) {
-        if (userService.findById(confirmIdDTO.getId()) != null)
+        if (userService.findById(confirmIdDTO.getId()) == null)
             return ResponseEntity.
                     ok(new SimpleResponse(true));
         else
@@ -71,7 +71,6 @@ public class RegisterApiController {
                     .ok(new SimpleResponse(true));
         else
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(new SimpleResponse(false));
+                    .ok(new SimpleResponse(false));
     }
 }
