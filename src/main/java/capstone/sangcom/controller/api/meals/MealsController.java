@@ -15,6 +15,11 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.CharacterCodingException;
 import java.util.List;
 
 
@@ -28,14 +33,48 @@ public class MealsController {
 
 //    Neis neis = new Neis;
 
+
+//    public static void main(String[] args) {
+//        String token = "ec9ada510672412d9623900e44882a9f";// 네아로 접근 토큰 값";
+//        String header = "Bearer " + token; // Bearer 다음에 공백 추가
+//        try {
+//            String apiURL = "https://open.neis.go.kr/hub/mealServiceDietInfo";
+//            URL url = new URL(apiURL);
+//            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+//            con.setRequestMethod("GET");
+//            con.setRequestProperty("Authorization", header);
+//            int responseCode = con.getResponseCode();
+//            BufferedReader br;
+//            if(responseCode==200) { // 정상 호출
+//                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+//            } else {  // 에러 발생
+//                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+//            }
+//            String inputLine;
+//            StringBuffer response = new StringBuffer();
+//            while ((inputLine = br.readLine()) != null) {
+//                response.append(inputLine);
+//            }
+//            br.close();
+//            System.out.println(response.toString());
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//    }
+
+
+
     @GetMapping("/cafeteria")
-    public ResponseEntity<MealsResponse> getMealsInfo(@RequestParam String MLSV_FROM_YMD,
-                                                      @RequestParam String MLSV_TO_YMD){
+    public MealsOutputDTO getMealsInfo() {// @RequestBody MealsInputDTO mealsInputDTO,
+                                                      //@RequestParam String MLSV_FROM_YMD,
+                                                      // @RequestParam String MLSV_TO_YMD) {
 
-        List<MealsOutputDTO> mealsOutPut = mealsService.getMeals(MLSV_FROM_YMD, MLSV_TO_YMD);
+//        List<MealsOutputDTO> mealsOutPut = mealsService.getMeals(MLSV_FROM_YMD, MLSV_TO_YMD);
+//
+//        return ResponseEntity
+//                .ok(new MealsResponse(true, mealsOutPut));
 
-        return ResponseEntity
-                .ok(new MealsResponse(mealsOutPut));
+        return mealsService.getMeals();
     }
 
 

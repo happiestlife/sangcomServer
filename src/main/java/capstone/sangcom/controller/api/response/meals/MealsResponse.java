@@ -1,18 +1,18 @@
 package capstone.sangcom.controller.api.response.meals;
 
 import capstone.sangcom.entity.dto.mealsSection.MealsOutputDTO;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
+//@Getter
+//@Setter
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class MealsResponse {
 
-//    private boolean success;
+    private boolean success;
     private List<MealsOutputDTO> mealsOutput;
 
 
