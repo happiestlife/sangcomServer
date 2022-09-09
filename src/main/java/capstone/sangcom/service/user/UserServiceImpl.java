@@ -1,8 +1,6 @@
 package capstone.sangcom.service.user;
 
-import capstone.sangcom.entity.UserDTO;
 import capstone.sangcom.entity.dao.profile.ImagePathDAO;
-import capstone.sangcom.entity.dto.userSection.info.ImageUploadDTO;
 import capstone.sangcom.entity.dto.userSection.info.ProfileDTO;
 import capstone.sangcom.entity.dto.userSection.info.ProfileFileDTO;
 import capstone.sangcom.entity.dto.userSection.info.UpdateUserInfoDTO;
@@ -15,11 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -77,33 +73,22 @@ public class UserServiceImpl implements UserService{
     @Transactional
     public boolean imageUpload(String id, ProfileFileDTO file) {
 
-//        if(userPathRepository.findById(id, file.toString()))
-//            return false;
         List<String> paths = userPathRepository.find(id);
 
-        System.out.println("========0000000==========");
-        if(!userPathRepository.imageUpload(id, file)){
+        if(paths.size() == 1){
+            deleteImage(id, paths.get(0));
+            imageUtils.delete(paths.get(0));
+        }
+        String path = imageUtils.makePath(ImageUtils.PROFILE, file.getProfile());
+        if(userPathRepository.insert(new ImagePathDAO(id, path)) == null){
             return false;
         }
-        System.out.println("========11111111==========");
 
-        for(MultipartFile image : file.getFile()){
-            String path = imageUtils.makePath(ImageUtils.PROFILE, image);
-
-            paths.add(path);
-            if(userPathRepository.insert(new ImagePathDAO(id, path)) == null){
-                return false;
-            }
-        }
-        System.out.println("22222");
-
-        int i = 0;
-        for(MultipartFile image: file.getFile()){
-            try{
-                imageUtils.store(image, new File(paths.get(i++)));
-            } catch(IOException e){
-                return false;
-            }
+        // 실제 이미지 저장하기
+        try {
+            imageUtils.store(file.getProfile(), new File(path));
+        }catch(IOException e){
+            return false;
         }
         return true;
     }

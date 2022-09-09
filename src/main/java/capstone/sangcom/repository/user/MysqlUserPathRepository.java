@@ -52,8 +52,9 @@ public class MysqlUserPathRepository implements UserPathRepository{
         String query = "UPDATE " + IMAGE_PATH_TABLE + " SET path = :path WHERE id = :id";
 
         Map<String, Object> params = new HashMap<>();
-        params.put("path", profileFileDTO.getPath());
+        params.put("path", profileFileDTO);
         params.put("id", id);
+        System.out.println(params);
 
         int update = jdbcTemplate.update(query, params);
         System.out.println(update);
