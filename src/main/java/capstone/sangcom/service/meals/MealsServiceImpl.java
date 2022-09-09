@@ -36,8 +36,8 @@ public class MealsServiceImpl implements MealsService{
 
         RequestEntity requestEntity = RequestEntity
                 .get(uri)
-                .header("KEY", "ec9ada510672412d9623900e44882a9f")
-                .header("Type","json")
+                .header("KEY", "f96a207177384726abf2c4fb0f916026")
+//                .header("Type","JSON")
                 .build();
 
         RestTemplate restTemplate = new RestTemplate();

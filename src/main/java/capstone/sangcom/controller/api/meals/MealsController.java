@@ -66,7 +66,7 @@ public class MealsController {
 
     @GetMapping("/cafeteria")
     public MealsOutputDTO getMealsInfo() {// @RequestBody MealsInputDTO mealsInputDTO,
-                                                      //@RequestParam String MLSV_FROM_YMD,
+                                                      // @RequestParam String MLSV_FROM_YMD,
                                                       // @RequestParam String MLSV_TO_YMD) {
 
 //        List<MealsOutputDTO> mealsOutPut = mealsService.getMeals(MLSV_FROM_YMD, MLSV_TO_YMD);
