@@ -41,22 +41,24 @@ public class BoardServiceImpl implements BoardService{
                 userId, type));
 
         // 게시글 이미지에 대한 저장 경로 생성 후 DB에 저장
-        List<String> paths = new ArrayList<>();
-        for (MultipartFile image : boardData.getImages()) {
-            paths.add(imageUtils.makePath(ImageUtils.BOARD, image));
-        }
-        for (String path : paths) {
-            if(boardPathRepository.insert(new BoardPathDAO(boardId, path)) == null)
-                return false;
-        }
+        if(boardData.getImages() != null) {
+            List<String> paths = new ArrayList<>();
+            for (MultipartFile image : boardData.getImages()) {
+                paths.add(imageUtils.makePath(ImageUtils.BOARD, image));
+            }
+            for (String path : paths) {
+                if (boardPathRepository.insert(new BoardPathDAO(boardId, path)) == null)
+                    return false;
+            }
 
-        // 서비스 계층에서 이미지 실제 폴더에 저장
-        int i = 0;
-        for (MultipartFile image : boardData.getImages()) {
-            try {
-                imageUtils.store(image, new File(paths.get(i++)));
-            } catch (IOException e) {
-                return false;
+            // 서비스 계층에서 이미지 실제 폴더에 저장
+            int i = 0;
+            for (MultipartFile image : boardData.getImages()) {
+                try {
+                    imageUtils.store(image, new File(paths.get(i++)));
+                } catch (IOException e) {
+                    return false;
+                }
             }
         }
 
@@ -113,23 +115,25 @@ public class BoardServiceImpl implements BoardService{
             return false;
 
         // 게시글 속 새로운 이미지 경로 저장
-        paths = new ArrayList<>();
-        for (MultipartFile image : updateBoardDTO.getImages()) {
-            String path = imageUtils.makePath(ImageUtils.BOARD, image);
+        if(updateBoardDTO.getImages() != null) {
+            paths = new ArrayList<>();
+            for (MultipartFile image : updateBoardDTO.getImages()) {
+                String path = imageUtils.makePath(ImageUtils.BOARD, image);
 
-            paths.add(path);
-            if(boardPathRepository.insert(new BoardPathDAO(boardId, path)) == null)
-                return false;
-        }
+                paths.add(path);
+                if (boardPathRepository.insert(new BoardPathDAO(boardId, path)) == null)
+                    return false;
+            }
 
-        // 서비스 계층에서 실제 이미지 저장
-        int i = 0;
-        for (MultipartFile image : updateBoardDTO.getImages()) {
-            try {
-                imageUtils.store(image, new File(paths.get(i++)));
-            } catch (IOException e) {
-                System.out.println("IMAGE INSERT EXCEPTION IS OCCURRED");
-                return false;
+            // 서비스 계층에서 실제 이미지 저장
+            int i = 0;
+            for (MultipartFile image : updateBoardDTO.getImages()) {
+                try {
+                    imageUtils.store(image, new File(paths.get(i++)));
+                } catch (IOException e) {
+                    System.out.println("IMAGE INSERT EXCEPTION IS OCCURRED");
+                    return false;
+                }
             }
         }
 
