@@ -9,6 +9,7 @@ import capstone.sangcom.entity.User;
 import capstone.sangcom.entity.UserDTO;
 import capstone.sangcom.entity.dto.userSection.info.ImageUploadDTO;
 import capstone.sangcom.entity.dto.userSection.info.ProfileDTO;
+import capstone.sangcom.entity.dto.userSection.info.ProfileFileDTO;
 import capstone.sangcom.entity.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -62,17 +63,17 @@ public class ProfileController {
      * POST
      * /api/user/profile
      * */
-//    @PostMapping("/profile")
-//    public ResponseEntity<SimpleResponse> imageUpload(HttpServletRequest request, ImageUploadDTO file){
-//        JwtUser user = (JwtUser) request.getAttribute("user");
-//
-//        if (userService.imageUpload(user.getId(), file))
-//            return ResponseEntity.ok(new SimpleResponse(true));
-//        else
-//            return ResponseEntity
-//                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                    .body(new SimpleResponse(false));
-//    }
+    @PostMapping("/profile")
+    public ResponseEntity<SimpleResponse> imageUpload(HttpServletRequest request, ProfileFileDTO file){
+        JwtUser user = (JwtUser) request.getAttribute("user");
+
+        if (userService.imageUpload(user.getId(), file))
+            return ResponseEntity.ok(new SimpleResponse(true));
+        else
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new SimpleResponse(false));
+    }
 
     /**
      * 프로필 사진 조회

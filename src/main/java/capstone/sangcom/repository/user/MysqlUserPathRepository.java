@@ -1,12 +1,15 @@
 package capstone.sangcom.repository.user;
 
 import capstone.sangcom.entity.dao.profile.ImagePathDAO;
+import capstone.sangcom.entity.dto.userSection.info.ProfileFileDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
@@ -30,9 +33,34 @@ public class MysqlUserPathRepository implements UserPathRepository{
     }
 
 
+//    @Override
+//    public String imageUpload(ImagePathDAO imagePathDAO) {
+//        String query = "UPDATE " + IMAGE_PATH_TABLE + " SET path = :path WHERE id = :id";
+//
+//        MapSqlParameterSource params = new MapSqlParameterSource()
+//                .addValue("path", imagePathDAO.getPath())
+//                .addValue("id", imagePathDAO.getUserId());
+//
+//        KeyHolder key = new GeneratedKeyHolder();
+//        if (jdbcTemplate.update(query, params, key, new String[]{"id"}) != 1)
+//            return "test";
+//
+//        return key.getKey().toString();
+//    }
     @Override
-    public ImagePathDAO imageUpload(ImagePathDAO imagePathDAO) {
-        return null;
+    public boolean imageUpload(String id, ProfileFileDTO profileFileDTO) {
+        String query = "UPDATE " + IMAGE_PATH_TABLE + " SET path = :path WHERE id = :id";
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("path", profileFileDTO.getPath());
+        params.put("id", id);
+
+        int update = jdbcTemplate.update(query, params);
+        System.out.println(update);
+        if(update != 1)
+            return false;
+        else
+            return true;
     }
 
     @Override
@@ -87,6 +115,20 @@ public class MysqlUserPathRepository implements UserPathRepository{
             return false;
         else
             return true;
+    }
+
+    @Override
+    public ImagePathDAO insert(ImagePathDAO imagePathDAO) {
+        String query = "INSERT INTO " + IMAGE_PATH_TABLE + " VALUES(:id, :path)";
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", imagePathDAO.getUserId());
+        params.put("path", imagePathDAO.getPath());
+
+        if(jdbcTemplate.update(query, params) != 1)
+            return null;
+        else
+            return imagePathDAO;
     }
 
     private class UserPathRowMapper implements RowMapper<ImagePathDAO> {

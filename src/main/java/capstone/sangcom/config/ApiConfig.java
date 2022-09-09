@@ -27,7 +27,6 @@ public class ApiConfig implements WebMvcConfigurer {
 
             // user 관련
 
-
             // login 관련
             "/api/user/login", "/api/user/register", "/api/user/confirm/name",
             "/api/user/auth/student/check", "/api/user/password/find",
