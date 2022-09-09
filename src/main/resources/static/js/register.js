@@ -81,5 +81,6 @@ function checkCondition(){
         return true;
     else{
         alert('아이디 중복 확인과 학번 인증을 모두 완료해주세요!!')
+        return false;
     }
 }
