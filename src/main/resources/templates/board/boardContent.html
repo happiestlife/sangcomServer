@@ -86,6 +86,14 @@
           <img th:src="@{/p(p=${path})}" width=90% style="display : block; margin: 20px auto; ">
         </div>
         <img src="img/school_img.jpg" alt="이미지파일이 사라졌당!" width=90% style="display : block; margin: 20px auto; ">
+      
+        <div class="content_bottom">
+          <!-- <span class="material-symbols-outlined">thumb_up</span>  -->
+          <button id="thumb_up" class="material-symbols-outlined" onclick="bottom_clicked()">thumb_up</button>
+          <button id="bookmark" class="material-symbols-outlined" onclick="bottom_clicked()">bookmark</button>
+          <span id="comment_count">댓글(2)</span>
+        </div>
+      
       </div>
     </article>
 
@@ -99,14 +107,32 @@
             <h5 th:text="${replySection.parent.userId}" >v댓쓴이는김익명v</h5>
             <div><time th:text="${replySection.parent.regdate}">06/24 12:54</time></div>
             <h6 th:text="${replySection.parent.body}">우와 대단해요~</h6>
+            
+            <!-- 노홍석 수정 (댓글 좋아요버튼) -->
+            <span class="content_bottom">
+              <button id="comment_thumb_up" class="material-symbols-outlined" onclick="bottom_clicked()">thumb_up</button>
+              <span id="sur_comment_count">대댓글(2)</span>
+            </span>        
 
             <!-- 자식 댓글 -->
-            <ul th:each="childReply : ${replySection.child}">
+            <!-- <ul th:each="childReply : ${replySection.child}">
               <img src="img/ic_cloudy.png">
               <h5 th:text="${childReply.userId}" >v댓쓴이는김익명v</h5>
               <div><time th:text="${childReply.regdate}">06/24 12:54</time></div>
               <h6 th:text="${childReply.body}">우와 대단해요~</h6>
-            </ul>
+            </ul> -->
+
+            <!-- 노홍석 수정 대댓글 나오게하는거 -->
+            <div  th:each="childReply : ${replySection.child}" class="comment_sub">
+              <span class="material-symbols-outlined">reply</span>
+              <div class="comment">
+                <img  src="img/ic_cloudy.png">
+                <h5 th:text="${childReply.userId}" >v댓쓴이는김익명v</h5>
+                <div><time th:text="${childReply.regdate}">06/24 12:54</time></div>
+                <p th:text="${childReply.body}">대댓글 내용</p>           
+              </div>
+            </div>
+            
           </li>
         </ul>
       </div>

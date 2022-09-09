@@ -20,6 +20,18 @@
    border-radius: 10px;
 }
 
+@media (max-width:990px) {
+   .articleBoard {
+      position: relative;
+      border: 1px solid #90e1f5; 
+      border-radius: 10px;
+      width : 100% !important;
+   }
+   .boardContent {
+      width : auto;
+   }
+}
+
 .comment {
    border: 1px solid #90e1f5; 
    padding: 1px; 

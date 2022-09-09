@@ -316,3 +316,8 @@
       width : auto;
     }
   }
+
+  .gray_font  {
+    margin: 35px;
+    color:rgba(128, 128, 128, 0.745);
+  }
