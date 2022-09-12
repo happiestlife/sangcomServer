@@ -35,6 +35,9 @@ dependencies {
 	// 암호화
 	implementation 'org.bouncycastle:bcprov-jdk15on:1.70'
 
+	// https://mvnrepository.com/artifact/de.mkammerer/argon2-jvm
+	implementation group: 'de.mkammerer', name: 'argon2-jvm', version: '2.11'
+
 	// excel 관련 라이브러리
 	implementation group: 'org.apache.poi', name: 'poi', version: '4.1.2'
 	implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'

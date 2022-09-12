@@ -11,4 +11,9 @@ public class UtilsConfig {
     public ImageUtils imageUtils() {
         return new ImageUtils();
     }
+
+    @Bean
+    public capstone.sangcom.util.user.ImageUtils imageUtil() {
+        return new capstone.sangcom.util.user.ImageUtils();
+    }
 }
