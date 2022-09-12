@@ -63,6 +63,7 @@ hr {
 }
 /* Navigation */
 #menu {
+	text-align: center;
 	padding: 20px;
 	transition: all 0.8s;
 }
@@ -90,7 +91,8 @@ hr {
 	margin: 9px 20px 0 20px;
 }
 #menu.navbar-default .navbar-nav > li > a:hover {
-	color: #ce2a36;
+	text-align: center;
+	/* color: #ce2a36; */
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
 	color: #ce2a36 !important;

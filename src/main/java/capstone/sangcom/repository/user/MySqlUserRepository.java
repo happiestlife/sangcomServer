@@ -98,7 +98,7 @@ public class MySqlUserRepository implements UserRepository{
 
         List<User> rs = jdbcTemplate.query(query, params, userRowMapper);
 
-        if(rs.size() != 0)
+        if(rs.size() == 1)
             return rs.get(0);
         else
             return null;

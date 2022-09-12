@@ -70,7 +70,7 @@ public class MySqlBoardRepository implements BoardRepository {
 
         Map<String, Object> params = new HashMap<>();
         params.put("type", type);
-        params.put("title", keyword);
+        params.put("title", "%" + keyword + "%");
 
         return jdbcTemplate.query(query, params, boardRowMapper);
     }

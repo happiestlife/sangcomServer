@@ -42,7 +42,7 @@ public class TokenServiceImpl implements TokenService{
 
         String result = tokenRepository.insert(new TokenDAO(user.getId(), refreshToken));
         if(result == null){
-            tokenRepository.deleteByToken(refreshToken);
+            tokenRepository.deleteById(user.getId());
 
             tokenRepository.insert(new TokenDAO(user.getId(), refreshToken));
         }
