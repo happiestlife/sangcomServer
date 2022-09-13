@@ -13,7 +13,7 @@ public interface TimetableService {
     public boolean insertTimetable(String user_id, TimetableDTO timetableDTO);
 
     // 시간표 수정
-    public boolean updateTimetable(String user_id, TimetableDTO timetableDTO);
+//    public boolean updateTimetable(String user_id, String days, Number period, TimetableDTO timetableDTO);
 
 
     // 시간표 조회

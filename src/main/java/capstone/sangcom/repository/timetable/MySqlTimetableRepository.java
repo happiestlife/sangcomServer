@@ -87,28 +87,28 @@ public class MySqlTimetableRepository implements TimetableRepository{
 //    }
     // MySqlBoardRepository - "검색어에 해당하는 게시글 목록 검색" 참고하여 작성함.
 
-    @Override // 시간표 수정
-    public boolean updateTimetable(String user_id, TimetableDTO timetableDTO) {
-        String query = "UPDATE " + TIMETABLE_TABLE + " SET SUBJECT =:subject, LOCATION =:location, TEACHER =:teacher WHERE DAYS =:days AND PERIOD =:period AND USER_ID =:user_id";
-            // else{
-            //    await conn.query("UPDATE timetable set subject=?, location=?, teacher=? WHERE days=? AND period=? AND user_id =?",
-            //            [subject, location, teacher, days, period, user_id]);
-            // }
-        Map<String, Object> params = new HashMap<>();
-        params.put("user_id", user_id);
-        params.put("subject", timetableDTO.getSubject());
-        params.put("location", timetableDTO.getLocation());
-        params.put("teacher", timetableDTO.getTeacher());
-        params.put("days", timetableDTO.getDays());
-        params.put("period", timetableDTO.getPeriod());
-
-        int update = jdbcTemplate.update(query, params);
-        System.out.println(update);
-        if(update != 0)
-            return true;
-        else
-            return false;
-    }
+//    @Override // 시간표 수정
+//    public boolean updateTimetable(String user_id, String days, Number period, TimetableDTO timetableDTO) {
+//        String query = "UPDATE " + TIMETABLE_TABLE + " SET SUBJECT =:subject, LOCATION =:location, TEACHER =:teacher, DAYS =:days, PERIOD =:period WHERE DAYS =:days AND PERIOD =:period AND USER_ID =:user_id";
+//            // else{
+//            //    await conn.query("UPDATE timetable set subject=?, location=?, teacher=? WHERE days=? AND period=? AND user_id =?",
+//            //            [subject, location, teacher, days, period, user_id]);
+//            // }
+//        Map<String, Object> params = new HashMap<>();
+//        params.put("user_id", user_id);
+//        params.put("subject", timetableDTO.getSubject());
+//        params.put("location", timetableDTO.getLocation());
+//        params.put("teacher", timetableDTO.getTeacher());
+//        params.put("days", timetableDTO.getDays());
+//        params.put("period", timetableDTO.getPeriod());
+//
+//        int update = jdbcTemplate.update(query, params);
+//        System.out.println(update);
+//        if(update != 0)
+//            return true;
+//        else
+//            return false;
+//    }
     // MySqlBoardRepository - "게시글의 제목과 본문 수정(이미지 제외) 참고하여 작성함.
 
     @Override // 시간표 조회

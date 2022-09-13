@@ -1,6 +1,5 @@
 package capstone.sangcom.controller.api.meals;
 
-import capstone.sangcom.controller.api.response.board.BoardDetailResponse;
 import capstone.sangcom.controller.api.response.meals.MealsResponse;
 import capstone.sangcom.entity.dto.mealsSection.MealsInputDTO;
 import capstone.sangcom.entity.dto.mealsSection.MealsOutputDTO;
@@ -8,74 +7,85 @@ import capstone.sangcom.service.meals.MealsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpSession;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.CharacterCodingException;
 import java.util.List;
 
 
-@Slf4j
+//@Slf4j
 @RestController
 @RequestMapping("/api/school")
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class MealsController {
 
     private final MealsService mealsService; // mealsService의 객체
 
-//    Neis neis = new Neis;
-
-
-//    public static void main(String[] args) {
-//        String token = "ec9ada510672412d9623900e44882a9f";// 네아로 접근 토큰 값";
-//        String header = "Bearer " + token; // Bearer 다음에 공백 추가
-//        try {
-//            String apiURL = "https://open.neis.go.kr/hub/mealServiceDietInfo";
-//            URL url = new URL(apiURL);
-//            HttpURLConnection con = (HttpURLConnection)url.openConnection();
-//            con.setRequestMethod("GET");
-//            con.setRequestProperty("Authorization", header);
-//            int responseCode = con.getResponseCode();
-//            BufferedReader br;
-//            if(responseCode==200) { // 정상 호출
-//                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-//            } else {  // 에러 발생
-//                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-//            }
-//            String inputLine;
-//            StringBuffer response = new StringBuffer();
-//            while ((inputLine = br.readLine()) != null) {
-//                response.append(inputLine);
-//            }
-//            br.close();
-//            System.out.println(response.toString());
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//    }
-
-
+    public MealsController(MealsService mealsService) {
+        this.mealsService = mealsService;
+    }
 
     @GetMapping("/cafeteria")
-    public MealsOutputDTO getMealsInfo() {// @RequestBody MealsInputDTO mealsInputDTO,
-                                                      // @RequestParam String MLSV_FROM_YMD,
-                                                      // @RequestParam String MLSV_TO_YMD) {
+    public ResponseEntity<MealsResponse> getMealsInfo(@RequestParam String MLSV_FROM_YMD,
+                                                      @RequestParam String MLSV_TO_YMD) {
 
-//        List<MealsOutputDTO> mealsOutPut = mealsService.getMeals(MLSV_FROM_YMD, MLSV_TO_YMD);
-//
-//        return ResponseEntity
-//                .ok(new MealsResponse(true, mealsOutPut));
+        List<MealsOutputDTO> mealsOutPut = mealsService.getMeals(MLSV_FROM_YMD, MLSV_TO_YMD);
 
-        return mealsService.getMeals();
+        return ResponseEntity
+                .ok(new MealsResponse(mealsOutPut));
+
     }
+
+
+
+
+
+//    @GetMapping("/cafeteria")
+//    public HashMap<String, Object> callAPI(){
+//
+//        // 0. 결과값을 담을 객체를 생성합니다.
+//        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+//        try {
+//            // 1. 타임아웃 설정시 HttpComponentsClientHttpRequestFactory 객체를 생성합니다.
+//            HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
+//            factory.setConnectTimeout(5000); // 타임아웃 설정 5초
+//            factory.setReadTimeout(5000); // 타임아웃 설정 5초
+//
+//            //Apache HttpComponents : 각 호스트(IP와 Port의 조합)당 커넥션 풀에 생성가능한 커넥션 수
+////            HttpClient HttpClient httpClient = HttpClientBuilder.create()
+////                    .setMaxConnTotal(50)//최대 커넥션 수
+////                    .setMaxConnPerRoute(20).build();
+////            factory.setHttpClient(httpClient);
+//
+//            // 2. RestTemplate 객체를 생성합니다.
+//            RestTemplate restTemplate = new RestTemplate(factory);
+//
+//            // 3. header 설정을 위해 HttpHeader 클래스를 생성한 후 HttpEntity 객체에 넣어줍니다.
+////            HttpHeader header = new HttpHeader();
+////            HttpEntity<String> entity = new HttpEntity<String>(header);
+//
+//            // 4. 요청 URL을 정의해줍니다.
+//            String url = "https://open.neis.go.kr/hub/mealServiceDietInfo?ATPT_OFCDC_SC_CODE&SD_SCHUL_CODE";
+//            UriComponents uri = UriComponentsBuilder
+//                    .fromHttpUrl(url)
+//                    .queryParam("ATPT_OFCDC_SC_CODE", "B10")
+//                    .queryParam("SD_SCHUL_CODE","7010178")
+//                    .build(false);
+//
+//            // 5. exchange() 메소드로 api를 호출합니다.
+//            ResponseEntity<Map> response = restTemplate.exchange(uri.toString, HttpMethod.GET, entity, Map.class);
+//
+//            // 6. 요청한 결과를 HashMap에 추가합니다.
+//            // HTTP Status Code
+//            resultMap.put("statusCode", response.getStatusCodeValue());
+//            // 헤더 정보
+//            resultMap.put("header", response.getHeaders());
+//            // 반환받은 실제 데이터 정보
+//            resultMap.put("body", response.getBody());
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }// end catch
+//    }//callAPI
 
 
 //    /**

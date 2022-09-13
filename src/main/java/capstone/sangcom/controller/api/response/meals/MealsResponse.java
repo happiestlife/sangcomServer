@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class MealsResponse {
 
-    private boolean success;
+//    private boolean success;
     private List<MealsOutputDTO> mealsOutput;
 
 

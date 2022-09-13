@@ -13,7 +13,7 @@ public interface TimetableRepository {
 
     // 시간표 수정
 //    public List<TimetableDTO> selectTimetable(String user_id, String days, Number period);
-    public boolean updateTimetable(String user_id, TimetableDTO timetableDTO);
+//    public boolean updateTimetable(String user_id, String days, Number period, TimetableDTO timetableDTO);
 
     // 시간표 조회
     public List<GetTimetableResponseDTO> getTimetable(String user_id); // API명세서에 파라미터가 없음..

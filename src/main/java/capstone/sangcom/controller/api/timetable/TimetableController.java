@@ -23,7 +23,7 @@ public class TimetableController {
     private final TimetableService timetableService;
 
     /**
-     * 시간표 등록/수정
+     * 시간표 등록
      */
     @PostMapping
     public ResponseEntity<SimpleResponse> insertTimetable(HttpServletRequest request,
@@ -42,25 +42,27 @@ public class TimetableController {
                     .body(new SimpleResponse(false));
     }
 
-    /**
-     * 시간표 수정
-     */
-    @PutMapping
-    public ResponseEntity<SimpleResponse> updateTimetable(HttpServletRequest request,
-                                                          @RequestBody TimetableDTO timetableDTO) {
-        JwtUser user = (JwtUser) request.getAttribute("user"); // const user_id = req.body.data.id;
-        // 로그인 -> Jwt토큰에서 USER 정보를 가져와서 -> HttpServletRequest에 저장 -> request
-        // 인터셉터: Dispatcher Servlet -> Controller 사이에 가로채서 특정 임무를 수행하는 것
-        // 모든 요청들이 디스패쳐서블릿을 거친다
-
-        if (timetableService.updateTimetable(user.getId(), timetableDTO)) // user_id (x) -> user.getId(o)
-            return ResponseEntity
-                    .ok(new SimpleResponse(true));
-        else
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new SimpleResponse(false));
-    }
+//    /**
+//     * 시간표 수정
+//     */
+//    @PutMapping("/{days}/{period}")
+//    public ResponseEntity<SimpleResponse> updateTimetable(HttpServletRequest request,
+//                                                          @PathVariable String days,
+//                                                          @PathVariable Number period,
+//                                                          @RequestBody TimetableDTO timetableDTO) {
+//        JwtUser user = (JwtUser) request.getAttribute("user"); // const user_id = req.body.data.id;
+//        // 로그인 -> Jwt토큰에서 USER 정보를 가져와서 -> HttpServletRequest에 저장 -> request
+//        // 인터셉터: Dispatcher Servlet -> Controller 사이에 가로채서 특정 임무를 수행하는 것
+//        // 모든 요청들이 디스패쳐서블릿을 거친다
+//
+//        if (timetableService.updateTimetable(user.getId(), days, period, timetableDTO)) // user_id (x) -> user.getId(o)
+//            return ResponseEntity
+//                    .ok(new SimpleResponse(true));
+//        else
+//            return ResponseEntity
+//                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(new SimpleResponse(false));
+//    }
 
 
     /**

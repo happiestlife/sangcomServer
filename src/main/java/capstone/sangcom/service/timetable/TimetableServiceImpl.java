@@ -24,11 +24,11 @@ public class TimetableServiceImpl implements TimetableService{
         return timetableRepository.insertTimetable(user_id, timetableDTO);
     }
 
-    @Override
-    @Transactional // 시간표 수정
-    public boolean updateTimetable(String user_id, TimetableDTO timetableDTO){
-        return timetableRepository.updateTimetable(user_id, timetableDTO);
-    }
+//    @Override
+//    @Transactional // 시간표 수정
+//    public boolean updateTimetable(String user_id, String days, Number period, TimetableDTO timetableDTO){
+//        return timetableRepository.updateTimetable(user_id, days, period, timetableDTO);
+//    }
 
     @Override
     @Transactional // 시간표 조회

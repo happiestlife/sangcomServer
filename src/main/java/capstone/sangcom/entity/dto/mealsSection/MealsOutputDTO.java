@@ -6,9 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class MealsOutputDTO {
 
 //    public MealsOutputDTO(String MMEAL_SC_NM, String CAL_INFO, String DDISH_NM) {
