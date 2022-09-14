@@ -42,7 +42,7 @@ public class MealServiceImpl implements MealService{
     }
 
     @Override
-    public List<MealDTO> getMeals(String from, String to) throws ParseException, org.json.simple.parser.ParseException, java.text.ParseException {
+    public List<MealDTO> getMeals(String from, String to) throws java.text.ParseException, org.json.simple.parser.ParseException {
         int size = Integer.parseInt(to) - Integer.parseInt(from);
         if(size == 0)
             size = 1;
@@ -62,17 +62,7 @@ public class MealServiceImpl implements MealService{
 
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(apiResult.getBody());
-
         JSONArray result = (JSONArray)((JSONObject)((JSONArray) jsonObject.get("mealServiceDietInfo")).get(1)).get("row");
-
-        // 오류 확인을 위한 코드
-//        System.out.println(apiResult.getBody());
-//        System.out.println(URL);
-//        System.out.println(uri);
-//        System.out.println(ATPT_OFCDC_SC_CODE);
-//        System.out.println(SD_SCHUL_CODE);
-//        System.out.println(key);
-//        System.out.println(result);
 
         ArrayList<MealDTO> rs = new ArrayList<>();
         for (int i = 0; i < result.size(); i++) {
