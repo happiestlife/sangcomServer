@@ -88,9 +88,9 @@
       
         <div class="content_bottom">
           <!-- <span class="material-symbols-outlined">thumb_up</span>  -->
-          <button id="thumb_up" class="material-symbols-outlined" onclick="bottom_clicked()" style="display:inline">thumb_up</button>
+          <button id="thumb_up" class="bottom_icon material-symbols-outlined"  style="display:inline">thumb_up</button>
           <span th:text="${board.getGoodCount()}"></span>
-          <button id="bookmark" class="material-symbols-outlined" onclick="bottom_clicked()" style="display:inline">bookmark</button>
+          <button id="bookmark" class="bottom_icon material-symbols-outlined" style="display:inline">bookmark</button>
           <span th:text="${board.getScrapCount()}"></span>
           <span id="comment_count">댓글</span>
           <span th:text="${board.getReplyCount()}"></span>
@@ -112,8 +112,9 @@
             
             <!-- 노홍석 수정 (댓글 좋아요버튼) -->
             <span class="content_bottom">
-              <button id="comment_thumb_up" class="material-symbols-outlined" onclick="bottom_clicked()">thumb_up</button>
-              <span id="sur_comment_count">대댓글(2)</span>
+              <button id="comment_thumb_up" class="bottom_icon material-symbols-outlined">thumb_up</button>
+              <!-- <span id="sur_comment_count">대댓글(2)</span> -->
+              <span id="sur_comment_count"> <button >대댓글</button></span>  
             </span>        
 
             <!-- 자식 댓글 -->
@@ -126,12 +127,15 @@
 
             <!-- 노홍석 수정 대댓글 나오게하는거 -->
             <div  th:each="childReply : ${replySection.child}" class="comment_sub">
-              <span class="material-symbols-outlined">reply</span>
+              <span class="reply material-symbols-outlined">reply</span>
               <div class="comment">
                 <img th:src="|@{/image/profile/{_p}(_p=${childReply.profilePath})}|" src="img/ic_cloudy.png">
                 <h5 th:text="${childReply.userId}" >v댓쓴이는김익명v</h5>
                 <div><time th:text="${childReply.regdate}">06/24 12:54</time></div>
-                <p th:text="${childReply.body}">대댓글 내용</p>           
+                <p th:text="${childReply.body}">대댓글 내용</p>   
+                <span class="content_bottom">
+                  <button class="bottom_icon material-symbols-outlined" >thumb_up</button>
+                </span>          
               </div>
             </div>
             
@@ -140,8 +144,8 @@
       </div>
 
       <div class="commentInput">
-        <input type="text" class="text-basic" placeholder="댓글 달기.." style="width: 75%;border:none; ">
-        <button type="button" style="min-width: 85px; width: 20%; float: right;">댓글 달기</button>
+        <input type="text" class="c_input" placeholder="댓글 달기.." style="width: 75%;border:none; ">
+        <button id="test" class="c_button" type="button" >댓글 달기</button>
       </div>
     </article>
   </div>

@@ -72,18 +72,18 @@
       <h2>게시글 작성</h2>
     </div>
 
-    <form th:action="|@{/board/create?type={_type}(_type=${type})}|" action="" method="post" class="write_bottom" enctype="multipart/form-data">
-      <div>
+    <form th:action="|@{/board/create?type={_type}(_type=${type})}|" action="" method="post" enctype="multipart/form-data">
+      <!-- <div>
         <input type="text" name="title" id="title" placeholder="제목">
-      </div>
-
+      </div> -->
+      <input type="text" class="subject" id="title" placeholder="제목을 입력해주세요">
       <div class="add_img">
-        <span style="margin-right: 10px;">이미지추가</span>
+        <span style="margin:3 10 0 0">이미지추가</span>
         <input type="file" name="images">
       </div><br>
 
       <textarea name="body" class="write_board" id="body" placeholder="내용을 입력해주세요."></textarea>
-      <input type="submit" value="게시글 작성">
+      <input type="submit" class="write_bottom" value="게시글 작성">
     </form>
   </div>
     

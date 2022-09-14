@@ -95,3 +95,17 @@ function removeContent() {
     alert("취소되었습니다.");
   }
 }
+
+
+$(function(){
+  $('.bottom_icon').click(function(){
+    $(this).css("font-variation-settings","'FILL' 1, 'wght' 100, 'GRAD' 200, 'opsz' 48");
+  });
+});  //개별 색변경  추후에 하얀색으로 바꾸기할예정 하얀색은 fill을 0으로 바꾸면끝.
+
+$(function(){
+  $('.sur_comment_count').click(function(){
+    $('#added_comment').attr('class','commentInput');
+    check=false;
+  });
+});  //숨겨진 대댓글창 나타내기
