@@ -22,7 +22,7 @@ public class BoardManagementController {
      * 게시글 생성
      */
     @PostMapping
-    public ResponseEntity<SimpleResponse> createBoard(HttpServletRequest request,
+    public ResponseEntity<SimpleResponse> createBoard(HttpServletRequest request, //
                                                       @RequestParam String type,
                                                       UpdateBoardDTO boardData) {
         JwtUser user = (JwtUser) request.getAttribute("user");

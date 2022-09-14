@@ -14,7 +14,12 @@ public class ApiConfig implements WebMvcConfigurer {
     private static String EXCLUDE_API_PATHS[] = {
 
             // school 관련
-            "/api/school/cafeteria/**", "/api/school/schedule",
+            "/api/school/cafeteria",
+            "/api/school/schedule",
+//            "/api/school/cafeteria/**",
+
+            // todo 관련
+//            "/api/school/todo/**",
 
             // reply 관련
             "/api/reply/goodcount/**", "/api/reply/replycount/**",

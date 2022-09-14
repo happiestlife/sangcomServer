@@ -63,30 +63,30 @@ function search() {
 }
 
 function enter() {
-    if (window.event.keyCode == 13) {
-      var target = document.getElementById('commentList');
-      var text = document.getElementById('body').value;
-      var input_comment = makecomment(text);
+  if (window.event.keyCode == 13) {
+    var target = document.getElementById('commentList');
+    var text = document.getElementById('body').value;
+    var input_comment = makecomment(text);
 
-      if(text=='') {
-        alert('댓글을 입력하세요.');
-      }
-      else {
+    if(text=='') {
+      alert('댓글을 입력하세요.');
+    }
+    else {
       document.getElementById('commentText').value='';
       target.insertAdjacentHTML('beforeend',input_comment);
-      }
-      }
+    }
+  }
 }
 
 function createBoard() {
-    var target = document.getElementById('boardCreate');
-    target.insertAdjacentHTML('beforeend',"no");
+  var target = document.getElementById('boardCreate');
+  target.insertAdjacentHTML('beforeend',"no");
 }
 
 
 function removeContent() {
-  
-  
+
+
   if(confirm("삭제하시겠습니까?")){
     alert("삭제되었습니다.");
     location.href = "main.html"

@@ -66,85 +66,85 @@
     </div>
   </div>
 </nav>
-  <!-- 네비게이션 끝 자유게시판 컨텐츠 시작 -->
+<!-- 네비게이션 끝 자유게시판 컨텐츠 시작 -->
 
-  <!-- 게시글 내용 -->
-  <div class="container" style="margin-top: 120px; margin-bottom: 30px; display: flex; flex-wrap: wrap; ">
-    <article class="articleBoard" style="width: 60%;" >
-      <div class="title"  style="border: 1px solid #90e1f5; border-radius: 10px;">
-        <img th:src="|@{/image/profile/{_p}(_p=${writerImagePath})}|" src="img/ic_cloudy.png" width = "60" style="float: left; border-radius: 70%;border: 1px solid #34ebae;">
-        <h4 th:text="${board.user_id}" >글쓴이는김익명v</h4>
-        <time th:text="${board.regdate}" class="">06/24 12:54</time>
-      </div>
-      <div class="comment">
-        <h4 th:text="${board.title}" >게시글 제목</h4>
+<!-- 게시글 내용 -->
+<div class="container" style="margin-top: 120px; margin-bottom: 30px; display: flex; flex-wrap: wrap; ">
+  <article class="articleBoard" style="width: 60%;" >
+    <div class="title"  style="border: 1px solid #90e1f5; border-radius: 10px;">
+      <img th:src="|@{/image/profile/{_p}(_p=${writerImagePath})}|" src="img/ic_cloudy.png" width = "60" style="float: left; border-radius: 70%;border: 1px solid #34ebae;">
+      <h4 th:text="${board.user_id}" >글쓴이는김익명v</h4>
+      <time th:text="${board.regdate}" class="">06/24 12:54</time>
+    </div>
+    <div class="comment">
+      <h4 th:text="${board.title}" >게시글 제목</h4>
+    </div>
+
+    <div class="boardContent">
+      <h6 th:text="${board.body}" >게시글 내용<br>게시글 이렇게 쓰는게 맞을까? <br>나 너무 무서워 이러다가 다 죽어~d<br>이미지도 넣어볼게ds</br></h6>
+      <div th:if="${imagePath.size() > 0}" th:each="path : ${imagePath}">
+        <img th:src="|@{/image/board/{_p}(_p=${path})}|" width=90% style="display : block; margin: 20px auto; ">
       </div>
 
-      <div class="boardContent">
-        <h6 th:text="${board.body}" >게시글 내용<br>게시글 이렇게 쓰는게 맞을까? <br>나 너무 무서워 이러다가 다 죽어~d<br>이미지도 넣어볼게ds</br></h6>
-        <div th:if="${imagePath.size() > 0}" th:each="path : ${imagePath}">
-          <img th:src="|@{/image/board/{_p}(_p=${path})}|" width=90% style="display : block; margin: 20px auto; ">
-        </div>
-      
-        <div class="content_bottom">
-          <!-- <span class="material-symbols-outlined">thumb_up</span>  -->
-          <button id="thumb_up" class="material-symbols-outlined" onclick="bottom_clicked()" style="display:inline">thumb_up</button>
-          <span th:text="${board.getGoodCount()}"></span>
-          <button id="bookmark" class="material-symbols-outlined" onclick="bottom_clicked()" style="display:inline">bookmark</button>
-          <span th:text="${board.getScrapCount()}"></span>
-          <span id="comment_count">댓글</span>
-          <span th:text="${board.getReplyCount()}"></span>
-        </div>
-      
+      <div class="content_bottom">
+        <!-- <span class="material-symbols-outlined">thumb_up</span>  -->
+        <button id="thumb_up" class="material-symbols-outlined" onclick="bottom_clicked()" style="display:inline">thumb_up</button>
+        <span th:text="${board.getGoodCount()}"></span>
+        <button id="bookmark" class="material-symbols-outlined" onclick="bottom_clicked()" style="display:inline">bookmark</button>
+        <span th:text="${board.getScrapCount()}"></span>
+        <span id="comment_count">댓글</span>
+        <span th:text="${board.getReplyCount()}"></span>
       </div>
-    </article>
 
-    <!-- 댓글 창  -->
-    <article class="articleBoard" style="width: 40%;">
-      <div class="boardContent">
-        <ul>
-          <li th:each="replySection : ${replies}" class="comment">
-            <!-- 부모 댓글 -->
-            <img th:src="|@{/image/profile/{_p}(_p=${replySection.parent.profilePath})}|" src="img/ic_cloudy.png">
-            <h5 th:text="${replySection.parent.userId}" >v댓쓴이는김익명v</h5>
-            <div><time th:text="${replySection.parent.regdate}">06/24 12:54</time></div>
-            <h6 th:text="${replySection.parent.body}">우와 대단해요~</h6>
-            
-            <!-- 노홍석 수정 (댓글 좋아요버튼) -->
-            <span class="content_bottom">
+    </div>
+  </article>
+
+  <!-- 댓글 창  -->
+  <article class="articleBoard" style="width: 40%;">
+    <div class="boardContent">
+      <ul>
+        <li th:each="replySection : ${replies}" class="comment">
+          <!-- 부모 댓글 -->
+          <img th:src="|@{/image/profile/{_p}(_p=${replySection.parent.profilePath})}|" src="img/ic_cloudy.png">
+          <h5 th:text="${replySection.parent.userId}" >v댓쓴이는김익명v</h5>
+          <div><time th:text="${replySection.parent.regdate}">06/24 12:54</time></div>
+          <h6 th:text="${replySection.parent.body}">우와 대단해요~</h6>
+
+          <!-- 노홍석 수정 (댓글 좋아요버튼) -->
+          <span class="content_bottom">
               <button id="comment_thumb_up" class="material-symbols-outlined" onclick="bottom_clicked()">thumb_up</button>
               <span id="sur_comment_count">대댓글(2)</span>
-            </span>        
+            </span>
 
-            <!-- 자식 댓글 -->
-            <!-- <ul th:each="childReply : ${replySection.child}">
-              <img src="img/ic_cloudy.png">
+          <!-- 자식 댓글 -->
+          <!-- <ul th:each="childReply : ${replySection.child}">
+            <img src="img/ic_cloudy.png">
+            <h5 th:text="${childReply.userId}" >v댓쓴이는김익명v</h5>
+            <div><time th:text="${childReply.regdate}">06/24 12:54</time></div>
+            <h6 th:text="${childReply.body}">우와 대단해요~</h6>
+          </ul> -->
+
+          <!-- 노홍석 수정 대댓글 나오게하는거 -->
+          <div  th:each="childReply : ${replySection.child}" class="comment_sub">
+            <span class="material-symbols-outlined">reply</span>
+            <div class="comment">
+              <img th:src="|@{/image/profile/{_p}(_p=${childReply.profilePath})}|" src="img/ic_cloudy.png">
               <h5 th:text="${childReply.userId}" >v댓쓴이는김익명v</h5>
               <div><time th:text="${childReply.regdate}">06/24 12:54</time></div>
-              <h6 th:text="${childReply.body}">우와 대단해요~</h6>
-            </ul> -->
-
-            <!-- 노홍석 수정 대댓글 나오게하는거 -->
-            <div  th:each="childReply : ${replySection.child}" class="comment_sub">
-              <span class="material-symbols-outlined">reply</span>
-              <div class="comment">
-                <img th:src="|@{/image/profile/{_p}(_p=${childReply.profilePath})}|" src="img/ic_cloudy.png">
-                <h5 th:text="${childReply.userId}" >v댓쓴이는김익명v</h5>
-                <div><time th:text="${childReply.regdate}">06/24 12:54</time></div>
-                <p th:text="${childReply.body}">대댓글 내용</p>           
-              </div>
+              <p th:text="${childReply.body}">대댓글 내용</p>
             </div>
-            
-          </li>
-        </ul>
-      </div>
+          </div>
 
-      <div class="commentInput">
-        <input type="text" class="text-basic" placeholder="댓글 달기.." style="width: 75%;border:none; ">
-        <button type="button" style="min-width: 85px; width: 20%; float: right;">댓글 달기</button>
-      </div>
-    </article>
-  </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="commentInput">
+      <input type="text" class="text-basic" placeholder="댓글 달기.." style="width: 75%;border:none; ">
+      <button type="button" style="min-width: 85px; width: 20%; float: right;">댓글 달기</button>
+    </div>
+  </article>
+</div>
 <!-- Footer Section -->
 <div id="footer">
   <div class="container text-center">
