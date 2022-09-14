@@ -8,7 +8,7 @@ import capstone.sangcom.entity.UserRole;
 import java.util.List;
 
 public interface BoardService {
-    public boolean create(String userId, String type, UpdateBoardDTO boardData);
+    public int create(String userId, String type, UpdateBoardDTO boardData);
 
     public List<BoardDTO> searchBoards(String type, String keyword);
 

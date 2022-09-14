@@ -42,10 +42,13 @@ public class MealServiceImpl implements MealService{
     }
 
     @Override
-    public List<MealDTO> getMeals(String from, String to) throws ParseException, org.json.simple.parser.ParseException, java.text.ParseException {
+    public List<MealDTO> getMeals(String from, String to) throws java.text.ParseException, org.json.simple.parser.ParseException {
+        int size = Integer.parseInt(to) - Integer.parseInt(from);
+        if(size == 0)
+            size = 1;
         UriComponents uri = UriComponentsBuilder.fromHttpUrl(URL)
                 .queryParam("Key", key)
-                .queryParam("pSize", Integer.parseInt(to) - Integer.parseInt(from))
+                .queryParam("pSize", size)
                 .queryParam("ATPT_OFCDC_SC_CODE", ATPT_OFCDC_SC_CODE)
                 .queryParam("SD_SCHUL_CODE", SD_SCHUL_CODE)
                 .queryParam("MLSV_FROM_YMD", from)

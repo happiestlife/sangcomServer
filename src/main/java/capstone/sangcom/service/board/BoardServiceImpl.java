@@ -34,7 +34,7 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     @Transactional
-    public boolean create(String userId, String type, UpdateBoardDTO boardData) {
+    public int create(String userId, String type, UpdateBoardDTO boardData) {
         // 게시글 저장 후 게시글 Id 가져오기
         int boardId = boardRepository.insert(new BoardDAO(
                 -1, boardData.getTitle(), boardData.getBody(),
@@ -48,7 +48,7 @@ public class BoardServiceImpl implements BoardService{
             }
             for (String path : paths) {
                 if (boardPathRepository.insert(new BoardPathDAO(boardId, path)) == null)
-                    return false;
+                    return -1;
             }
 
             // 서비스 계층에서 이미지 실제 폴더에 저장
@@ -57,14 +57,14 @@ public class BoardServiceImpl implements BoardService{
                 try {
                     imageUtils.store(image, new File(paths.get(i++)));
                 } catch (IOException e) {
-                    return false;
+                    return -1;
                 }
             }
         }
 
         // 게시글 type이 notice인 경우 전체 알림 메세지 전송
 
-        return true;
+        return boardId;
     }
 
     @Override
