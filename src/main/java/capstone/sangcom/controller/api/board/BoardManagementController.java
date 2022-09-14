@@ -27,7 +27,7 @@ public class BoardManagementController {
                                                       UpdateBoardDTO boardData) {
         JwtUser user = (JwtUser) request.getAttribute("user");
 
-        if (boardService.create(user.getId(), type, boardData))
+        if (boardService.create(user.getId(), type, boardData) != -1)
             return ResponseEntity
                     .ok(new SimpleResponse(true));
         else

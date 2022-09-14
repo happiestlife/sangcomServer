@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>상콤 - 전교생 자유게시판</title>
+  <title>상콤 - 게시글 작성</title>
   <!-- Favicons================================================== -->
   <link rel="shortcut icon" th:href="@{/image/ic_sangcom.png}" href="img/ic_sangcom.png">
   <link rel="apple-touch-icon" th:href="@{/image/apple-touch-icon_sangcom.png}" href="img/apple-touch-icon_sangcom.png">
@@ -67,56 +67,43 @@
   </div>
 </nav>
   <!-- 네비게이션 끝 자유게시판 컨텐츠 시작 -->
-  <section>
-    <div class="container" style=" max-width: 600px; margin-top: 100px;">
-
-    <h2 th:text="${title}" class="text-center">전교생 자유게시판</h2>
-
-    <!-- 어떤 타입의 게시글인지 구분할 때 사용하기 위한 키워드 -->
-    <div id="type" hidden th:text="${type}"></div>
-    <div id="searchKeyword" hidden></div>
-
-    <div style="margin:5px;">
-      <a th:href="|@{/board/create?type={_type}(_type = ${type})}|" href="boardCreate.html"><button id="boardCreate">글쓰기</button></a>
-      <input type="text" placeholder="🔍게시물 제목" size="30" class="searchInput btnBasic">
-      <input type="button" id="commentAdd" class="btnsmallBlue btnBasic" value="검색" onclick="search()">
-      <select name="boardsort" style="float: right; margin-right: 10px">
-        <option value="최신순">최신순</option>
-        <option value="조회순">조회순</option>
-        <option value="좋아요순">좋아요순</option>
-      </select>
+  <div class="container">
+    <div class="write_subject">
+      <h2>게시글 작성</h2>
     </div>
-      <div id="boards">
-        <div th:each="board : ${boards}" class="board">
-          <a th:href="@{/board/{board_id}(board_id=${board.board_id})}">
-              <article class="post">
-                <h5 th:text="${board.title}" class="postName"></h5>
-                <p th:text="${board.body}" class="postContent"></p>
 
-                <div class="symbols" style="right:10px">❤ </div>
-                <div th:text="${board.goodCount}" class="symbols"></div>
-<!--                    <span class="symbols" style="right:10px">scrap</span>-->
-<!--                    <span th:text="${board.scrapCount}" class="symbols"></span>-->
-<!--                    <span class="symbols" style="right:10px">🗨</span>-->
-<!--                    <span th:text="${board.replyCount}" class="symbols"></span>-->
-              </article>
-            </a>
-        </div>
+    <form th:action="|@{/board/create?type={_type}(_type=${type})}|" action="" method="post" class="write_bottom" enctype="multipart/form-data">
+      <div>
+        <input type="text" id="title" placeholder="제목">
       </div>
-  </section>
-  <!-- Footer Section -->
-  <div id="footer">
-    <div class="container text-center">
-      <a href="https://sangmyung-agh.sen.hs.kr/" target="_blank"><img th:src="@{/icon/상명여고.png}" src="icon/상명여고.png" alt="X"></a>
-    </div>
+
+      <div class="add_img">
+        <span style="margin-right: 10px;">이미지추가</span>
+        <input type="file" name="img" id="images">
+      </div><br>
+
+      <textarea name="write_board" class="write_board" id="body" placeholder="내용을 입력해주세요."></textarea>
+      <input type="submit" value="게시글 작성">
+    </form>
   </div>
-  <script type="text/javascript" th:src="@{/js/jquery.1.11.1.js}" src="js/jquery.1.11.1.js"></script>
-  <script type="text/javascript" th:src="@{/js/bootstrap.js}" src="js/bootstrap.js"></script>
-  <script type="text/javascript" th:src="@{/js/SmoothScroll.js}" src="js/SmoothScroll.js"></script>
-  <script type="text/javascript" th:src="@{/js/nivo-lightbox.js}" src="js/nivo-lightbox.js"></script>
-  <script type="text/javascript" th:src="@{/js/jqBootstrapValidation.js}" src="js/jqBootstrapValidation.js"></script>
-  <!--<script type="text/javascript" th:src="@{/js/contact_me.js}" src="js/contact_me.js"></script>-->
-  <script type="text/javascript" th:src="@{/js/board.js}" src="js/main.js"></script>
+    
+
+  </div>
+
+
+<!-- Footer Section -->
+<div id="footer">
+  <div class="container text-center">
+    <a href="https://sangmyung-agh.sen.hs.kr/" target="_blank"><img th:src="@{/icon/상명여고.png}" src="icon/상명여고.png" alt="X"></a>
+  </div>
+</div>
+<script type="text/javascript" th:src="@{/js/jquery.1.11.1.js}" src="js/jquery.1.11.1.js"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.js}" src="js/bootstrap.js"></script>
+<script type="text/javascript" th:src="@{/js/SmoothScroll.js}" src="js/SmoothScroll.js"></script>
+<script type="text/javascript" th:src="@{/js/nivo-lightbox.js}" src="js/nivo-lightbox.js"></script>
+<script type="text/javascript" th:src="@{/js/jqBootstrapValidation.js}" src="js/jqBootstrapValidation.js"></script>
+<!--<script type="text/javascript" th:src="@{/js/contact_me.js}" src="js/contact_me.js"></script>-->
+<script type="text/javascript" th:src="@{/js/board.js}" src="js/main.js"></script>
 
 </body>
 </html>
