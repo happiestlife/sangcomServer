@@ -74,15 +74,15 @@
 
     <form th:action="|@{/board/create?type={_type}(_type=${type})}|" action="" method="post" class="write_bottom" enctype="multipart/form-data">
       <div>
-        <input type="text" id="title" placeholder="제목">
+        <input type="text" name="title" id="title" placeholder="제목">
       </div>
 
       <div class="add_img">
         <span style="margin-right: 10px;">이미지추가</span>
-        <input type="file" name="img" id="images">
+        <input type="file" name="images">
       </div><br>
 
-      <textarea name="write_board" class="write_board" id="body" placeholder="내용을 입력해주세요."></textarea>
+      <textarea name="body" class="write_board" id="body" placeholder="내용을 입력해주세요."></textarea>
       <input type="submit" value="게시글 작성">
     </form>
   </div>
