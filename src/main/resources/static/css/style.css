@@ -63,6 +63,7 @@ hr {
 }
 /* Navigation */
 #menu {
+	text-align: center;
 	padding: 20px;
 	transition: all 0.8s;
 }
@@ -90,7 +91,8 @@ hr {
 	margin: 9px 20px 0 20px;
 }
 #menu.navbar-default .navbar-nav > li > a:hover {
-	color: #ce2a36;
+	text-align: center;
+	/* color: #ce2a36; */
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
 	color: #ce2a36 !important;
@@ -455,16 +457,16 @@ header .intro-text {
 	box-shadow: transparent;
 }
 .form-control::-webkit-input-placeholder {
-color: #777;
+	color: #777;
 }
 .form-control:-moz-placeholder {
-color: #777;
+	color: #777;
 }
 .form-control::-moz-placeholder {
-color: #777;
+	color: #777;
 }
 .form-control:-ms-input-placeholder {
-color: #777;
+	color: #777;
 }
 #contact .contact-item {
 	margin: 20px 0;
@@ -511,8 +513,7 @@ color: #777;
 
 
 @media (max-width: 768px) {
-#about img {
-	margin: 50px 0;
+	#about img {
+		margin: 50px 0;
+	}
 }
-}
-

@@ -44,9 +44,9 @@ public class LoginController {
 
     private Cookie makeCookie(String token, String name, int expire) {
         Cookie cookie = new Cookie(name, token);
-        cookie.setDomain("");
         cookie.setHttpOnly(true);
         cookie.setMaxAge(expire);
+        cookie.setPath("/");
 
         return cookie;
     }

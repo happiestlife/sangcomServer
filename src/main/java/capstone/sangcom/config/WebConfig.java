@@ -13,6 +13,9 @@ public class WebConfig implements WebMvcConfigurer {
             // 로그인 관련
             "/login", "/register", "/find/**",
 
+            // 토큰 관련
+            "/auth/refresh",
+
             // 자바스크립트 파일, css 파일, 이미지(png) 파일
             "/css/**", "/js/**", "/fonts/**", "/image/**", "/icon/**",
 
@@ -24,9 +27,12 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginWebInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns(EXCLUDE_PATHS)
-
+                .excludePathPatterns("/login", "/register", "/find/**")
+                .excludePathPatterns("/css/**", "/js/**", "/fonts/**", "/image/**", "/icon/**")
+                .excludePathPatterns("/api/**")
+                .excludePathPatterns("/auth/refresh")
                 .order(1);
+
     }
 
     @Bean
