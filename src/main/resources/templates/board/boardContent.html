@@ -75,6 +75,15 @@
       <img th:src="|@{/image/profile/{_p}(_p=${writerImagePath})}|" src="img/ic_cloudy.png" width = "60" style="float: left; border-radius: 70%;border: 1px solid #34ebae;">
       <h4 th:text="${board.user_id}" >글쓴이는김익명v</h4>
       <time th:text="${board.regdate}" class="">06/24 12:54</time>
+
+      <div class="subject_button">
+        <!-- 삭제하기는 클래스에 hidden주면 사라짐 -->
+        <form action="" method="get">
+          <input type="button" value="수정하기">
+          <input type="button" class="" value="삭제하기">
+        </form>
+      </div>
+
     </div>
     <div class="comment">
       <h4 th:text="${board.title}" >게시글 제목</h4>
@@ -88,9 +97,9 @@
 
       <div class="content_bottom">
         <!-- <span class="material-symbols-outlined">thumb_up</span>  -->
-        <button id="thumb_up" class="material-symbols-outlined" onclick="bottom_clicked()" style="display:inline">thumb_up</button>
+        <button id="thumb_up" class="bottom_icon material-symbols-outlined" style="display:inline">thumb_up</button>
         <span th:text="${board.getGoodCount()}"></span>
-        <button id="bookmark" class="material-symbols-outlined" onclick="bottom_clicked()" style="display:inline">bookmark</button>
+        <button id="bookmark" class="bottom_icon material-symbols-outlined" style="display:inline">bookmark</button>
         <span th:text="${board.getScrapCount()}"></span>
         <span id="comment_count">댓글</span>
         <span th:text="${board.getReplyCount()}"></span>
@@ -112,7 +121,7 @@
 
           <!-- 노홍석 수정 (댓글 좋아요버튼) -->
           <span class="content_bottom">
-              <button id="comment_thumb_up" class="material-symbols-outlined" onclick="bottom_clicked()">thumb_up</button>
+              <button id="comment_thumb_up" class="bottom_icon material-symbols-outlined">thumb_up</button>
               <span id="sur_comment_count">대댓글(2)</span>
             </span>
 
@@ -132,6 +141,10 @@
               <h5 th:text="${childReply.userId}" >v댓쓴이는김익명v</h5>
               <div><time th:text="${childReply.regdate}">06/24 12:54</time></div>
               <p th:text="${childReply.body}">대댓글 내용</p>
+
+              <span class="content_bottom">
+                <button class="bottom_icon material-symbols-outlined" >thumb_up</button>
+              </span>    
             </div>
           </div>
 
@@ -140,8 +153,8 @@
     </div>
 
     <div class="commentInput">
-      <input type="text" class="text-basic" placeholder="댓글 달기.." style="width: 75%;border:none; ">
-      <button type="button" style="min-width: 85px; width: 20%; float: right;">댓글 달기</button>
+      <input type="text" class="c_input" placeholder="댓글 달기.." style="width: 75%;border:none; ">
+        <button id="test" class="c_button" type="button" >댓글 달기</button>
     </div>
   </article>
 </div>
