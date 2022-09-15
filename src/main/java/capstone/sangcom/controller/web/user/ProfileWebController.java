@@ -12,16 +12,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class ProfileWebController {
     private final UserService userService;
@@ -59,10 +57,10 @@ public class ProfileWebController {
         return "user/myPage";
     }
 
+    @DeleteMapping("/profile")
+    public String deleteImage(HttpServletRequest request, String path, Model model){
+        JwtUser user = (JwtUser) request.getAttribute("user");
 
-
-
-
-
-
+        return "";
+    }
 }

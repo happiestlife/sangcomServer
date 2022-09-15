@@ -10,23 +10,22 @@
   <!-- <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
   <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png"> -->
   <!-- Bootstrap -->
-  <link rel="stylesheet" type="text/css"  href="css/Innova/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css">
-  <!-- Stylesheet================================================== -->
-  <link rel="stylesheet" type="text/css" href="css/Innova/style.css">
-  <link rel="stylesheet" type="text/css" href="css/nivo-lightbox/nivo-lightbox.css">
-  <link rel="stylesheet" type="text/css" href="css/nivo-lightbox/default.css">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/Innova/bootstrap.css}" href="css/Innova/bootstrap.css">
+  <link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome/css/font-awesome.css}" href="fonts/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/Innova/style.css}" href="css/Innova/style.css">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/nivo-lightbox/nivo-lightbox.css}" href="css/nivo-lightbox/nivo-lightbox.css">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/nivo-lightbox/default.css}" href="css/nivo-lightbox/default.css">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="css/board.css">
-  <link rel="stylesheet" type="text/css" href="css/navbar.css">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/board.css}" href="css/board.css">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}" href="css/navbar.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 <!-- Navigation========================================== -->
 <nav id="menu" class="navbar navbar-default navbar-fixed-top">
   <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
         <span class="sr-only">Toggle navigation</span>
@@ -34,35 +33,34 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand page-scroll" href="../main.html">SANGCOM</a>
+      <a class="navbar-brand page-scroll" th:href="@{/}" href="main.html">SANGCOM</a>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <div class="dropdown nav navbar-nav">
-          <li><a href="../board/boards.html" class="page-scroll dropdown">게시판</a>
+          <li><a th:href="|@{/board?type=free}|" href="board/boardFree.html" class="page-scroll dropdown">게시판</a>
             <div class="dropdown-content">
-              <a class="downList" href="../board/boards.html">전교생 자유게시판</a><br>
-              <a class="downList" href="../board/boards_3.html">1학년 게시판</a><br>
-              <a class="downList" href="../board/boards_2.html">2학년 게시판</a><br>
-              <a class="downList" href="../board/boards_1.html">3학년 게시판</a><br>
+              <a class="downList" th:href="|@{/board?type=free}|" href="board/boardFree.html">전교생 자유게시판</a><br>
+              <a class="downList" th:href="|@{/board?type=free1}|" href="board/boardFree1.html">1학년 게시판</a><br>
+              <a class="downList" th:href="|@{/board?type=free2}|" href="board/boardFree2.html">2학년 게시판</a><br>
+              <a class="downList" th:href="|@{/board?type=free3}|" href="board/boardFree3.html">3학년 게시판</a><br>
             </div>
           </li>
         </div>
         <div class="dropdown nav navbar-nav">
-          <li><a href="#" class="page-scroll dropdown">학생회</a>
+          <li><a th:href="|@{/board?type=council}|" href="#" class="page-scroll dropdown">학생회</a>
             <div class="dropdown-content">
-              <a class="downList" href="#">학생회</a><br>
-              <a class="downList" href="#">학생 건의함</a><br>
-              <a class="downList" href="#">학생회 공지</a><br>
-              <a class="downList" href="#">동아리 활동</a><br>
+              <a class="downList" th:href="|@{/board?type=suggest}|" href="#">학생 건의함</a><br>
+              <a class="downList" th:href="|@{/board?type=council}|"href="#">학생회 공지</a><br>
+              <a class="downList" th:href="|@{/board?type=club}|" href="#">동아리 활동</a><br>
             </div>
           </li>
         </div>
         <div class="dropdown nav navbar-nav">
-          <li><a href="myPage.html" class="page-scroll">마이 페이지</a></li>
+          <li><a href="user/myPage.html" class="page-scroll">마이 페이지</a></li>
         </div>
         <div class="dropdown nav navbar-nav">
-          <li><a href="../login/login.html" class="page-scroll">로그아웃</a></li>
+          <li><a th:href="@{/logout}" href="login/login.html" class="page-scroll">로그아웃</a></li>
         </div>
       </ul>
     </div>
@@ -91,15 +89,16 @@
 <!-- Footer Section -->
 <div id="footer">
   <div class="container text-center">
-    <a href="https://sangmyung-agh.sen.hs.kr/" target="_blank"><img src="icon/상명여고.png" alt="X"></a>
+    <a href="https://sangmyung-agh.sen.hs.kr/" target="_blank"><img th:src="@{/icon/상명여고.png}" src="icon/상명여고.png" alt="X"></a>
   </div>
 </div>
-<script type="text/javascript" src="js/jquery.1.11.1.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
-<script type="text/javascript" src="js/SmoothScroll.js"></script>
-<script type="text/javascript" src="js/nivo-lightbox.js"></script>
-<script type="text/javascript" src="js/jqBootstrapValidation.js"></script>
-<script type="text/javascript" src="js/contact_me.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" th:src="@{/js/jquery.1.11.1.js}" src="js/jquery.1.11.1.js"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.js}" src="js/bootstrap.js"></script>
+<script type="text/javascript" th:src="@{/js/SmoothScroll.js}" src="js/SmoothScroll.js"></script>
+<script type="text/javascript" th:src="@{/js/nivo-lightbox.js}" src="js/nivo-lightbox.js"></script>
+<script type="text/javascript" th:src="@{/js/jqBootstrapValidation.js}" src="js/jqBootstrapValidation.js"></script>
+<!--<script type="text/javascript" th:src="@{/js/contact_me.js}" src="js/contact_me.js"></script>-->
+<script type="text/javascript" th:src="@{/js/board.js}" src="js/main.js"></script>
+
 </body>
 </html>

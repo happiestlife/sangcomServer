@@ -42,28 +42,27 @@
                 <div class="dropdown nav navbar-nav">
                     <li><a th:href="@{/board}" href="../board/boardFree.html" class="page-scroll dropdown">게시판</a>
                         <div class="dropdown-content">
-                            <a class="downList" href="../board/boards.html">전교생 자유게시판</a><br>
-                            <a class="downList" href="../board/boards_3.html">1학년 게시판</a><br>
-                            <a class="downList" href="../board/boards_2.html">2학년 게시판</a><br>
-                            <a class="downList" href="../board/boards_1.html">3학년 게시판</a><br>
+                            <a class="downList" th:href="|@{/board?type=free}|" href="../board/boards.html">전교생 자유게시판</a><br>
+                            <a class="downList" th:href="|@{/board?type=free1}|"href="../board/boards_3.html">1학년 게시판</a><br>
+                            <a class="downList" th:href="|@{/board?type=free2}|"href="../board/boards_2.html">2학년 게시판</a><br>
+                            <a class="downList" th:href="|@{/board?type=free3}|"href="../board/boards_1.html">3학년 게시판</a><br>
                         </div>
                     </li>
                 </div>
                 <div class="dropdown nav navbar-nav">
-                    <li><a href="#" class="page-scroll dropdown">학생회</a>
+                    <li><a th:href="|@{/board?type=council}|" href="#" class="page-scroll dropdown">학생회</a>
                         <div class="dropdown-content">
-                            <a class="downList" href="#">학생회</a><br>
-                            <a class="downList" href="#">학생 건의함</a><br>
-                            <a class="downList" href="#">학생회 공지</a><br>
-                            <a class="downList" href="#">동아리 활동</a><br>
+                            <a class="downList" th:href="|@{/board?type=suggest}|" href="#">학생 건의함</a><br>
+                            <a class="downList" th:href="|@{/board?type=council}|"href="#">학생회 공지</a><br>
+                            <a class="downList" th:href="|@{/board?type=club}|" href="#">동아리 활동</a><br>
                         </div>
                     </li>
                 </div>
                 <div class="dropdown nav navbar-nav">
-                    <li><a href="myPage.html" class="page-scroll">마이 페이지</a></li>
+                    <li><a href="user/myPage.html" class="page-scroll">마이 페이지</a></li>
                 </div>
                 <div class="dropdown nav navbar-nav">
-                    <li><a href="../login/login.html" class="page-scroll">로그아웃</a></li>
+                    <li><a th:href="@{/logout}" href="../login/login.html" class="page-scroll">로그아웃</a></li>
                 </div>
             </ul>
         </div>
