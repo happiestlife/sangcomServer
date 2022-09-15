@@ -97,18 +97,11 @@ function removeContent() {
 }
 
 
-$(function() {
-  $('.bottom_icon').click(function() {
-    if($(this).hasClass('filled')) {
-      $(this).removeClass('filled');
-    }
-    else {
-      $(this).addClass('filled');
-    }
+$(function(){
+  $('.bottom_icon').click(function(){
+    $(this).css("font-variation-settings","'FILL' 1, 'wght' 100, 'GRAD' 200, 'opsz' 48");
   });
-});
-
-
+});  //개별 색변경  추후에 하얀색으로 바꾸기할예정 하얀색은 fill을 0으로 바꾸면끝.
 
 $(function(){
   $('.sur_comment_count').click(function(){

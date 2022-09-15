@@ -152,19 +152,8 @@
   'FILL' 0,
   'wght' 100,
   'GRAD' 200,
-  'opsz' 48;
-  
+  'opsz' 48
 }
-
-
-.filled {
-   font-variation-settings:
-   'FILL' 1,
-   'wght' 100,
-   'GRAD' 200,
-   'opsz' 48 !important;
-   color: #529aff;
- }
 
 .hid{
    border: 1px solid #90e1f5 ;
@@ -215,7 +204,6 @@
    'GRAD' 200,
    'opsz' 48
  } 
-
 
 
 
@@ -305,11 +293,4 @@
    width: 100%;
    min-height: 50px;
    font-size: 20px;
- }
-
-
- .subject_button {
-   position: relative;
-   float: right;
-   
  }
