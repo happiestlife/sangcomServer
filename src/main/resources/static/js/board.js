@@ -94,4 +94,32 @@ function removeContent() {
   else {
     alert("취소되었습니다.");
   }
+<<<<<<< Updated upstream
 }
+=======
+}
+
+
+$(function() {
+  $('.bottom_icon').click(function() {
+    if($(this).hasClass('filled')) {
+      $(this).removeClass('filled');
+    }
+    else {
+      $(this).addClass('filled');
+    }
+  });
+});
+
+
+
+$(function(){
+  $('.sur_comment_count').click(function(){
+    $('#added_comment').attr('class','commentInput');
+    check=false;
+  });
+});  //숨겨진 대댓글창 나타내기
+
+
+
+>>>>>>> Stashed changes

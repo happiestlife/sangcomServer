@@ -131,6 +131,7 @@
 .material-symbols-outlined {
   font-variation-settings:
   'FILL' 0,
+<<<<<<< Updated upstream
   'wght' 400,
   'GRAD' 0,
   'opsz' 48
@@ -143,6 +144,28 @@
    'GRAD' 0,
    'opsz' 48
  } */
+=======
+  'wght' 100,
+  'GRAD' 200,
+  'opsz' 48;
+  
+}
+
+
+.filled {
+   font-variation-settings:
+   'FILL' 1,
+   'wght' 100,
+   'GRAD' 200,
+   'opsz' 48 !important;
+   color: #529aff;
+ }
+
+.hid{
+   border: 1px solid #90e1f5 ;
+   min-height: 20%;
+}
+>>>>>>> Stashed changes
 
 .symbols {
   position: absolute;
@@ -189,7 +212,12 @@
 
 
 
+<<<<<<< Updated upstream
 .comment_sub .material-symbols-outlined {
+=======
+
+.comment_sub .reply{
+>>>>>>> Stashed changes
    float: left;
    margin-left: 13px;
    transform: rotate(180deg);
@@ -254,3 +282,31 @@
    min-height: 400px;
 }
 
+<<<<<<< Updated upstream
+=======
+
+
+
+.loginBtn {
+   font-size: 1.7rem;
+      width: 100%;
+   border:none;
+   background: #90e1f5; 
+   color: blue;
+   border-radius: 4px;
+ }
+
+
+ .subject {
+   width: 100%;
+   min-height: 50px;
+   font-size: 20px;
+ }
+
+
+ .subject_button {
+   position: relative;
+   float: right;
+   
+ }
+>>>>>>> Stashed changes
