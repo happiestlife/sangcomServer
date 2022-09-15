@@ -72,7 +72,7 @@
   <div style="width: 30%; min-width: 310px; margin: auto;  margin-top: 1%">
     <div>
       <div id="userIdent" class="mainBorder" style="padding:40px;">
-        <img src="img/ic_cloudy.png" width = "70" style="float: left">
+        <img src="image/ic_cloudy.png" width = "70" style="float: left">
         <p class="nickname">상콤달콤</p>
         <p class="school">김경은</p>
         <p class="school">1학년 2반 34번</p>
@@ -262,14 +262,13 @@
   <!-- 오늘의 메뉴 -->
   <div class="mainBorder list-box" style="width: 20%; min-width: 210px; padding:5px; margin: auto;  margin-top: 2%">
     <h1>오늘의 메뉴</h1>
-    <h5>현미밥</h5>
-    <h5>소고기뭇국</h5>
-    <h5>김치</h5>
-    <h5>닭강정</h5>
-    <h5>피크닉</h5>
+    <h3 class = "meal-date" th:text="${currentDate}"></h3>
+    <div class = "meal-list" >
+
+    </div>
     <div class="" style="margin: auto">
-      <a href="#" role="button" class="" id="" onclick="" style="text-align: left;"><span class="">👈(어제)</span></a><span> / </span>
-      <a href="#" role="button" class="" id="" onclick="" style="text-align: right;"><span class="">(내일)👉</span></a>
+      <a href="#" role="button" class="" onclick="getPrevMeal()" style="text-align: left;"><span class="">👈(어제)</span></a><span> / </span>
+      <a href="#" role="button" class="" onclick="getNextMeal()" style="text-align: right;"><span class="">(내일)👉</span></a>
     </div>
   </div>
 </div>
@@ -288,6 +287,6 @@
 <script type="text/javascript" th:src="@{/js/jqBootstrapValidation.js}" src="js/jqBootstrapValidation.js"></script>
 <!--<script type="text/javascript" th:src="@{/js/contact_me.js}" src="js/contact_me.js"></script>-->
 <script type="text/javascript" th:src="@{/js/main.js}" src="js/main.js"></script>
-
+<script type="text/javascript" th:src="@{/js/meal.js}" src="js/meal.js"></script>
 </body>
 </html>
