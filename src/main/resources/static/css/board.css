@@ -1,13 +1,27 @@
 
  .commentInput {
    padding: 3px; 
+   /* padding-top: 6px; */
    border: 1px solid #529aff; 
    border-radius: 10px; 
    margin-bottom: 1px; 
-   position: absolute; 
    bottom: 0; width: 100%;
+   min-height: 35px;
  }
 
+ .c_input{
+   padding-top: 3px;
+ }
+
+ .c_button {
+   min-width: 85px ;  
+   padding: 3px 0px 5px 0px;
+   width: 20% ; 
+   float: right ;
+   border-radius: 5px;
+   border: none;
+   background-color: #90e1f5;
+ }
 .commentList{
    float: left; 
    border-radius: 70%;
@@ -27,6 +41,11 @@
    padding: 1px; 
    border-radius: 10px;
    font-size: 1rem;
+}
+
+.comment_list{
+   overflow-y: scroll;
+   max-height: 450px;
 }
 
 
@@ -56,9 +75,9 @@
 
 
 .boardContent {
-   /* border: 1px solid #90e1f5;  */
    padding: 1px; 
    border-radius: 10px;
+   max-height: 490px;
 }
 
 
@@ -131,18 +150,26 @@
 .material-symbols-outlined {
   font-variation-settings:
   'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 48
+  'wght' 100,
+  'GRAD' 200,
+  'opsz' 48;
+  
 }
 
-/* .material-symbols-outlined {
+
+.filled {
    font-variation-settings:
    'FILL' 1,
-   'wght' 400,
-   'GRAD' 0,
-   'opsz' 48
- } */
+   'wght' 100,
+   'GRAD' 200,
+   'opsz' 48 !important;
+   color: #529aff;
+ }
+
+.hid{
+   border: 1px solid #90e1f5 ;
+   min-height: 20%;
+}
 
 .symbols {
   position: absolute;
@@ -158,7 +185,7 @@
 
 .content_bottom {
    text-align: right;
-
+   font-size: 13px;
    /* right:0 */
    margin: 5px;
    padding: 10px;
@@ -177,6 +204,8 @@
 }
 
 
+
+
 .comment .material-symbols-outlined {
    font-size: 20px;
    padding: 0;
@@ -189,20 +218,25 @@
 
 
 
-.comment_sub .material-symbols-outlined {
+
+.comment_sub .reply{
    float: left;
    margin-left: 13px;
    transform: rotate(180deg);
 }
 
 .comment_sub > .comment {
-   background-color: rgb(216, 213, 213) !important;
+   background-color: white !important;
    width: 91%;
    display: flow-root;
 }
 
 
-
+.board_input {
+   width: 75%;
+   border: none;
+   margin: 1px 0px 0px 5px;
+}
 
 
  @media (max-width:990px) {
@@ -231,7 +265,7 @@
    margin-top: 120px; 
    margin-bottom: 30px !important;
    text-align: center;
-   border-bottom: 1px solid gray;
+   border-bottom: 1px solid rgb(31, 189, 241);
 }
 
 .write_bottom {
@@ -244,7 +278,7 @@
 
 .add_img {
    display: flex;
-   /* text-align: left; */
+   margin: 10 10 0 0;
    justify-content: flex-end;
    margin-bottom: 20px;
 }
@@ -254,3 +288,28 @@
    min-height: 400px;
 }
 
+
+
+
+.loginBtn {
+   font-size: 1.7rem;
+      width: 100%;
+   border:none;
+   background: #90e1f5; 
+   color: blue;
+   border-radius: 4px;
+ }
+
+
+ .subject {
+   width: 100%;
+   min-height: 50px;
+   font-size: 20px;
+ }
+
+
+ .subject_button {
+   position: relative;
+   float: right;
+   
+ }

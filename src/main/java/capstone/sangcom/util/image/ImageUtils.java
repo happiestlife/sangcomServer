@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.StringTokenizer;
 
 public class ImageUtils {
 
@@ -24,6 +25,15 @@ public class ImageUtils {
             return BOARD_IMAGE_PATH + new Date().getTime() + image.getOriginalFilename();
         else
             return PROFILE_IMAGE_PATH + new Date().getTime() + image.getOriginalFilename();
+    }
+
+    public String getPath(String path) {
+        StringTokenizer stk = new StringTokenizer(path, "\\");
+        String str = "";
+        while (stk.hasMoreTokens()) {
+            str = stk.nextToken();
+        }
+        return str;
     }
 
     public void store(MultipartFile image, File imageFile) throws IOException {

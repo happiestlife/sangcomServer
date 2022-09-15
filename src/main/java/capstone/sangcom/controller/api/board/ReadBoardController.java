@@ -28,6 +28,7 @@ public class ReadBoardController {
     @GetMapping
     public ResponseEntity<BoardResponse> readAllTheSameTypeOfBoard(@RequestParam String type) {
         List<BoardDTO> boards = boardService.readAll(type);
+        // boards라는 변수 선언 및 초기화 한 것.
 
         return ResponseEntity
                 .ok(new BoardResponse(true, boards));

@@ -71,12 +71,13 @@
     <div class="container" style=" max-width: 600px; margin-top: 100px;">
 
     <h2 th:text="${title}" class="text-center">전교생 자유게시판</h2>
+
     <!-- 어떤 타입의 게시글인지 구분할 때 사용하기 위한 키워드 -->
     <div id="type" hidden th:text="${type}"></div>
     <div id="searchKeyword" hidden></div>
 
     <div style="margin:5px;">
-      <a th:href="|@{/board?type=${type}}|" href="boardCreat.html"><button id="boardCreate">글쓰기</button></a>
+      <a th:href="|@{/board/create?type={_type}(_type = ${type})}|" href="boardCreate.html"><button id="boardCreate">글쓰기</button></a>
       <input type="text" placeholder="🔍게시물 제목" size="30" class="searchInput btnBasic">
       <input type="button" id="commentAdd" class="btnsmallBlue btnBasic" value="검색" onclick="search()">
       <select name="boardsort" style="float: right; margin-right: 10px">

@@ -25,8 +25,7 @@ public class SearchBoardController {
      * 키워드로 게시글 조회
      */
     @GetMapping("/search")
-    public ResponseEntity<BoardResponse> searchBoard(@RequestParam String type,
-                                                     @RequestParam("title") String keyword) {
+    public ResponseEntity<BoardResponse> searchBoard(@RequestParam String type, @RequestParam("title") String keyword) {
 
         List<BoardDTO> boards = boardService.searchBoards(type, keyword);
 

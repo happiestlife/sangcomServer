@@ -20,3 +20,10 @@ image.profilePath=
 
 # 게시글 이미지 저장 경로
 image.boardPath=
+
+# 급식 open API 활용을 위한 시도교육청코드와 표준학교코드
+meal.ATPT_OFCDC_SC_CODE=B10
+
+meal.SD_SCHUL_CODE=7010178
+
+meal.key=
