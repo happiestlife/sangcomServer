@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="utf-8">
@@ -66,29 +66,42 @@
     </div>
   </div>
 </nav>
-  <!-- 네비게이션 끝 자유게시판 컨텐츠 시작 -->
-  <div class="container">
-    <div class="write_subject">
-      <h2>게시글 작성</h2>
-    </div>
+<!-- 네비게이션 끝 자유게시판 컨텐츠 시작 -->
+<div class="container">
+  <div class="write_subject">
+    <h2 th:text="|게시글 ${name}|">게시글 작성</h2>
+  </div>
 
-    <form th:action="|@{/board/create?type={_type}(_type=${type})}|" action="" method="post" class="write_bottom" enctype="multipart/form-data">
-      <div>
-        <input type="text" name="title" id="title" placeholder="제목">
-      </div>
+  <div th:if="${method} == 'c'">
+    <form th:action="|@{/board/create?type={_type}(_type=${type})}|" action="" method="post" enctype="multipart/form-data">
+      <input type="text" class="subject" name="title" placeholder="제목을 입력해주세요">
 
       <div class="add_img">
-        <span style="margin-right: 10px;">이미지추가</span>
+        <span style="margin:3px 10px 0px 0px;">이미지추가</span>
         <input type="file" name="images">
       </div><br>
 
-      <textarea name="body" class="write_board" id="body" placeholder="내용을 입력해주세요."></textarea>
-      <input type="submit" value="게시글 작성">
+      <textarea class="write_board" name="body" placeholder="내용을 입력해주세요."></textarea>
+      <input type="submit" class="write_bottom" value="게시글 작성">
     </form>
   </div>
-    
 
+  <div th:if="${method} == 'u'">
+    <form th:action="|@{/board/{id}/update?type={_type}(_type=${type}, id=${board.board_id})}|" action="" method="post" enctype="multipart/form-data">
+      <input type="text" class="subject" name="title" th:value="${board.title}">
+
+      <div class="add_img">
+        <span style="margin:3px 10px 0px 0px;">이미지추가</span>
+        <input type="file" name="images">
+      </div><br>
+
+      <textarea class="write_board" name="body"  th:text="${board.body}"></textarea>
+      <input type="submit" class="write_bottom" th:value="|게시글 ${name}|">
+    </form>
   </div>
+
+
+</div>
 
 
 <!-- Footer Section -->
