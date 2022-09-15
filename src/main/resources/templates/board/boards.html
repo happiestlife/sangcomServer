@@ -93,12 +93,16 @@
                 <h5 th:text="${board.title}" class="postName"></h5>
                 <p th:text="${board.body}" class="postContent"></p>
 
-                <div class="symbols" style="right:10px">❤ </div>
-                <div th:text="${board.goodCount}" class="symbols"></div>
-<!--                    <span class="symbols" style="right:10px">scrap</span>-->
-<!--                    <span th:text="${board.scrapCount}" class="symbols"></span>-->
-<!--                    <span class="symbols" style="right:10px">🗨</span>-->
-<!--                    <span th:text="${board.replyCount}" class="symbols"></span>-->
+                <div style="position: absolute; right: 0px; top: 0px; flex-wrap: nowrap;">
+                  <span th:text="${board.regdate}"></span>
+                </div>
+
+                <div style="position: absolute; right: 0px; bottom: 0px; flex-wrap: nowrap;">
+                  <span>❤</span>
+                  <span th:text="${board.goodCount}"></span>
+                  <span>🗨</span>
+                  <span th:text="${board.replyCount}"></span>
+                </div>
               </article>
             </a>
         </div>
