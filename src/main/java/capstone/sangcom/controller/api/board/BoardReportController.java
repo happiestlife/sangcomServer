@@ -91,17 +91,6 @@ public class BoardReportController {
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new BoardReportByIdResponse(false, null));
         }
-//        if(reportDTOS.isEmpty()){
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BoardReportByIdResponse(false, null));
-//        }
-//
-//        if(reportDTOS != null){
-//            return ResponseEntity.ok(new BoardReportByIdResponse(true, reportDTOS));
-//        } else{
-//            return ResponseEntity
-//                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                    .body(new BoardReportByIdResponse(false, null));
-//        }
     }
 
     /**
