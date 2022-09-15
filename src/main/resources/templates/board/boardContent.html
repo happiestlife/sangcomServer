@@ -78,10 +78,8 @@
 
       <div class="subject_button">
         <!-- 삭제하기는 클래스에 hidden주면 사라짐 -->
-        <form action="" method="get">
-          <input type="button" value="수정하기">
-          <input type="button" class="" value="삭제하기">
-        </form>
+        <button th:onclick="|location.href='@{/board/{id}/update(id=${board.board_id})}'|">수정하기</button>
+        <button th:onclick="|location.href='@{/board/{id}/delete(id=${board.board_id})}'|">삭제하기</button>
       </div>
 
     </div>
@@ -90,7 +88,7 @@
     </div>
 
     <div class="boardContent">
-      <h6 th:text="${board.body}" >게시글 내용<br>게시글 이렇게 쓰는게 맞을까? <br>나 너무 무서워 이러다가 다 죽어~d<br>이미지도 넣어볼게ds</br></h6>
+      <h6 th:text="${board.body}" ></h6>
       <div th:if="${imagePath.size() > 0}" th:each="path : ${imagePath}">
         <img th:src="|@{/image/board/{_p}(_p=${path})}|" width=90% style="display : block; margin: 20px auto; ">
       </div>
@@ -170,6 +168,6 @@
 <script type="text/javascript" th:src="@{/js/nivo-lightbox.js}" src="js/nivo-lightbox.js"></script>
 <script type="text/javascript" th:src="@{/js/jqBootstrapValidation.js}" src="js/jqBootstrapValidation.js"></script>
 <!--<script type="text/javascript" th:src="@{/js/contact_me.js}" src="js/contact_me.js"></script>-->
-<script type="text/javascript" th:src="@{/js/main.js}" src="js/main.js"></script>
+<script type="text/javascript" th:src="@{/js/board.js}" src="js/board.js"></script>
 </body>
 </html>

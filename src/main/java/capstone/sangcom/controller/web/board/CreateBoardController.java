@@ -24,6 +24,8 @@ public class CreateBoardController {
     public String createBoardPage(@RequestParam String type,
                                   Model model) {
         model.addAttribute("type", type);
+        model.addAttribute("method", 'c');
+        model.addAttribute("name", "작성");
 
         return "board/boardCreate";
     }
@@ -32,9 +34,10 @@ public class CreateBoardController {
     public String createBoard(@RequestParam String type,
                               HttpServletRequest request,
                               UpdateBoardDTO createBoardData) {
+
         JwtUser user = (JwtUser) request.getAttribute("user");
         List<MultipartFile> images = createBoardData.getImages();
-        System.out.println(images.get(0).getSize());
+
         if(images.size() == 0 || images.get(0).getSize() == 0)
             createBoardData.setImages(null);
 
