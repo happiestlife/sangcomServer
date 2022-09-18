@@ -66,9 +66,9 @@
     </div>
   </div>
 </nav>
-  <!-- 네비게이션 끝 자유게시판 컨텐츠 시작 -->
-  <section>
-    <div class="container" style=" max-width: 600px; margin-top: 100px;">
+<!-- 네비게이션 끝 자유게시판 컨텐츠 시작 -->
+<section>
+  <div class="container" style=" max-width: 600px; margin-top: 100px;">
 
     <h2 th:text="${title}" class="text-center">전교생 자유게시판</h2>
 
@@ -86,37 +86,41 @@
         <option value="좋아요순">좋아요순</option>
       </select>
     </div>
-      <div id="boards">
-        <div th:each="board : ${boards}" class="board">
-          <a th:href="@{/board/{board_id}(board_id=${board.board_id})}">
-              <article class="post">
-                <h5 th:text="${board.title}" class="postName"></h5>
-                <p th:text="${board.body}" class="postContent"></p>
+    <div id="boards">
+      <div th:each="board : ${boards}" class="board">
+        <a th:href="@{/board/{board_id}(board_id=${board.board_id})}">
+          <article class="post">
+            <h5 th:text="${board.title}" class="postName"></h5>
+            <p th:text="${board.body}" class="postContent"></p>
 
-                <div class="symbols" style="right:10px">❤ </div>
-                <div th:text="${board.goodCount}" class="symbols"></div>
-<!--                    <span class="symbols" style="right:10px">scrap</span>-->
-<!--                    <span th:text="${board.scrapCount}" class="symbols"></span>-->
-<!--                    <span class="symbols" style="right:10px">🗨</span>-->
-<!--                    <span th:text="${board.replyCount}" class="symbols"></span>-->
-              </article>
-            </a>
-        </div>
+            <div style="position: absolute; right: 0px; top: 0px; flex-wrap: nowrap;">
+              <span th:text="${board.regdate}"></span>
+            </div>
+
+            <div style="position: absolute; right: 0px; bottom: 0px; flex-wrap: nowrap;">
+              <span>❤</span>
+              <span th:text="${board.goodCount}"></span>
+              <span>🗨</span>
+              <span th:text="${board.replyCount}"></span>
+            </div>
+          </article>
+        </a>
       </div>
-  </section>
-  <!-- Footer Section -->
-  <div id="footer">
-    <div class="container text-center">
-      <a href="https://sangmyung-agh.sen.hs.kr/" target="_blank"><img th:src="@{/icon/상명여고.png}" src="icon/상명여고.png" alt="X"></a>
     </div>
+</section>
+<!-- Footer Section -->
+<div id="footer">
+  <div class="container text-center">
+    <a href="https://sangmyung-agh.sen.hs.kr/" target="_blank"><img th:src="@{/icon/상명여고.png}" src="icon/상명여고.png" alt="X"></a>
   </div>
-  <script type="text/javascript" th:src="@{/js/jquery.1.11.1.js}" src="js/jquery.1.11.1.js"></script>
-  <script type="text/javascript" th:src="@{/js/bootstrap.js}" src="js/bootstrap.js"></script>
-  <script type="text/javascript" th:src="@{/js/SmoothScroll.js}" src="js/SmoothScroll.js"></script>
-  <script type="text/javascript" th:src="@{/js/nivo-lightbox.js}" src="js/nivo-lightbox.js"></script>
-  <script type="text/javascript" th:src="@{/js/jqBootstrapValidation.js}" src="js/jqBootstrapValidation.js"></script>
-  <!--<script type="text/javascript" th:src="@{/js/contact_me.js}" src="js/contact_me.js"></script>-->
-  <script type="text/javascript" th:src="@{/js/board.js}" src="js/main.js"></script>
+</div>
+<script type="text/javascript" th:src="@{/js/jquery.1.11.1.js}" src="js/jquery.1.11.1.js"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.js}" src="js/bootstrap.js"></script>
+<script type="text/javascript" th:src="@{/js/SmoothScroll.js}" src="js/SmoothScroll.js"></script>
+<script type="text/javascript" th:src="@{/js/nivo-lightbox.js}" src="js/nivo-lightbox.js"></script>
+<script type="text/javascript" th:src="@{/js/jqBootstrapValidation.js}" src="js/jqBootstrapValidation.js"></script>
+<!--<script type="text/javascript" th:src="@{/js/contact_me.js}" src="js/contact_me.js"></script>-->
+<script type="text/javascript" th:src="@{/js/board.js}" src="js/main.js"></script>
 
 </body>
 </html>

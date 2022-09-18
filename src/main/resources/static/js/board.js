@@ -98,7 +98,53 @@ function removeContent() {
 
 
 
-$(function() {
+function search() {
+  var title = $('.searchInput').val();
+  var type = $('#type').text();
+  var URL = "http://localhost:8080/api/board/search?type=" + type + "&title=" + title;
+
+  if (title == "") {
+    alert("검색어를 입력해주세요!!");
+
+    return false;
+  }
+
+  $.ajax({
+    type: 'GET',
+    url: URL,
+    success: function (result) {
+      if (result.success) {
+        $('.board').remove();
+        $('#searchKeyword').text(title);
+        for (var i = 0; i < result.data.length; i++) {
+          var row = result.data[i];
+          console.log(row)
+          var rs = `<a href="/board/${row.board_id}" class="board">
+                <article class="post">
+                  <h5 class="postName">${row.title}</h5>
+                  <p class="postContent">${row.body}</p>
+  
+                  <div class="symbols" style="right:10px">❤ </div>
+                  <div class="symbols">${row.goodCount}</div>
+                </article>
+              </a>`
+          console.log(rs);
+
+          $('#boards').append(rs).show();
+        }
+      }
+    },
+    error: function () {
+      alert("다시 요청 바랍니다.")
+    }
+
+  })
+}
+
+// function checkGood(){
+//   var boardId = $('.boardId').getText();
+//   var URL = "http://localhost:8080/api/board/good/" + boardId;
+
   $('.bottom_icon').click(function() {
     if($(this).hasClass('filled')) {
       $(this).removeClass('filled');
@@ -107,7 +153,7 @@ $(function() {
       $(this).addClass('filled');
     }
   });
-});
+// }
 
 
 
