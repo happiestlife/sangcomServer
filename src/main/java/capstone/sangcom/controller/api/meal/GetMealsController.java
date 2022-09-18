@@ -5,6 +5,7 @@ import capstone.sangcom.entity.dto.mealSection.MealDTO;
 import capstone.sangcom.service.meal.MealService;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.json.ParseException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +24,12 @@ public class GetMealsController {
                                                     @RequestParam("MLSV_TO_YMD") String to) throws java.text.ParseException, ParseException, org.json.simple.parser.ParseException {
         List<MealDTO> meals = mealService.getMeals(from, to);
 
-        return ResponseEntity
+        if(meals != null)
+            return ResponseEntity
                 .ok(new GetMealResponse(true, meals));
+        else
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new GetMealResponse(false, null));
     }
 }
