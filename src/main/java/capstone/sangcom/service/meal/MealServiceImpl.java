@@ -62,7 +62,11 @@ public class MealServiceImpl implements MealService{
 
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(apiResult.getBody());
-        JSONArray result = (JSONArray)((JSONObject)((JSONArray) jsonObject.get("mealServiceDietInfo")).get(1)).get("row");
+
+        JSONArray meals = (JSONArray) jsonObject.get("mealServiceDietInfo");
+        if(meals == null)
+            return null;
+        JSONArray result = (JSONArray)((JSONObject) meals.get(1)).get("row");
 
         ArrayList<MealDTO> rs = new ArrayList<>();
         for (int i = 0; i < result.size(); i++) {

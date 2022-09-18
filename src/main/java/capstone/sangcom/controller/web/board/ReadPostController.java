@@ -45,6 +45,10 @@ public class ReadPostController {
         // 게시판 정보 가져오기
         ReadBoardDTO board = boardService.readOneBoard(user.getId(), boardId);
 
+        boolean isWriter = false;
+        if(user.getId().equals(board.getBoardDetail().getUser_id()))
+            isWriter = true;
+
         // 게시글에 삽입된 이미지 파일의 이름 가져오기
         ArrayList<String> imgPaths = new ArrayList<>();
         for (String path : board.getPaths()) {
@@ -52,7 +56,7 @@ public class ReadPostController {
         }
 
         // 게시글 작성 유저의 프로필 가져오기
-        String writerImageName = imageUtils.getPath(userService.showImage(user.getId()));
+        String writerImageName = imageUtils.getPath(userService.showImage(board.getBoardDetail().getUser_id()));
 
         // 해당 게시판에 달린 댓글 정보 가져오기
         List<ReplyWebTreeDTO> replies = makeWebReplyForm(replyService.readReply(user.getId(), boardId));
@@ -60,6 +64,7 @@ public class ReadPostController {
         model.addAttribute("board", board.getBoardDetail());
         model.addAttribute("imagePath", imgPaths);
         model.addAttribute("writerImagePath", writerImageName);
+        model.addAttribute("isWriter", isWriter);
 
         model.addAttribute("replies", replies);
 
