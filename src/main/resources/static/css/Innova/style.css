@@ -528,6 +528,10 @@ color: #777;
 	font-size:1.7rem !important; 
 }
 
+.mypage_bottom {
+	display: flex;
+}
+
 .mypageTitle {
 	margin: 5px;
 	border: 2px solid #90e1f5; 
@@ -536,13 +540,11 @@ color: #777;
 	text-align: center;
 }
 
-/*<<<<<<< Updated upstream*/
-/*=======*/
 .bluePrint {
 	color: #442ded;
 }
 
->>>>>>> Stashed changes
+
 .report {
 	display: inline-block;
 	padding: 6px 12px;
