@@ -71,6 +71,7 @@
 <!-- 게시글 내용 -->
 <div class="container" style="margin-top: 120px; margin-bottom: 30px; display: flex; flex-wrap: wrap; ">
   <div class="boardId" th:text="${board.board_id}" hidden></div>
+  <div th:text="${board.type}"></div>
   <article class="articleBoard" style="width: 60%;" >
     <div class="title"  style="border: 1px solid #90e1f5; border-radius: 10px;">
       <img th:src="|@{/image/profile/{_p}(_p=${writerImagePath})}|" src="img/ic_cloudy.png" width = "60" style="float: left; border-radius: 70%;border: 1px solid #34ebae;">
@@ -102,7 +103,8 @@
         <span th:text="${board.getScrapCount()}"></span>
         <span id="comment_count">댓글</span>
         <span th:text="${board.getReplyCount()}"></span>
-        <input style="margin-top:10px;" type="button" value="목록으로">
+        <button th:onclick="|location.href='@{/board?type={type}(type=${board.type})}'|">목록으로</button>
+<!--        <input style="margin-top:10px;" type="button" value="목록으로">-->
       </div>
 
     </div>
@@ -124,14 +126,6 @@
               <button id="comment_thumb_up" class="bottom_icon material-symbols-outlined">thumb_up</button>
               <span id="sur_comment_count">대댓글(2)</span>
             </span>
-
-          <!-- 자식 댓글 -->
-          <!-- <ul th:each="childReply : ${replySection.child}">
-            <img src="img/ic_cloudy.png">
-            <h5 th:text="${childReply.userId}" >v댓쓴이는김익명v</h5>
-            <div><time th:text="${childReply.regdate}">06/24 12:54</time></div>
-            <h6 th:text="${childReply.body}">우와 대단해요~</h6>
-          </ul> -->
 
           <!-- 노홍석 수정 대댓글 나오게하는거 -->
           <div  th:each="childReply : ${replySection.child}" class="comment_sub">
