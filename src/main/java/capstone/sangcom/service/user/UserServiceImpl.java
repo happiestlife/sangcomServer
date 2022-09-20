@@ -7,7 +7,7 @@ import capstone.sangcom.entity.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
 import capstone.sangcom.repository.user.UserPathRepository;
 import capstone.sangcom.repository.user.UserRepository;
-import capstone.sangcom.util.user.ImageUtils;
+import capstone.sangcom.util.image.ImageUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;

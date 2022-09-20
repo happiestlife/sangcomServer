@@ -13,7 +13,7 @@ public class UtilsConfig {
     }
 
     @Bean
-    public capstone.sangcom.util.user.ImageUtils imageUtil() {
-        return new capstone.sangcom.util.user.ImageUtils();
+    public ImageUtils imageUtil() {
+        return new ImageUtils();
     }
 }
