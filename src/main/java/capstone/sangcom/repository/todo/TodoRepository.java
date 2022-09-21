@@ -13,7 +13,7 @@ public interface TodoRepository {
     public List<GetTodolistResponseDTO> getTodoList(String user_id, int year, int month, int day);
 
     // 할 일 등록
-    public boolean insertTodolist(String user_id, InsertTodoListDTO insertTodoListDTO);
+    public int insertTodolist(String user_id, InsertTodoListDTO insertTodoListDTO);
 
     // 할 일 수정
     public List<GetTodolistResponseDTO> searchTodoList(String user_id, int list_id);

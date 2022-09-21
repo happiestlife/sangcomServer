@@ -10,7 +10,7 @@ public interface TodoService {
     public List<GetTodolistResponseDTO> getTodolist(String user_id, int year, int month, int day); // 성공 응답 메시지 -  todoList, true
 
     // 할 일 등록
-    public boolean insertTodolist(String user_id, InsertTodoListDTO insertTodoListDTO); // 성공 응답 메시지 - true
+    public int insertTodolist(String user_id, InsertTodoListDTO insertTodoListDTO); // 성공 응답 메시지 - true
 
     // 할 일 수정
     public boolean updateTodolist(String user_id, int list_id, UpdateTodoListDTO updateTodoListDTO); // 성공 응답 메시지 - true

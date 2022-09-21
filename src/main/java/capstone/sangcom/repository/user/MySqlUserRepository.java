@@ -5,7 +5,6 @@ import capstone.sangcom.entity.dto.userSection.info.ProfileDTO;
 import capstone.sangcom.entity.dto.userSection.info.UpdateUserInfoDTO;
 import capstone.sangcom.entity.User;
 import capstone.sangcom.entity.UserRole;
-import capstone.sangcom.util.user.ImageUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;

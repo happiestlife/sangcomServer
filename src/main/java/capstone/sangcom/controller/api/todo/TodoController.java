@@ -1,6 +1,7 @@
 package capstone.sangcom.controller.api.todo;
 
 import capstone.sangcom.controller.api.response.common.SimpleResponse;
+import capstone.sangcom.controller.api.response.todo.CreateTodoResponse;
 import capstone.sangcom.controller.api.response.todo.GetTodoListResponse;
 import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.entity.User;
@@ -46,21 +47,21 @@ public class TodoController {
      * todo-list 할 일 등록
      */
     @PostMapping("/todo")
-    public ResponseEntity<SimpleResponse> insertTodoList(HttpServletRequest request,
-                                                         @RequestBody InsertTodoListDTO insertTodoListDTO){
+    public ResponseEntity<CreateTodoResponse> insertTodoList(HttpServletRequest request,
+                                                             @RequestBody InsertTodoListDTO insertTodoListDTO){
 //        SimpleResponse는 성공응답 메세지에 true값만 반환한다.
 //        const { body, year, month, day } = todoSchema.validateSync(req.body); //= @RequestBody 인 것 같음
 
         JwtUser user = (JwtUser) request.getAttribute("user"); // javascript - const user_id = req.body.data.id;
 //        User user = (User) request.getAttribute("user"); // javascript - const user_id = req.body.data.id;
 
-        if (todoService.insertTodolist(user.getId(), insertTodoListDTO))
+        int todoId = todoService.insertTodolist(user.getId(), insertTodoListDTO);
+        if (todoId != -1)
             return ResponseEntity
-                    .ok(new SimpleResponse(true));
+                    .ok(new CreateTodoResponse(true, todoId));
         else
             return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new SimpleResponse(false));
+                    .ok(new CreateTodoResponse(false, -1));
     }
 
     /**

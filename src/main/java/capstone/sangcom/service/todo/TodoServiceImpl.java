@@ -25,23 +25,9 @@ public class TodoServiceImpl implements TodoService{
 
     @Override               // todolist 삽입
     @Transactional         // todo 저장 후 todo Body 가져오기
-    public boolean insertTodolist(String user_id, InsertTodoListDTO insertTodoListDTO) {
-        if(!todoRepository.insertTodolist(user_id, insertTodoListDTO))
-            return false;
-        else
-            return true;
-//        return todoRepository.insertTodolist(user_id, insertTodoListDTO);
+    public int insertTodolist(String user_id, InsertTodoListDTO insertTodoListDTO) {
+        return todoRepository.insertTodolist(user_id, insertTodoListDTO);
     }
-// reportRepository.reportBoard 값을 받을 건데, 그거를 ReportBoardDAO로 받아줄 거고,
-// ReportBoardDAO 클래스를 가져왔고, DAO 안에 들어갈 값들을 또 적어준 것
-
-//    private final String user_id;
-//    private final int list_id;
-//    private final String body;
-//    private final int listCheck;
-//    private final int year;
-//    private final int month;
-//    private final int day;
 
     @Override
     @Transactional
