@@ -72,10 +72,10 @@
   <div style="width: 30%; min-width: 310px; margin: auto;  margin-top: 1%">
     <div>
       <div id="userIdent" class="mainBorder" style="padding:40px;">
-        <img src="image/ic_cloudy.png" width = "70" style="float: left">
-        <p class="nickname">상콤달콤</p>
-        <p class="school">김경은</p>
-        <p class="school">1학년 2반 34번</p>
+        <div class="token" th:text="${acc}" hidden></div>
+        <img th:src="|@{/image/profile/{_path}(_path=${profile})}|" src="image/ic_cloudy.png" width = "70" style="float: left">
+        <p th:text="${user.name}" class="school">김경은</p>
+        <p th:text="|${user.getSchoolgrade()}학년 ${user.getSchoolclass()}년 ${user.getSchoolnumber}|" class="school">1학년 2반 34번</p>
         <div style="margin: 5px auto; width:50%;">
           <!-- <a href="  #"><input class="mainBtn" type="button" value="알림"></a> -->
           <!-- <a href="mypage.html"><input class="mainBtn" type="button" value="내 정보"></a> -->
@@ -89,31 +89,34 @@
     <div class="list-box mainBorder" style="padding:10%;">
       <h1>To Do List</h1>
       <div class="write-box">
-        <input type="text" class="">
-        <button type="button" id="btnAdd">추가</button>
+        <input type="text" class="todoText">
+        <button type="button" class="todoAddBtn">추가</button>
       </div>
 
       <table class="list-table">
         <colgroup>
           <!-- column을 1:9로 나눔 -->
-          <!-- <col width="30%">
-          <col width="70%"> -->
         </colgroup>
         <thead>
-        <tr>
-          <th>확인</th>
-          <th>할 일</th>
-        </tr>
+          <tr>
+            <th>확인</th>
+            <th>할 일</th>
+          </tr>
         </thead>
-        <tbody id="listBody">
+        <tbody class="todoListBody">
+          <tr th:each="todo : ${todoList}" class="todo">
+            <td>
+              <input type="checkbox" th:key="${todo.list_id}" class="btn-chk">
+            </td>
+            <td th:text="${todo.body}"></td>
+          </tr>
         </tbody>
       </table>
       <div class="btn-area">
         <!-- 삭제 기능 -->
 
-        <button type="buton" id="DeleteSel">선택 삭제</button>
-        <button type="buton" id="btnDelLast">마지막 항목 삭제</button>
-        <button type="buton" id="btnDelAll">전체 삭제</button>
+        <button type="buton" id="todoDelCheck">선택 삭제</button>
+        <button type="buton" id="todoDelAll">전체 삭제</button>
       </div>
     </div>
   </div>
@@ -280,6 +283,7 @@
     <a href="https://sangmyung-agh.sen.hs.kr/" target="_blank"><img th:src="@{/icon/상명여고.png}" src="icon/상명여고.png" alt="X"></a>
   </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 <script type="text/javascript" th:src="@{/js/jquery.1.11.1.js}" src="js/jquery.1.11.1.js"></script>
 <script type="text/javascript" th:src="@{/js/bootstrap.js}" src="js/bootstrap.js"></script>
 <script type="text/javascript" th:src="@{/js/SmoothScroll.js}" src="js/SmoothScroll.js"></script>
