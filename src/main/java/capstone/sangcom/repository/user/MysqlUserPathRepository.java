@@ -97,13 +97,16 @@ public class MysqlUserPathRepository implements UserPathRepository{
     public String showImage(String userId) {
         String query = "SELECT path FROM " + IMAGE_PATH_TABLE + " WHERE id = :id";
 
-        return jdbcTemplate.query(query, new MapSqlParameterSource().addValue("id", userId), new ResultSetExtractor<String>() {
-            @Override
-            public String extractData(ResultSet rs) throws SQLException, DataAccessException {
-                rs.next();
-                return rs.getString("path");
-            }
-        });
+        List<String> result = jdbcTemplate.query(query,
+                new MapSqlParameterSource().
+                        addValue("id", userId),
+                (rs, rowNum) -> rs.getString("path")
+        );
+
+        if(result.isEmpty())
+            return null;
+        else
+            return result.get(0);
     }
 
     @Override

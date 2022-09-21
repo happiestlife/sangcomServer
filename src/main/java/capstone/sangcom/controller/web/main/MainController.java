@@ -38,7 +38,12 @@ public class MainController {
         // user의 개인정보
         JwtUser user = (JwtUser) request.getAttribute("user");
 
-        String profilePath = imageUtils.getPath(userService.showImage(user.getId()));
+        String profile = userService.showImage(user.getId());
+        String profilePath = null;
+        if(profile != null)
+            profilePath = imageUtils.getPath(profile);
+        else
+            profilePath = "whiteBackgroundImage.png";
 
         model.addAttribute("acc", acc);
 
