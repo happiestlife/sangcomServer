@@ -124,46 +124,55 @@
   <div class="hotPost">
     <div class="mainBorder" style="display: flex; flex-direction: row">
       <div class="board" style="display: flex; width: 50%; flex-direction: column; padding: 1px;">
-        <h5>실시간 인기 글</h5>
-        <a href="board/boardContent.html">
-          <article class="post_auto" style="position: relative;">
-            <h5 class="postName">종강축하해~</h5>
-            <p class="postContent">근데 난 과제중</p>
-            <p style="color:gray;">전교생 자유게시판</p>
-            <span class="material-symbols-outlined symbols" style="">favorite</span>
-            <span class="symbols" style="right:10px">50</span>
-          </article>
-        </a>
-        <a href="board/boardContent0.html">
-          <article class="post_auto" style="position: relative;">
-            <h5 class="postName">진짜 김경은은 전설이다</h5>
-            <p class="postContent">그 찐따같던 김경은이 맞다</p>
-            <p style="color:gray;">2학년 게시판</p>
-            <span class="material-symbols-outlined symbols" style="">favorite</span>
-            <span class="symbols" style="right:10px">36</span>
-          </article>
-        </a>
+        <h5 style="text-align: center">학생회 공지</h5>
+        <div th:each="council : ${councilPosts}">
+          <a th:href="@{/board/{board_id}(board_id=${council.board_id})}">
+            <article class="post_auto" style="position: relative;">
+              <h5 th:text="${council.title}" class="postName">종강축하해~</h5>
+              <span class="material-symbols-outlined symbols" style="">favorite</span>
+              <span th:text="${council.goodCount}" class="symbols" style="right:10px">50</span>
+            </article>
+          </a>
+        </div>
+<!--        <a href="board/boardContent0.html">-->
+<!--          <article class="post_auto" style="position: relative;">-->
+<!--            <h5 class="postName">진짜 김경은은 전설이다</h5>-->
+<!--            <p class="postContent">그 찐따같던 김경은이 맞다</p>-->
+<!--            <p style="color:gray;">2학년 게시판</p>-->
+<!--            <span class="material-symbols-outlined symbols" style="">favorite</span>-->
+<!--            <span class="symbols" style="right:10px">36</span>-->
+<!--          </article>-->
+<!--        </a>-->
       </div>
       <div class="board" style="display: flex; width: 50%; flex-direction: column; padding: 1px;">
-        <h5>HOT 게시물</h5>
-        <a href="board/boardContent.html">
-          <article class="post_auto" style="position: relative;">
-            <h5 class="postName">지금은 새벽다섯시 반~</h5>
-            <p class="postContent">근데 난 과제중</p>
-            <p style="color:gray;">1학년 게시판</p>
-            <span class="material-symbols-outlined symbols" style="">favorite</span>
-            <span class="symbols" style="right:10px">120</span>
-          </article>
-        </a>
-        <a href="board/boardContent.html">
-          <article class="post_auto" style="position: relative;">
-            <h5 class="postName">삼성전자 언제오르냐</h5>
-            <p class="postContent">10만전자까지 숨 참으,,윽</p>
-            <p style="color:gray;">전교생 자유게시판</p>
-            <span class="material-symbols-outlined symbols" style="">favorite</span>
-            <span class="symbols" style="right:10px">85</span>
-          </article>
-        </a>
+        <h5 style="text-align: center">자유 게시판</h5>
+        <div th:each="free : ${freePosts}">
+          <a th:href="@{/board/{board_id}(board_id=${free.board_id})}">
+            <article class="post_auto" style="position: relative;">
+              <h5 th:text="${free.title}" class="postName">종강축하해~</h5>
+              <span class="material-symbols-outlined symbols" style="">favorite</span>
+              <span th:text="${free.goodCount}" class="symbols" style="right:10px">50</span>
+            </article>
+          </a>
+        </div>
+<!--        <a href="board/boardContent.html">-->
+<!--          <article class="post_auto" style="position: relative;">-->
+<!--            <h5 class="postName">지금은 새벽다섯시 반~</h5>-->
+<!--            <p class="postContent">근데 난 과제중</p>-->
+<!--            <p style="color:gray;">1학년 게시판</p>-->
+<!--            <span class="material-symbols-outlined symbols" style="">favorite</span>-->
+<!--            <span class="symbols" style="right:10px">120</span>-->
+<!--          </article>-->
+<!--        </a>-->
+<!--        <a href="board/boardContent.html">-->
+<!--          <article class="post_auto" style="position: relative;">-->
+<!--            <h5 class="postName">삼성전자 언제오르냐</h5>-->
+<!--            <p class="postContent">10만전자까지 숨 참으,,윽</p>-->
+<!--            <p style="color:gray;">전교생 자유게시판</p>-->
+<!--            <span class="material-symbols-outlined symbols" style="">favorite</span>-->
+<!--            <span class="symbols" style="right:10px">85</span>-->
+<!--          </article>-->
+<!--        </a>-->
       </div>
     </div>
     <!-- <input type="color" name="" id=""> -->
