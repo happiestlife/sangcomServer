@@ -73,7 +73,7 @@
     <div>
       <div id="userIdent" class="mainBorder" style="padding:40px;">
         <div class="token" th:text="${acc}" hidden></div>
-        <img th:src="|@{/image/profile/{_path}(_path=${profile})}|" src="image/ic_cloudy.png" width = "70" style="float: left">
+        <img th:src="|@{/image/profile/{_path}(_path=${profilePath})}|" src="image/ic_cloudy.png" width = "70" style="float: left">
         <p th:text="${user.name}" class="school">김경은</p>
         <p th:text="|${user.getSchoolgrade()}학년 ${user.getSchoolclass()}년 ${user.getSchoolnumber}|" class="school">1학년 2반 34번</p>
         <div style="margin: 5px auto; width:50%;">

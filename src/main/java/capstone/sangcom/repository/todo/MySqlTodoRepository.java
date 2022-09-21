@@ -33,7 +33,7 @@ public class MySqlTodoRepository implements TodoRepository{
     }
 
     @Override // todolist 등록
-    public boolean insertTodolist(String user_id, InsertTodoListDTO insertTodoListDTO) {
+    public int insertTodolist(String user_id, InsertTodoListDTO insertTodoListDTO) {
         String query = "INSERT INTO " + TODOLIST_TABLE + " (user_id, body, year, month, day) VALUES (:user_id, :body, :year, :month, :day)";
 
         MapSqlParameterSource params = new MapSqlParameterSource()
@@ -45,11 +45,9 @@ public class MySqlTodoRepository implements TodoRepository{
 
         KeyHolder key = new GeneratedKeyHolder();
         if (jdbcTemplate.update(query, params, key, new String[]{"user_id"}) != 1)
-            return false;
-//            return -1;
+            return -1;
 
-        return true;
-//        return key.getKey().intValue();
+        return key.getKey().intValue();
     }
 
     @Override // todolist - 날짜별 조회

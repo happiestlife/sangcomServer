@@ -80,6 +80,7 @@ $(".todoAddBtn").on('click', function addList() {
             day : date.getDate()
         }
 
+
     $.ajax({
         type: 'POST',
         url: URL,
