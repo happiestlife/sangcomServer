@@ -66,8 +66,11 @@ public class MainController {
         ArrayList<BoardDTO> councilPosts = new ArrayList<>();
         for (int i = 0; i < free.size(); i++) {
             freePosts.add(free.get(i));
-            if(i < council.size())
-                councilPosts.add(council.get(i));
+            if(i == 4)
+                break;
+        }
+        for (int i = 0; i < council.size(); i++) {
+            councilPosts.add(council.get(i));
             if(i == 4)
                 break;
         }
