@@ -79,6 +79,8 @@ public class ReadPostController {
             ReplyWebDTO parentReply = new ReplyWebDTO(replyTree.getParent());
 
             String profilePath = userService.showImage(replyTree.getParent().getUserId());
+            if(profilePath == null)
+                profilePath = "whiteBackgroundImage.png";
             parentReply.setProfilePath(imageUtils.getPath(profilePath));
 
             // child 복제
@@ -87,6 +89,8 @@ public class ReadPostController {
                 ReplyWebDTO childReply = new ReplyWebDTO(replyDTO);
 
                 profilePath = userService.showImage(replyTree.getParent().getUserId());
+                if(profilePath == null)
+                    profilePath = "whiteBackgroundImage.png";
                 childReply.setProfilePath(imageUtils.getPath(profilePath));
 
                 childReplies.add(childReply);
