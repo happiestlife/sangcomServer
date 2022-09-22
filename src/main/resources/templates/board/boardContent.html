@@ -71,7 +71,7 @@
 <!-- 게시글 내용 -->
 <div class="container" style="margin-top: 120px; margin-bottom: 30px; display: flex; flex-wrap: wrap; ">
   <div class="boardId" th:text="${board.board_id}" hidden></div>
-  <div th:text="${board.type}"></div>
+  <div th:text="${board.type}" hidden></div>
   <article class="articleBoard" style="width: 60%;" >
     <div class="title"  style="border: 1px solid #90e1f5; border-radius: 10px;">
       <img th:src="|@{/image/profile/{_p}(_p=${writerImagePath})}|" src="img/ic_cloudy.png" width = "60" style="float: left; border-radius: 70%;border: 1px solid #34ebae;">
