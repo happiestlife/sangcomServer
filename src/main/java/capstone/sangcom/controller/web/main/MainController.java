@@ -2,8 +2,11 @@ package capstone.sangcom.controller.web.main;
 
 import capstone.sangcom.entity.JwtUser;
 import capstone.sangcom.entity.dto.boardSection.BoardDTO;
+import capstone.sangcom.entity.dto.timetableSection.GetTimetableResponseDTO;
+import capstone.sangcom.entity.dto.timetableSection.TimetableDTO;
 import capstone.sangcom.entity.dto.todoSection.GetTodolistResponseDTO;
 import capstone.sangcom.service.board.BoardService;
+import capstone.sangcom.service.timetable.TimetableService;
 import capstone.sangcom.service.todo.TodoService;
 import capstone.sangcom.service.user.UserService;
 import capstone.sangcom.util.image.ImageUtils;
@@ -31,6 +34,8 @@ public class MainController {
 
     private final BoardService boardService;
 
+    private final TimetableService timetableService;
+
     @GetMapping
     public String getMainPage(HttpServletRequest request,
                               @CookieValue String acc,
@@ -57,6 +62,11 @@ public class MainController {
                 todoService.getTodolist(user.getId(), c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DATE));
 
         model.addAttribute("todoList", todolist);
+
+        // 시간표
+        List<List<TimetableDTO>> timetable = timetableService.getTimetableAtWeb(user.getId());
+
+        model.addAttribute("timeTable", timetable);
 
         // 자유게시글과 학생회 공지글
         List<BoardDTO> free = boardService.readAll("free");

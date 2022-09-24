@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시간표 수정</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}" href="css/navbar.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/toDoList.css}" href="css/toDoList.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/Innova/style.css}" href="css/Innova/style.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" href="css/login.css">
+</head>
+<body>
+<div class="container mainBorder">
+    <div id="userIdent" class="mainBorder editCon">
+        <h2 class="blueprint">시간표 수정</h2>
+        <form action="/timeTable/edit" method="post">
+
+            <label class="field field_v3" for="className">
+                <input class="field__input" placeholder="수업이름" required id="className" name="subject" maxlength="4" type="text">
+
+                <span class="field__label-wrap">
+                    <span class="field__label" >수업 이름</span>
+                </span>
+            </label><br>
+
+            <label class="editSC"> 요일
+                <input type="radio" required name="days" value="월">월
+                <input type="radio" required name="days" value="화">화
+                <input type="radio" required name="days" value="수">수
+                <input type="radio" required name="days" value="목">목
+                <input type="radio" required name="days" value="금">금
+            </label><br>
+
+            <label class="editSC">교시
+                <select class="" required id="todayList" name="period">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </select>
+            </label><br>
+
+            <label class="field field_v3" for="place">
+                <input class="field__input" placeholder="장소" required id="place" name="location" type="text">
+
+                <span class="field__label-wrap">
+                    <span class="field__label" >장소</span>
+                </span>
+            </label><br>
+
+            <label class="field field_v3" for="teacher">
+                <input class="field__input" placeholder="선생님" required id="teacher" name="teacher" type="text">
+
+                <span class="field__label-wrap">
+                    <span class="field__label" >선생님</span>
+                </span>
+            </label><br>
+
+            <input type="submit" class="table_btn mainBtn" value="시간표 수정">
+        </form>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/editTimeTable.js}" src="js/editTimeTable.js"></script>
+</body>
+</html>

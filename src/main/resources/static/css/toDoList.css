@@ -48,7 +48,7 @@ button {
     height: 35px;
 }
 
- /* 입력창 */
+/* 입력창 */
 .write-box input {
     width: 60%;
     font-size: 20px;
@@ -97,16 +97,16 @@ tbody td:first-child {
     height: 35px;
     padding: 0 10px;
     border: none;
-    
+
 }
 #btnDelLast {
-  display : none;
+    display : none;
 }
 
 
 .mainBorder {
-    border: 2px solid #819fea; 
-    background-color: #e3ffff; 
+    border: 2px solid #819fea;
+    background-color: #e3ffff;
     border-radius: 10px;
     margin: 15px;
 
@@ -120,7 +120,7 @@ tbody td:first-child {
     min-width: 450px !important;
     min-height: 450px;
     padding : 100px !important;
-    
+
 }
 
 .reportSelect {
@@ -132,18 +132,18 @@ tbody td:first-child {
     border:none;
     width:100%;
     padding: 5px;
-    background: cornflowerblue; 
+    background: cornflowerblue;
     border-radius: 4px;
-  }
+}
 
 .mainBtn a {
     color: white !important;
 }
 
 .hotPost{
-    width: 47%; 
-    min-width: 400px; 
-    padding:10px; 
+    width: 47%;
+    min-width: 400px;
+    padding:10px;
     /* margin : 10px; */
     margin-bottom: auto;
     margin: auto;
@@ -154,9 +154,74 @@ tbody td:first-child {
 } */
 
 .lunchBox {
-    margin-top: 150px; 
-    margin-bottom: 30px; 
-    display: flex; 
-    flex-wrap: wrap; 
+    margin-top: 150px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
     align-items: center
+}
+
+
+.table_btn {
+    color:white;
+    width:50%;
+    display: block;
+    margin: 10px auto 5px;
+    text-align: center;
+}
+
+.sche_input {
+    font-size: 1em;
+    width: 3em;
+}
+
+.sche {
+    padding: 10px;
+}
+
+@media (max-width:995px) {
+    .sche {
+        padding: 0px;
+    }
+}
+
+.mainBody {
+    margin-top: 120px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+@media (max-width:1200px) {
+    .mainBody {
+        flex-wrap: nowrap;
+    }
+}
+@media (max-width:990px) {
+    .mainBody {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width:730px) {
+    .mainBody {
+        display: block;
+    }
+}
+
+.sche_input {
+    font-size: 1em;
+    width: 3em;
+}
+
+.editCon {
+    padding:40px;
+    border: none;
+}
+
+.editSC {
+    height: 3rem;
+    font-size: 2rem;
 }
