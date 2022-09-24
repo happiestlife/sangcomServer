@@ -17,7 +17,8 @@ public interface TimetableService {
 
 
     // 시간표 조회
-    public List<GetTimetableResponseDTO> getTimetable(String user_id);
+    public List<List<TimetableDTO>>  getTimetableAtWeb(String user_id);
+    public List<List<TimetableDTO>> getTimetableAtApi(String user_id);
 
 
     // 시간표 삭제

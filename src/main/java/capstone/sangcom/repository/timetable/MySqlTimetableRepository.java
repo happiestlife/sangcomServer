@@ -35,7 +35,7 @@ public class MySqlTimetableRepository implements TimetableRepository{
 
     private final RowMapper<TimetableDTO> timetableRowMapper;
 
-    private final RowMapper<GetTimetableResponseDTO> timetableResponseRowMapper;
+    private final RowMapper<TimetableDTO> timetableResponseRowMapper;
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -112,14 +112,15 @@ public class MySqlTimetableRepository implements TimetableRepository{
     // MySqlBoardRepository - "게시글의 제목과 본문 수정(이미지 제외) 참고하여 작성함.
 
     @Override // 시간표 조회
-    public List<GetTimetableResponseDTO> getTimetable(String user_id) {
+    public List<TimetableDTO> getTimetable(String user_id, int time) {
 //        String query = "SELECT " + SUBJECT + " AND " + DAYS + " AND " +
 //                PERIOD + " AND " + LOCATION + " AND " +  TEACHER + " FROM " + TIMETABLE_TABLE + " WHERE USER_ID =:user_id";
                      // SELECT subject, days, period, location, teacher FROM timetable WHERE user_id=? // Node.js 코드
-        String query = "SELECT SUBJECT, DAYS, PERIOD, LOCATION, TEACHER FROM " + TIMETABLE_TABLE + " WHERE USER_ID =:user_id";
+        String query = "SELECT SUBJECT, DAYS, PERIOD, LOCATION, TEACHER FROM " + TIMETABLE_TABLE + " WHERE USER_ID =:user_id AND period = :period";
 
         Map<String, Object> params = new HashMap<>();
         params.put("user_id", user_id);
+        params.put("period", time);
 //        params.put("subject", timetableResponseDTO.getSubject());
 //        params.put("days", timetableResponseDTO.getDays());
 //        params.put("period", timetableResponseDTO.getPeriod());
@@ -187,12 +188,11 @@ public class MySqlTimetableRepository implements TimetableRepository{
     }
     // MySqlBoardRepository 참고해서 작성함.
 
-    private class TimetableResponseRowMapper implements RowMapper<GetTimetableResponseDTO>{
+    private class TimetableResponseRowMapper implements RowMapper<TimetableDTO>{
 
         @Override
-        public GetTimetableResponseDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new GetTimetableResponseDTO(
-//                    (List<DaysDTO>) rs.getObject("List<DaysDTO>")); // 확실하지 않음
+        public TimetableDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new TimetableDTO(
                     rs.getString("subject"),
                     rs.getString("days"),
                     rs.getInt("period"), // 확실하지 않음

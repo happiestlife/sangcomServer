@@ -1,13 +1,15 @@
 package capstone.sangcom.entity.dto.timetableSection;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class TimetableDTO {
 
-    private final String subject;
-    private final String days;
-    private final Number period;
-    private final String location;
-    private final String teacher;
+    private String subject;
+    private String days;
+    private Number period;
+    private String location;
+    private String teacher;
 }

@@ -188,86 +188,18 @@
           <th class="text-center">목</th>
           <th class="text-center">금</th>
         </tr>
-        <tr>
-          <th class="text-center">9</th>
-          <td style="text-align: center;" onclick="changeColor()">자습</td>
-          <td style="text-align: center;" >자습</td>
-          <td style="text-align: center; ">자습</td>
-          <td style="text-align: center; ">자습</td>
-          <td rowspan="2" style="text-align: center; ">자습</td>
-        </tr>
-        <tr>
-          <th class="text-center">10</th>
-          <td style="text-align: center; ">자습</td>
-          <td style="text-align: center; ">자습</td>
-          <td style="text-align: center; ">자습</td>
-          <td style="text-align: center; ">자습</td>
-        </tr>
-        <tr>
-          <th class="text-center">11</th>
-          <td style="text-align: center; ">국어</td>
-          <td style="text-align: center; ">수학</td>
-          <td style="text-align: center; ">영어</td>
-          <td style="text-align: center; ">체육</td>
-          <td style="text-align: center; ">물리</td>
-        </tr>
-        <tr>
-          <th class="text-center">12</th>
-          <td style="text-align: center; ">수학</td>
-          <td style="text-align: center; ">영어</td>
-          <td style="text-align: center; ">체육</td>
-          <td style="text-align: center; ">물리</td>
-          <td style="text-align: center; ">국어</td>
-        </tr>
-        <tr>
-          <th class="text-center">1</th>
-          <td style="text-align: center; ">영어</td>
-          <td style="text-align: center; ">체육</td>
-          <td style="text-align: center; ">물리</td>
-          <td style="text-align: center; ">국어</td>
-          <td style="text-align: center; ">수학</td>
-        </tr>
-        <tr>
-          <th class="text-center">2</th>
-          <td style="text-align: center; ">체육</td>
-          <td style="text-align: center;">물리</td>
-          <td style="text-align: center; ">국어</td>
-          <td style="text-align: center; ">수학</td>
-          <td style="text-align: center; ">영어</td>
-        </tr>
-        <tr>
-          <th class="text-center">3</th>
-          <td style="text-align: center;">물리</td>
-          <td style="text-align: center; ">국어</td>
-          <td style="text-align: center; ">수학</td>
-          <td style="text-align: center; ">영어</td>
-          <td style="text-align: center; ">체육</td>
-        </tr>
-        <tr>
-          <th class="text-center">4</th>
-          <td style="text-align: center; ">국어</td>
-          <td style="text-align: center; ">수학</td>
-          <td style="text-align: center; ">영어</td>
-          <td style="text-align: center; ">체육</td>
-          <td style="text-align: center; ">물리</td>
-        </tr>
-        <tr>
-          <th class="text-center">5</th>
-          <td style="text-align: center; ">물리</td>
-          <td style="text-align: center; ">국어</td>
-          <td style="text-align: center; ">수학</td>
-          <td style="text-align: center; ">영어</td>
-          <td style="text-align: center; ">체육</td>
-        </tr>
-        <tr>
-          <th class="text-center">6</th>
-          <td style="text-align: center; ">체육</td>
-          <td style="text-align: center; ">물리</td>
-          <td style="text-align: center; ">국어</td>
-          <td style="text-align: center; ">수학</td>
-          <td style="text-align: center; ">영어</td>
+        <tr th:each="row : ${timeTable}">
+          <th th:text="|${rowStat.index + 1}|" class="text-center">1</th>
+          <td th:each="cell : ${row}">
+            <span th:if="${cell.subject != null}" style="text-align: center;" th:text="${cell.subject}" onclick="changeColor()">자습</span>
+          </td>
         </tr>
       </table>
+      <button class="table_btn mainBtn">
+        <a th:href="@{/timeTable/edit}">
+          시간표 수정
+        </a>
+      </button>
     </div>
   </div>
   <!-- 시간표 끝 -->
@@ -301,5 +233,6 @@
 <!--<script type="text/javascript" th:src="@{/js/contact_me.js}" src="js/contact_me.js"></script>-->
 <script type="text/javascript" th:src="@{/js/main.js}" src="js/main.js"></script>
 <script type="text/javascript" th:src="@{/js/meal.js}" src="js/meal.js"></script>
+<script type="text/javascript" th:src="@{/js/editTimeTable.js}" src="js/editTimeTable.js"></script>
 </body>
 </html>

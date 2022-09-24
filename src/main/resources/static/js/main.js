@@ -93,8 +93,9 @@ $(".todoAddBtn").on('click', function addList() {
         success: function (result) {
             if (result.success) {
                 var tr = document.createElement("tr"); // 추가할 테이블 <tr> 생성
-                var input = document.createElement("input"); // 테이블 <tr> 안에 들어갈 체크박스의 <input> 생성
+                tr.setAttribute("class", "todo")
 
+                var input = document.createElement("input"); // 테이블 <tr> 안에 들어갈 체크박스의 <input> 생성
                 // 여기서 생성된 <tr> 안에는
                 // <td>체크박스</td>
                 // <td>텍스트<td>
@@ -133,9 +134,11 @@ $('#todoDelCheck').on('click', function deleteAll(){
     let token = $('.token').text();
     let checkedTodoList = $('.todo input:checked');
 
+    console.log("length " + checkedTodoList.length);
     for(let i = 0; i < checkedTodoList.length; i++){
         let todoId = checkedTodoList[i].getAttribute("key");
         let URL = "http://localhost:8080/api/school/todo/" + todoId;
+        console.log(todoId);
 
         $.ajax({
                 type: 'DELETE',

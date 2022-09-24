@@ -49,7 +49,6 @@ function setHttpMeal(meal) {
     $(".meal-list").empty()
     meal.dish.forEach(function(dish) {
         $(".meal-list").append("<h5>" + dish + "</h5>");
-        console.log(dish);
     })
 
     $(".meal-date").text(meal.year + "" + leftPad(meal.month) + "" + leftPad(meal.day));

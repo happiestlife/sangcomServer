@@ -73,7 +73,7 @@ public class TimetableController {
         {
             JwtUser user = (JwtUser) request.getAttribute("user"); // const user_id = req.body.data.id;
 
-            List<GetTimetableResponseDTO> timetable = timetableService.getTimetable(user.getId());
+            List<List<TimetableDTO>> timetable = timetableService.getTimetableAtApi(user.getId());
 
 
             return ResponseEntity
