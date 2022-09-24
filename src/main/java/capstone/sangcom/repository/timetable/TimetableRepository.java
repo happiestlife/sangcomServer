@@ -17,7 +17,8 @@ public interface TimetableRepository {
 
     // 시간표 조회
     public List<TimetableDTO> getTimetable(String user_id, int time); // API명세서에 파라미터가 없음..
-
+    public TimetableDTO getTimetable(String user_id, String day, int period);
+    public boolean updateTimetable(String user_id, TimetableDTO timetableDTO);
     // 시간표 삭제
     public boolean deleteTimetable(String user_id, DeleteTimetableDTO deleteTimetableDTO);
 

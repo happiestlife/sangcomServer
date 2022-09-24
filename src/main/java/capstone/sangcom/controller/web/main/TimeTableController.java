@@ -28,7 +28,10 @@ public class TimeTableController {
                                TimetableDTO timetableDTO) {
         JwtUser user = (JwtUser) request.getAttribute("user");
 
-        timetableService.insertTimetable(user.getId(), timetableDTO);
+        if(timetableService.getTimetable(user.getId(), timetableDTO.getDays(), timetableDTO.getPeriod().intValue()) == null)
+            timetableService.insertTimetable(user.getId(), timetableDTO);
+        else
+            timetableService.updateTimetable(user.getId(), timetableDTO);
 
         return "redirect:/";
     }

@@ -85,7 +85,16 @@ public class TimetableServiceImpl implements TimetableService{
         return timeTable;
 
     }
-    // O
+
+    @Override
+    public TimetableDTO getTimetable(String userId, String day, int period) {
+        return timetableRepository.getTimetable(userId, day, period);
+    }
+
+    @Override
+    public boolean updateTimetable(String user_id, TimetableDTO timetableDTO) {
+        return timetableRepository.updateTimetable(user_id, timetableDTO);
+    }
 
     @Override
     @Transactional // 시간표 삭제
