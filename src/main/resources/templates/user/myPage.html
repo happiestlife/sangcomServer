@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>상콤 - 마이페이지</title>
     <!-- Favicons================================================== -->
-    <link rel="shortcut icon" th:href="@{/image/ic_sangcom.png}" href="img/ic_sangcom.png">
-    <link rel="apple-touch-icon" th:href="@{/image/apple-touch-icon_sangcom.png}" href="img/apple-touch-icon_sangcom.png">
+    <link rel="shortcut icon" th:href="@{/image/ic_sangcom.png}" href="image/ic_sangcom.png">
+    <link rel="apple-touch-icon" th:href="@{/image/apple-touch-icon_sangcom.png}" href="image/apple-touch-icon_sangcom.png">
     <!-- <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png"> -->
     <!-- Bootstrap -->
@@ -27,7 +27,6 @@
 <!-- Navigation========================================== -->
 <nav id="menu" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -35,35 +34,34 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand page-scroll" th:href="@{/}" href="../main.html">SANGCOM</a>
+            <a class="navbar-brand page-scroll" th:href="@{/}" href="main.html">SANGCOM</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <div class="dropdown nav navbar-nav">
-                    <li><a th:href="@{/board}" href="../board/boardFree.html" class="page-scroll dropdown">게시판</a>
+                    <li><a th:href="|@{/board?type=free}|" href="board/boards.html" class="page-scroll dropdown">게시판</a>
                         <div class="dropdown-content">
-                            <a class="downList" href="../board/boards.html">전교생 자유게시판</a><br>
-                            <a class="downList" href="../board/boards_3.html">1학년 게시판</a><br>
-                            <a class="downList" href="../board/boards_2.html">2학년 게시판</a><br>
-                            <a class="downList" href="../board/boards_1.html">3학년 게시판</a><br>
+                            <a class="downList" th:href="|@{/board?type=free}|" href="board/boards.html">전교생 자유게시판</a><br>
+                            <a class="downList" th:href="|@{/board?type=free1}|" href="board/boards_3.html">1학년 게시판</a><br>
+                            <a class="downList" th:href="|@{/board?type=free2}|" href="board/boards_2.html">2학년 게시판</a><br>
+                            <a class="downList" th:href="|@{/board?type=free3}|" href="board/boards_1.html">3학년 게시판</a><br>
                         </div>
                     </li>
                 </div>
                 <div class="dropdown nav navbar-nav">
-                    <li><a href="#" class="page-scroll dropdown">학생회</a>
+                    <li><a th:href="|@{/board?type=council}|" href="#" class="page-scroll dropdown">학생회</a>
                         <div class="dropdown-content">
-                            <a class="downList" href="#">학생회</a><br>
-                            <a class="downList" href="#">학생 건의함</a><br>
-                            <a class="downList" href="#">학생회 공지</a><br>
-                            <a class="downList" href="#">동아리 활동</a><br>
+                            <a class="downList" th:href="|@{/board?type=suggest}|" href="#">학생 건의함</a><br>
+                            <a class="downList" th:href="|@{/board?type=council}|"href="#">학생회 공지</a><br>
+                            <a class="downList" th:href="|@{/board?type=club}|" href="#">동아리 활동</a><br>
                         </div>
                     </li>
                 </div>
                 <div class="dropdown nav navbar-nav">
-                    <li><a href="myPage.html" class="page-scroll">마이 페이지</a></li>
+                    <li><a th:href="@{/user}" class="page-scroll">마이 페이지</a></li>
                 </div>
                 <div class="dropdown nav navbar-nav">
-                    <li><a href="../login/login.html" class="page-scroll">로그아웃</a></li>
+                    <li><a th:href="@{/logout}" href="login/login.html" class="page-scroll">로그아웃</a></li>
                 </div>
             </ul>
         </div>
@@ -73,7 +71,8 @@
 <div class="container" style="max-width: 700px; margin-top: 120px; margin-bottom: 30px; display: flex; flex-direction: column; border: 1px solid #90e1f5; border-radius: 10px;">
     <div style="display: flex; align-items: center; margin: 50px">
         <div style="width: 30%;align-items: center; margin-left: 10px;">
-            <img src="img/ic_cloudy.png" width = "100%" style="float: center; border-radius: 70%;border: 1px solid #34ebae;">
+            <img th:src="@{image/ic_cloudy.png}" width = "100%" style="float: center; border-radius: 70%;border: 1px solid #34ebae;">
+            <button th:onclick="|location.href='@{/user/edit}'|">수정하기</button>
         </div>
         <section style=" width: 70%; border: 2px solid #90e1f5; border-radius: 10px;margin-left: 100px;">
             <div style="margin: 30px;">

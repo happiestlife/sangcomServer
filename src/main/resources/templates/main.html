@@ -55,7 +55,7 @@
           </li>
         </div>
         <div class="dropdown nav navbar-nav">
-          <li><a href="user/myPage.html" class="page-scroll">마이 페이지</a></li>
+          <li><a th:href="@{/user}" class="page-scroll">마이 페이지</a></li>
         </div>
         <div class="dropdown nav navbar-nav">
           <li><a th:href="@{/logout}" href="login/login.html" class="page-scroll">로그아웃</a></li>
@@ -81,7 +81,7 @@
           <!-- <a href="mypage.html"><input class="mainBtn" type="button" value="내 정보"></a> -->
           <!-- <a href="mypage.html"><input class="mainBtn" type="button" value="로그아웃"></a> -->
           <button class="mainBtn"><a href="#">알림</a></button>
-          <button class="mainBtn"><a href="user/myPage.html">내 정보</a></button>
+          <button class="mainBtn"><a th:href="@{user}">내 정보</a></button>
           <button class="mainBtn"><a th:href="@{/logout}" href="login/login.html">로그아웃</a></button>
         </div>
       </div>
