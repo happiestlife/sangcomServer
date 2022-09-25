@@ -56,14 +56,18 @@ public class ReadPostController {
         }
 
         // 게시글 작성 유저의 프로필 가져오기
-        String writerImageName = imageUtils.getPath(userService.showImage(board.getBoardDetail().getUser_id()));
+        String writerProfilePath = userService.showImage(board.getBoardDetail().getUser_id());
+        if(writerProfilePath == null)
+            writerProfilePath = "whiteBackgroundImage.png";
+        else
+            writerProfilePath = imageUtils.getPath(writerProfilePath);
 
         // 해당 게시판에 달린 댓글 정보 가져오기
         List<ReplyWebTreeDTO> replies = makeWebReplyForm(replyService.readReply(user.getId(), boardId));
 
         model.addAttribute("board", board.getBoardDetail());
         model.addAttribute("imagePath", imgPaths);
-        model.addAttribute("writerImagePath", writerImageName);
+        model.addAttribute("writerImagePath", writerProfilePath);
         model.addAttribute("isWriter", isWriter);
 
         model.addAttribute("replies", replies);
